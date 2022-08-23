@@ -2,7 +2,8 @@
 
 An intellectual property (IP) right for a technical invention. It allows to prevent others from using once's invention and decide who is allowed to produce, sell or import your invention in those countries in which you own a valid patent. Right now this right  of ownership is given through patent and trademark offices based on different countries law. However, NFT tokens of blockchain technology functionality also allow users to prove their ownership of any piece of content, which is not possible with traditional IP rights tools like trademarks and copyrights.
 
-![Ethereum-Blockchain](https://github.com/RYees/dapps-gps/blob/main/images/copy.png)
+![Ethereum-Blockchain](https://github.com/RYees/Intellectual-Identity-ethereum/blob/main/images/copy.png)
+(https://github.com/RYees/Intellectual-Identity-ethereum/blob/main/images/ether.jpg)
 
 # Table of content
 * [Overview](#overview)
