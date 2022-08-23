@@ -4,10 +4,9 @@ An intellectual property (IP) right for a technical invention. It allows to prev
 
 ![Ethereum-Blockchain](https://github.com/RYees/Intellectual-Identity-ethereum/blob/main/images/copy.png)
 
-| Left-aligned | Center-aligned | Right-aligned |
-| :---         |     :---:      |          ---: |
-| git status   | https://github.com/RYees/Intellectual-Identity-ethereum/blob/main/images/ether.jpg    | git status    |
-| git diff     | git diff       | git diff      |
+Solarized dark             |  Solarized Ocean
+:-------------------------:|:-------------------------:
+![]([https://...Dark.png](https://github.com/RYees/Intellectual-Identity-ethereum/blob/main/images/copy.png))  |  ![]([https://...Ocean.png](https://github.com/RYees/Intellectual-Identity-ethereum/blob/main/images/ether.jpg))
 
 # Table of content
 * [Overview](#overview)
