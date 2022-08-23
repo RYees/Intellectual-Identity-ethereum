@@ -6,7 +6,7 @@ An intellectual property (IP) right for a technical invention. It allows to prev
 
 | Left-aligned | Center-aligned | Right-aligned |
 | :---         |     :---:      |          ---: |
-| git status   | (https://github.com/RYees/Intellectual-Identity-ethereum/blob/main/images/ether.jpg)    | git status    |
+| git status   | https://github.com/RYees/Intellectual-Identity-ethereum/blob/main/images/ether.jpg    | git status    |
 | git diff     | git diff       | git diff      |
 
 # Table of content
