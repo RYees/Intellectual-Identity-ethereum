@@ -2,7 +2,7 @@
 pragma solidity ^0.8.9;
 
 // Import this file to use console.log
-import "hardhat/console.sol";
+import "../node_modules/hardhat/console.sol";
 
 contract Lock {
     uint public unlockTime;
