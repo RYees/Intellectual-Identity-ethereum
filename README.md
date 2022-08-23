@@ -6,7 +6,10 @@ An intellectual property (IP) right for a technical invention. It allows to prev
 
 Solarized dark             |  Solarized Ocean
 :-------------------------:|:-------------------------:
-![]([https://...Dark.png](https://github.com/RYees/Intellectual-Identity-ethereum/blob/main/images/copy.png))  |  ![]([https://...Ocean.png](https://github.com/RYees/Intellectual-Identity-ethereum/blob/main/images/ether.jpg))
+![](https://github.com/RYees/Intellectual-Identity-ethereum/blob/main/images/copy.png) |  ![](https://github.com/RYees/Intellectual-Identity-ethereum/blob/main/images/ether.jpg)
+
+
+
 
 # Table of content
 * [Overview](#overview)
