@@ -8,5 +8,10 @@
     "ethereum-waffle": "^3.4.4",
     "ethers": "^5.7.0",
     "hardhat": "^2.10.2"
+  },
+  "dependencies": {
+    "@alch/alchemy-web3": "^1.4.6",
+    "@openzeppelin/contracts": "^4.7.3",
+    "dotenv": "^16.0.1"
   }
 }
