@@ -5,7 +5,8 @@ const PRIVATE_KEY = process.env.PRIVATE_KEY;
 const { createAlchemyWeb3 } = require("@alch/alchemy-web3")
 const web3 = createAlchemyWeb3(API_URL)
 const contract = require("../artifacts/contracts/MyNFT.sol/MyNFT.json")
-
+ 
+// Transactions deployed to:  0xC72591B1a3A29c3C8826864748024Ca30bf83A3C
 
 const contractAddress = "0xEA68f6983a5476eC7a7d6684419C5dDa0E5a8885"
 
