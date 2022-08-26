@@ -1,1 +1,1 @@
-[{"inputs":[],"stateMutability":"payable","type":"constructor"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"}]
+[{"inputs":[],"stateMutability":"payable","type":"constructor"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"status","outputs":[{"internalType":"enum IP.Status","name":"","type":"uint8"}],"stateMutability":"view","type":"function"}]

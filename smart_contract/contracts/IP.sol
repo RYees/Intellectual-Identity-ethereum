@@ -3,6 +3,16 @@ pragma solidity ^0.8.1;
 
 contract IP {
     address public owner;
+
+    enum Status {
+        Pending,
+        Accepted,
+        Rejected,
+        Canceled
+    }
+
+    Status public status;
+    
     struct IParameter {
         string IPname;
         string fullname;
