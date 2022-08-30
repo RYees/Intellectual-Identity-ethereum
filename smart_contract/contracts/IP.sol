@@ -40,9 +40,8 @@ contract IP {
     }
 
     address[] public intelProperty;
+    address[] public bidProperty;
         
-    mapping (uint => uint) bal;
-
     modifier onlyOwner {
         require(msg.sender == owner);
         _;
@@ -91,5 +90,11 @@ contract IP {
 
     function countIP() view public returns (uint) {
         return intelProperty.length;
+    }
+
+    function bidder(address _address, address _bidderaddress, uint256 _value) public {
+        bidip[_address].bidder = _bidderaddress;
+        bidip[_address].value = _value;
+        bidProperty.push(_address);
     }
 }
