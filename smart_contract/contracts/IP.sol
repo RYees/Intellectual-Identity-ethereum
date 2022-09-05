@@ -47,14 +47,8 @@ contract IP {
     constructor() {
         owner = msg.sender;
         ipCount = 0;
-        setIP(0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2, "egg1", "stol1", "eth1", "leb", "sym");
-        setIP(0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db, "egg2", "stol2", "eth2", "leb", "sym"); 
-        setIP(0x78731D3Ca6b7E34aC0F824c42a7cC18A495cabaB, "egg3", "stol3", "eth3", "leb", "sym");
-
-        // states[Status.Pending] = "ForSale";
-        // states[Status.Accepted] = "SellerDelisted";
-        // states[Status.Rejected] = "BuyerCancelled";
-    }
+     
+   }
 
     address[] public intelProperty;
         
@@ -65,21 +59,7 @@ contract IP {
         _;
     }
     
-    // function addIp(address _address, string memory _IPname, string memory _fullname, string memory _country, string memory _addressplace, string memory _symbol,Status a) public {
-    //     property[ipCount] = IParameter(
-    //          ipCount,
-    //         _address,
-    //         _IPname,
-    //         _fullname, 
-    //         _country, 
-    //         _addressplace, 
-    //         _symbol,
-    //         block.timestamp,
-    //         true,
-    //         a);
-    //     ipCount++;
-    // }
-    function setIP(address _address, string memory _IPname, string memory _fullname, string memory _country, string memory _addressplace, string memory _symbol) public {
+     function setIP(address _address, string memory _IPname, string memory _fullname, string memory _country, string memory _addressplace, string memory _symbol) public {
         Status a = Status.Pending;
         property[ipCount].user = _address;
         property[ipCount].IPname = _IPname;
@@ -91,26 +71,9 @@ contract IP {
         property[ipCount].status.push(a);
         newcount[ipCount].count = 0;
         property[ipCount].isRegistered = true;
-        // property[ipCount].status.push(a);
-        // property[ipCount] = IParameter(
-        //     //  ipCount,
-        //      _address,
-        //      _IPname,
-        //      _fullname,
-        //      _country,
-        //      _addressplace,
-        //      _symbol,
-        //      block.timestamp,
-        //      true
-        // );
-        ipCount++;
-        
-       // intelProperty.push(_address);
+ 
+        ipCount++;     
     }
-
-    // function get(uint _memberId) public view returns(IParameter memory) {
-    //     return property[_memberId];
-    // }
 
     function getMember() public view returns ( address[] memory, string[] memory, string[] memory, string[] memory, string[] memory, string[] memory, uint256[] memory, Status[] memory){    
         //uint[] memory id = new uint[](ipCount);
@@ -172,47 +135,70 @@ contract IP {
         return intelProperty.length;
     }
 
-    // function block_call() public view returns (uint256){
-    //     return block.number; 
-    // }
-
-    // function Time() public view returns (uint256){
-    //     return block.timestamp; 
-    // }
-
-    // function bidder(address _address, address _bidderaddress, uint256 _value) public {
-    //    // require(property[_address].isRegistered, "Not registered address");
-    //     bidip[_address].bidder = _bidderaddress;
-    //     bidip[_address].value = _value;
-    //     bidProperty.push(_address);
-    // }
-    
-    // function bidder(uint _id, address _bidderaddress, uint256 _value) public {
-    //     require(property[_id].isRegistered, "Not registered address");
-    //     bidip[_id] = bid(
-    //     _bidderaddress,
-    //      _value
-    //     );
-    //     //bidProperty.push(_id);
-    // }
-
-
-    // function viewBid(address _address) public view {
-    //    console.log(property[_address].IPname);
-    //     //  if(property[_address].status[newcount[_address].count]){
-    //     //      console.log('correct');
-    //     //  } else {
-    //     //      console.log('incorrect');
-    //     //  }
-    // }
     function getAllbids() view public returns (address[] memory) {
         return bidProperty;
     }
 
-    // function viewBid(address _address) public view returns (address, uint256) {
-    // return (
-    //     bidip[_address].bidder, 
-    //     bidip[_address].value
-    //     );
-    // }
+}
+
+contract IPbidder {
+    bidder[] bids;
+    uint public bidCount;
+    struct IPowner {
+        //address IPowneradddress;
+        string ownerIPname;
+        uint bidValue;
+        address bidderAddress;
+    }
+    
+    constructor(){
+        bidCount = 0;
+    }
+    struct bidder{
+        mapping(address => IPowner[]) ipowner;
+    }
+    //mapping(address => IPowner[]) ipowner;
+    
+    function setIPbidder(address _address, string memory _ownerIPname, uint _bidvalue, address _bidderaddress) public {         
+        bidder storage r = bids.push();
+        r.ipowner[_address].push(IPowner(_ownerIPname, _bidvalue, _bidderaddress));      
+        bidCount++;
+    }
+    
+    //mapping(address => IPowner[]) ipowner;
+    //address[] public ys;
+    mapping(address => mapping(string => mapping(uint => IPowner))) public ips;
+
+   
+     function setIPbidder(address _address, uint _id, string memory _ownerIPname, uint _bidvalue, address _bidderaddress) public {         
+    //     // bidder storage r = bids.push();
+    //   ipowner[_address].push(IPowner(_ownerIPname, _bidvalue, _bidderaddress));      
+         ips[_address][_ownerIPname][_id] = IPowner(_ownerIPname, _bidvalue, _bidderaddress);
+    //     employeeAccts.push(_address);
+    }
+    
+
+    function getbidderinfo(address _address, uint i) public view returns(IPowner[] memory){
+        return (bids[i].ipowner[_address]);
+    }
+
+    function countJars() view public returns (uint) {
+        return bids.length;
+    }
+
+    function bidLoop(address _address) public view returns (IPowner[] memory) {
+         IPowner[] memory ipss = new IPowner[](bidCount);
+        for (uint i = 0; i < bidCount; i++) {             
+             bidder storage parameter = bids[i];
+            // IPowner storage lBid = parameter.ipowner[_address];
+             ipss = parameter.ipowner[_address];
+             
+             //jarnam[i] = parameter.jarname;  
+            //   Cookie storage lBid = parameter.cookies[_address];
+            //   cook[_address] = lBid;  
+            // ips = parameter.ipowner[_address];        
+        }
+        return(ipss);
+     }
+
 }
