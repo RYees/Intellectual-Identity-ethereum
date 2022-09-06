@@ -1,17 +1,106 @@
-.ball {
+.ball1 {
   position: absolute;
   background-color: rgba(165, 168, 168, 0.096);
   width: 8rem;
   height: 9.9rem;
   border-radius: 50%;
   margin-top: 2rem;
-  box-shadow: 0 0 4px 3px rgba(165, 168, 168, 0.041);
+  box-shadow: 0 0 4px 3px rgba(108, 110, 110, 0.288);
+}
+
+.ball2 {
+  position: absolute;
+  background-color: rgba(165, 168, 168, 0.096);
+  width: 5rem;
+  height: 6rem;
+  margin-left: 19rem;
+  top: 9rem;
+  border-radius: 50%;
+  margin-top: 2rem;
+  box-shadow: 0 0 4px 3px rgba(108, 110, 110, 0.288);
+}
+
+.ball3 {
+  position: absolute;
+  background-color: rgba(165, 168, 168, 0.096);
+  width: 3rem;
+  height: 3rem;
+  margin-left: 53rem;
+  top: 33rem;
+  border-radius: 50%;
+  margin-top: 2rem;
+  box-shadow: 0 0 4px 3px rgba(108, 110, 110, 0.288);
+}
+
+.ball4 {
+  position: absolute;
+  background-color: rgba(165, 168, 168, 0.096);
+  width: 5rem;
+  height: 6rem;
+  margin-left: 57rem;
+  top: 27rem;
+  border-radius: 50%;
+  margin-top: 2rem;
+  box-shadow: 0 0 4px 3px rgba(108, 110, 110, 0.288);
+}
+
+.ball5 {
+  position: absolute;
+  background-color: rgba(165, 168, 168, 0.096);
+  width: 3rem;
+  height: 3rem;
+  margin-left: 61rem;
+  top: 23rem;
+  border-radius: 50%;
+  margin-top: 2rem;
+  box-shadow: 0 0 4px 3px rgba(108, 110, 110, 0.288);
+}
+
+.ball6 {
+  position: absolute;
+  background-color: rgba(165, 168, 168, 0.096);
+  width: 5rem;
+  height: 6rem;
+  margin-left: 62rem;
+  top: 15.5rem;
+  border-radius: 50%;
+  margin-top: 2rem;
+  box-shadow: 0 0 4px 3px rgba(108, 110, 110, 0.288);
+}
+
+.ball7 {
+  position: absolute;
+  background-color: rgba(165, 168, 168, 0.096);
+  width: 3rem;
+  height: 3rem;
+  margin-left: 62rem;
+  top: 11rem;
+  border-radius: 50%;
+  margin-top: 2rem;
+  box-shadow: 0 0 4px 3px rgba(108, 110, 110, 0.288);
+}
+
+.ball8 {
+  position: absolute;
+  background-color: rgba(165, 168, 168, 0.096);
+  width: 5rem;
+  height: 6rem;
+  margin-left: 58rem;
+  top: 3.9rem;
+  transform: rotate(-30deg);
+  border-radius: 50%;
+  margin-top: 2rem;
+  box-shadow: 0 0 4px 3px rgba(108, 110, 110, 0.288);
 }
 
 .banner {
   position: absolute;
   height: 100vh; 
   width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   /* margin-left: -0.5rem; */
 }
 
@@ -32,11 +121,23 @@
   gap: 40px;
   grid-auto-rows: minmax(100px, auto);
   margin: 4rem;
+  height: 100vh;
+}
 
+.first {
+  margin-top: 4rem;
+}
+
+.second {
+  margin-top: -3rem;
 }
 
 .imagetwo {
-  height: 500px;
-  width: 500px;
+  height: 700px;
+  width: 600px;
+}
 
+.content {
+  position: absolute;
+  margin-top: 59rem;
 }
