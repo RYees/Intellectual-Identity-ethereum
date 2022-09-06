@@ -1,10 +1,10 @@
-.ball1 {
+.ball1{
   position: absolute;
   background-color: rgba(165, 168, 168, 0.096);
   width: 8rem;
   height: 9.9rem;
   border-radius: 50%;
-  margin-top: 2rem;
+  top: 2rem;
   box-shadow: 0 0 4px 3px rgba(108, 110, 110, 0.288);
 }
 
@@ -94,7 +94,6 @@
 }
 
 .banner {
-  position: absolute;
   height: 100vh; 
   width: 100%;
   top: 0;
@@ -106,6 +105,8 @@
 
 .overlay {
   position: absolute;
+  height: 100vh; 
+  width: 100%;
   top: 0;
   left: 0;
   right: 0;
@@ -122,6 +123,7 @@
   grid-auto-rows: minmax(100px, auto);
   margin: 4rem;
   height: 100vh;
+  margin-top: -34rem;
 }
 
 .first {
@@ -129,7 +131,7 @@
 }
 
 .second {
-  margin-top: -3rem;
+  margin-top: -6rem;
 }
 
 .imagetwo {
@@ -137,7 +139,17 @@
   width: 600px;
 }
 
-.content {
-  position: absolute;
-  margin-top: 59rem;
+.copy {
+  height: 26rem;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.cop {
+  height: 12rem;
+  width: 100%;
+}
+
+.chec{
+  margin: 0 auto;
 }
