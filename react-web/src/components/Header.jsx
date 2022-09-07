@@ -5,7 +5,7 @@ import logo from "../assets/I.png";
 
 const Header = () => {
   return (
-    <header className='header fixed z-10 flex justify-between bg-cyan-900 w-full py-3 text-white px-8 opacity-75'>
+    <header className='header top-0 fixed z-10 flex justify-between bg-cyan-900 opacity-75 w-full py-3 text-white px-8 '>
       {/* <div className='flex justify-between'> */}
       <div> <img src={logo} alt="home-image" className='h-14 rounded-full'/></div>
       <nav className=''>
@@ -15,15 +15,15 @@ const Header = () => {
           </li>
 
           <li>
-            <Link to="/ips">Ips</Link>
+            <Link className='hover:text-black' to="/ips">Ips</Link>
           </li>
 
           <li>
-            <Link to="/bidders">Bidders</Link>
+            <Link className='hover:text-black' to="/bidders">Bidders</Link>
           </li>
 
           <li>
-            <Link to="/contact">Contact Us</Link>
+            <Link className='hover:text-black' to="/contact">Contact Us</Link>
           </li>
 
         </ul>

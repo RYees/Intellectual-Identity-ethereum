@@ -26,8 +26,6 @@ const Home = () => {
             <strong className='italic text-gray-900'> Intellectual Property</strong>    
           </h1>
           <p className='mt-4 text-gray-200 m-2'>Prevent others from using yours' invention and decide who is allowed to produce, sell or import your invention. Use NFT tokens of blockchain technology to prove your ownership of any piece of content now!!!</p>
-
-          <p></p>
         </div>
 
         <div className='second'>
@@ -49,7 +47,7 @@ const Home = () => {
       <h1>Intellectual property on the blockchain</h1>
     </div>
     
-    <div className='flex justify-between mx-36 mb-20 gap-5'>
+    <div className='phot flex justify-between mx-36 mb-20 gap-5'>
       <div className='bg-white w-96 h-60 shadow-lg shadow-gray-500/50'>
       <img src={img1} alt="" className='cop'/>
       </div>
@@ -74,10 +72,10 @@ const Home = () => {
       </div>
     </div>
 
-    <div className='flex flex-wrap relative mx-10 my-28 shadow-lg shadow-cyan-500/50'>
+    <div className='phot2 flex flex-wrap relative mx-6 my-28 bg-white ml-20 shadow-lg shadow-cyan-500/50'>
        <img src={guerlia} alt="" className='h-96 w-96'/>
-       <img src={img2} alt="" className='h-96 w-96'/>
-       <img src={img4} alt="" className='h-96 w-96'/>
+       <img src={img2} alt="" className='h-96 w-96 ml-2 mt-7'/>
+       <img src={img4} alt="" className='h-96 w-96 ml-2'/>
       <div className='absolute bg-gray-900 w-full opacity-25 h-96 w-96'></div>
     </div>
 
