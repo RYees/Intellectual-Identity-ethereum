@@ -153,3 +153,9 @@
 .chec{
   margin: 0 auto;
 }
+
+.btn {
+  /* background: linear-gradient(217deg, #3282f1, rgba(255,0,0,0) 50.71%),
+            linear-gradient(127deg, #3282f1 , rgba(0,255,0,0) 50.71%),
+            linear-gradient(336deg, rgba(21, 21, 21, 0.8), rgba(0,0,255,0) 100%); */
+}
