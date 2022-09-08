@@ -7,15 +7,21 @@ const Ipregister = () => {
     setShow(true);
   }
 
+  function closeView(e) {
+    if(e){
+      setShow(!show);
+    }
+  }
+
   return (
     <>
     <div>
        <button onClick={changeView} className='mt-8 mx-10 bg-gray-300 py-4 cursor-pointer border-none hover:brightness-105'><FaPlus className='inline'/> Register IPs</button>
     </div>
 
-
-   <div className='regis bg-white flex justify-between absolute z-10 text-gray-600 font-serif'>
-       <form className='regform px-5 mx-20 my-16 bg-white flex'>
+   {show ? ( 
+   <div className='regis absolute z-10 text-gray-600 font-serif flex justify-between'>
+      <form className='regform px-5 mx-20 my-16 bg-white flex'>
        <div className='cont-one'>
         <div className='mb-6 py-3'><h1>Register IP</h1></div>
           <div className=''>    
@@ -55,12 +61,12 @@ const Ipregister = () => {
                 <button className='w-32  py-4 bg-gray-300 cursor-pointer'>Submit</button>
             </div>
         </div>        
-      </form>
-      
-      <div>
-        <FaTimes size={35} onClick={!show} className="cursor-pointer bg-red-500 -ml-20 mt-4"/>
-      </div>
-    </div>
+      </form>  
+    
+      <div className=''>
+        <FaTimes size={35} onClick={closeView} className="cursor-pointer bg-red-500 -ml-20 mt-4"/>
+      </div> 
+    </div>):( null)}
     </>
   )
 }
