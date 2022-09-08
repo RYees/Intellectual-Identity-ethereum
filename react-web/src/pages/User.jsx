@@ -1,12 +1,15 @@
 import React from 'react';
-import { FaPlus, FaCheck } from "react-icons/fa";
+import { FaCheck } from "react-icons/fa";
+import Register from '../components/Ipregister.jsx';
 import '../css/App.css';
+
 const User = () => {
   return (
     <div className='mb-96 mt-20'>
       <div className='flex justify-between'>
       <p className='mx-4 py-4 text-3xl'>Intellectual Properties</p>
-      <button className='mt-8 mx-10 bg-gray-300 py-4 cursor-pointer border-none hover:brightness-105'><FaPlus className='inline'/> Register IPs</button>
+      {/* <button className='mt-8 mx-10 bg-gray-300 py-4 cursor-pointer border-none hover:brightness-105'><FaPlus className='inline'/> Register IPs</button> */}
+      <Register/>
       </div>
 
       <div className='flex gap-14 mx-5 mb-10 my-5'>
@@ -78,12 +81,6 @@ const User = () => {
           </tr>
 
         </tbody>
-        {/* <tfoot>
-          <tr>
-            <th scope="row" colspan="2">Total albums</th>
-            <td colspan="2">77</td>
-          </tr>
-        </tfoot> */}
       </table>
     </div>
   </div>

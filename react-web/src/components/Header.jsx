@@ -21,10 +21,10 @@ const Header = () => {
           <li>
             <Link className='hover:text-black' to="/bidders">Bidders</Link>
           </li>
-
+         {/* 
           <li>
             <Link className='hover:text-black' to="/contact">Contact Us</Link>
-          </li>
+          </li> */}
 
         </ul>
       </nav>

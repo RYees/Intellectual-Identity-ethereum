@@ -217,6 +217,30 @@ th, td {
   border-right: 2px solid rgba(136, 131, 133, 0.411);
 }
 
+/* IP registration */
+.regis{
+  /* width: 35rem; */
+  background-color: rgba(0, 0, 0, 0.76);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.regform{
+  width: 80rem;
+  border-radius: 10px;
+}
+
+.cont-one{
+  width: 32rem;
+}
+
+.cont-two{
+  width: 32rem;
+  margin-top: 104px;
+}
+
 .scrolltunnel {
   height: 100px;
   margin-left: 0px;
@@ -285,6 +309,8 @@ th, td {
   .phot2 {
     background-color: #ada9a931;
   }
+
+
  }
 
 @media (max-width: 640px) {        
