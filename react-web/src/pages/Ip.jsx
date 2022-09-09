@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { FaCheck } from "react-icons/fa";
+import { FaCheck , FaHourglass} from "react-icons/fa";
 import { useGlobalFilter, useSortBy, useTable } from "react-table";
 import Register from '../components/Ipregister.jsx';
 import Getips from '../components/Getips.jsx';
@@ -7,7 +7,7 @@ import '../css/App.css';
 import axios from "axios";
 import GlobalFilter  from "../components/GlobalFilter.jsx";
 
-const User = () => {
+const Ip = () => {
   return (
     <>
     <div className='mb-96 mt-20'>
@@ -18,10 +18,18 @@ const User = () => {
       </div>
 
       <div className='flex gap-14 mx-5 mb-10 my-5'>
-        <div className='box border border-10 border-gray-300 rounded-lg bg-white h-20 w-48 p-2'>Total IPs <br></br><span className='text-bold text-black text-4xl'>1000</span></div>
-        <div className='box border border-10 border-gray-300 rounded-lg bg-white h-20 w-48 p-2'>Total Pendings <br></br><span className='text-bold text-black text-4xl'>500</span></div>
-        <div className='box border border-10 border-gray-300 rounded-lg bg-white h-20 w-48 p-2'>Total Approves <br></br><span className='text-bold text-black text-4xl'>100</span></div>
-        <div className='box border border-10 border-gray-300 rounded-lg bg-white h-20 w-48 p-2'>Total Rejects <br></br><span className='text-bold text-black text-4xl'>400</span></div>
+        <div className='box border border-10 border-gray-300 rounded-lg bg-white w-56 p-2'>
+         <h3 className="text-sm flex justify-between"> Total Ips <FaHourglass className="text-cyan-700 text-3xl"/></h3> 
+         <br></br><span className='text-bold text-black text-4xl'>1000</span></div>
+        <div className='box border border-10 border-gray-300 rounded-lg bg-white w-56 p-2'>
+        <h3 className="text-sm flex justify-between"> Total Pendings <FaHourglass className="text-cyan-700 text-3xl"/></h3>
+         <br></br><span className='text-bold text-black text-4xl'>500</span></div>
+        <div className='box border border-10 border-gray-300 rounded-lg bg-white w-56 p-2'>
+        <h3 className="text-sm flex justify-between"> Total Approves<FaHourglass className="text-cyan-700 text-3xl"/></h3> 
+         <br></br><span className='text-bold text-black text-4xl'>100</span></div>
+        <div className='box border border-10 border-gray-300 rounded-lg bg-white w-56 p-2'>
+        <h3 className=" flex justify-between text-sm"> Total Rejects <FaHourglass className="text-cyan-700 text-3xl"/></h3>
+         <br></br><span className='text-bold text-black text-4xl'>400</span></div>
       </div>
 
       {/* <div className='mb-10 mt-20'>
@@ -47,4 +55,4 @@ const User = () => {
   )
 }
 
-export default User
+export default Ip

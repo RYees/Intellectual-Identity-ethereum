@@ -5,7 +5,7 @@ const Bidder = () => {
   return (
     <div className='mb-96 mt-20'>
       <div className='text-center py-10'>
-        <button className='p-8 rounded-3xl bg-gray-300 text-2xl'>Connect Wallet</button>
+        <button className='p-8 rounded-3xl bg-gray-900 opacity-75 text-white text-2xl'>Connect Wallet</button>
       </div>
 
       <div className='bg-white mb-20'>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { FaCheck } from "react-icons/fa";
-import { useGlobalFilter, useSortBy, useTable } from "react-table";
+import { useGlobalFilter, useSortBy, useTable, usePagination } from "react-table";
 import '../css/App.css';
 import axios from "axios";
 import GlobalFilter  from "./GlobalFilter.jsx";
@@ -133,19 +133,27 @@ const Getips = () => {
     },  
     useGlobalFilter,
     tableHooks,
-    useSortBy
+    useSortBy,
+    usePagination
     );
   
   const {
     getTableProps,
     getTableBodyProps,
     headerGroups,
-    rows,
+    page,
+    nextPage,
+    previousPage,
+    canNextPage,
+    canPreviousPage,
+    pageOptions,
+    state,
     prepareRow,
     preGlobalFilteredRows,
     setGlobalFilter,
-    state,
   } = tableInstance;
+
+  const { pageIndex } = state;
 
   return (
     <>
@@ -161,7 +169,8 @@ const Getips = () => {
         {headerGroups.map((headerGroup) => (
           <tr {...headerGroup.getHeaderGroupProps()}>
            {headerGroup.headers.map((column) => (
-             <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+             <th {...column.getHeaderProps(column.getSortByToggleProps())}
+             className="bg-gray-200 text-gray-600">
              { column.render("Header")}
              {column.isSorted ? (column.isSortedDesc ? " ▼" : " ▲") : ""}
              </th>
@@ -171,7 +180,7 @@ const Getips = () => {
        </thead>
 
        <tbody {...getTableBodyProps()}>
-         {rows.map((row) => {
+         {page.map((row) => {
           prepareRow(row);
           return (
             <tr {...row.getRowProps()}>
@@ -184,6 +193,24 @@ const Getips = () => {
         
        </tbody>
       </table>
+      
+      <div className="mt-5">
+        <span>
+          Page{' '}
+          <strong>
+            {pageIndex + 1} of {pageOptions.length}
+          </strong>{' '}
+        </span>
+          <button className="border mr-3 p-2 cursor-pointer"
+          onClick={() => previousPage()} 
+          disabled={!canPreviousPage}>
+          Previous</button>
+          
+          <button className="border mr-3 p-2 px-5 curstor-pointer" 
+          onClick={() => nextPage()} 
+          disabled={!canNextPage}>
+          Next</button>
+      </div>
     </div>
   </>
   )

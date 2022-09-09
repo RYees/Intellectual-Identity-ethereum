@@ -143,6 +143,10 @@
   height: 26rem;
   text-align: center;
   margin: 0 auto;
+  background-image: 
+   radial-gradient(at 0% 0%, rgb(240, 240, 255) 0, transparent 50%), 
+   radial-gradient(at 50% 0%, rgb(255, 255, 255) 0, transparent 50%), 
+   radial-gradient(at 100% 0%, rgb(240, 240, 255) 0, transparent 50%);
 }
 
 .cop {
@@ -170,9 +174,9 @@
 
 .box{
   background-image: 
-   radial-gradient(at 0% 0%, rgb(116, 116, 121) 0, transparent 50%), 
+   radial-gradient(at 0% 0%, rgb(240, 240, 255) 0, transparent 50%), 
    radial-gradient(at 50% 0%, rgb(255, 255, 255) 0, transparent 50%), 
-   radial-gradient(at 100% 0%, rgb(136, 131, 133) 0, transparent 50%);
+   radial-gradient(at 100% 0%, rgb(240, 240, 255) 0, transparent 50%);
 }
 
 .scrolltunnel {
@@ -246,7 +250,10 @@ table th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: center;
-  background-color: #49524e;
+  /* background-color: #037777; */
+  /* #E0FFFF	
+#00FFFF	rgb(0,255,255)
+#00FFFF */
   color: white;
 }
 
@@ -295,6 +302,15 @@ table th {
 
   .phot2 {
     background-color: #ada9a931;
+  }
+
+  .secimg {
+    margin-top: 0;
+    margin-left: 0;
+  }
+
+  .thirimg {
+    margin-left: 0;
   }
 
 

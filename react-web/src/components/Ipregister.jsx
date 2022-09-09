@@ -16,7 +16,11 @@ const Ipregister = () => {
   return (
     <>
     <div>
-       <button onClick={changeView} className='mt-8 mx-10 bg-gray-300 py-4 cursor-pointer border-none hover:brightness-105'><FaPlus className='inline'/> Register IPs</button>
+       <button onClick={changeView} 
+       className='mt-4 mb-8 mx-10 bg-cyan-700 opacity-75 text-white
+        text-xl py-4 cursor-pointer border-none hover:brightness-105'>
+       <FaPlus className='inline'/> Register IPs
+       </button>
     </div>
 
    {show ? ( 
