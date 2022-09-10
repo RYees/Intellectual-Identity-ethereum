@@ -33,7 +33,7 @@ const Home = () => {
            <img src={eth} alt="ethereum image" className='imagetwo'/>
         </div>
       </div>   
-
+    <div className='container'>
       <div className='ball1'></div> 
       <div className='ball2'></div> 
       <div className='ball3'></div> 
@@ -42,6 +42,7 @@ const Home = () => {
       <div className='ball6'></div> 
       <div className='ball7'></div> 
       <div className='ball8'></div> 
+    </div>
     </div>
     
     <div className='text-center m-10'>

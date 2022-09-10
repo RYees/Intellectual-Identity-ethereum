@@ -17,9 +17,9 @@ const Ipregister = () => {
     <>
     <div>
        <button onClick={changeView} 
-       className='mt-4 mb-8 mx-10 bg-cyan-700 opacity-75 text-white
-        text-xl py-4 cursor-pointer border-none hover:brightness-105'>
-       <FaPlus className='inline'/> Register IPs
+       className='bg-gradient-to-r from-cyan-700 via-gray-300 to-cyan-700 transition duration-150 ease-out hover:ease-in mt-4 mb-8 mx-10 text-white
+        text-xl px-5 py-4 rounded shadow-lg cursor-pointer border-none hover:brightness-105 text-gray-900'>
+       <FaPlus className='inline text-white'/> Register IPs
        </button>
     </div>
 

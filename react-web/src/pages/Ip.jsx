@@ -18,16 +18,16 @@ const Ip = () => {
       </div>
 
       <div className='flex gap-14 mx-5 mb-10 my-5'>
-        <div className='box border border-10 border-gray-300 rounded-lg bg-white w-56 p-2'>
+        <div className='box hover:brightness-105 transition duration-150 ease-out hover:ease-in border border-10 border-gray-300 rounded-lg bg-white w-56 p-2'>
          <h3 className="text-sm flex justify-between"> Total Ips <FaHourglass className="text-cyan-700 text-3xl"/></h3> 
          <br></br><span className='text-bold text-black text-4xl'>1000</span></div>
-        <div className='box border border-10 border-gray-300 rounded-lg bg-white w-56 p-2'>
+        <div className='box hover:brightness-105 transition duration-150 ease-out hover:ease-in border border-10 border-gray-300 rounded-lg bg-white w-56 p-2'>
         <h3 className="text-sm flex justify-between"> Total Pendings <FaHourglass className="text-cyan-700 text-3xl"/></h3>
          <br></br><span className='text-bold text-black text-4xl'>500</span></div>
-        <div className='box border border-10 border-gray-300 rounded-lg bg-white w-56 p-2'>
+        <div className='box hover:brightness-105 transition duration-150 ease-out hover:ease-in border border-10 border-gray-300 rounded-lg bg-white w-56 p-2'>
         <h3 className="text-sm flex justify-between"> Total Approves<FaHourglass className="text-cyan-700 text-3xl"/></h3> 
          <br></br><span className='text-bold text-black text-4xl'>100</span></div>
-        <div className='box border border-10 border-gray-300 rounded-lg bg-white w-56 p-2'>
+        <div className='box hover:brightness-105 transition duration-150 ease-out hover:ease-in border border-10 border-gray-300 rounded-lg bg-white w-56 p-2'>
         <h3 className=" flex justify-between text-sm"> Total Rejects <FaHourglass className="text-cyan-700 text-3xl"/></h3>
          <br></br><span className='text-bold text-black text-4xl'>400</span></div>
       </div>
