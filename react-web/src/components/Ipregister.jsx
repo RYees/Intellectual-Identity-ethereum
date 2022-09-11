@@ -1,7 +1,9 @@
-import React,{useState} from 'react';
+import React,{useState, useC} from 'react';
 import { FaPlus, FaTimes } from "react-icons/fa";
+import { TransactionContext } from '../context/TransactionContext';
 
 const Ipregister = () => {
+  const { connectWallet, currentAccount } = useContext(TransactionContext);
   const[show, setShow] = useState(false);
   function changeView() {
     setShow(true);

@@ -1,12 +1,17 @@
-import React from 'react'
+import React,{useContext} from 'react';
+import { TransactionContext } from '../context/TransactionContext';
 import '../css/App.css'
 
 const Bidder = () => {
+  const { connectWallet, currentAccount } = useContext(TransactionContext);
   return (
     <div className='mb-96 mt-20'>
       <div className='text-center py-10'>
-        <button className='bg-gradient-to-r from-cyan-700 via-gray-300 to-cyan-700 transition duration-150 ease-out hover:ease-in
-        p-8 rounded-3xl text-gray-900 text-white text-2xl'>Connect Wallet</button>
+        <button
+        onClick={connectWallet}
+        className='bg-gradient-to-r from-cyan-700 via-gray-300 to-cyan-700 transition duration-150 ease-out hover:ease-in
+        p-8 rounded-3xl text-gray-900 text-white text-2xl'>
+        Connect Wallet</button>
       </div>
 
       <div className='bg-white mb-20'>
