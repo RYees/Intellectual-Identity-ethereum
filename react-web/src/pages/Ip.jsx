@@ -1,13 +1,12 @@
-import React, { useState, useEffect, useMemo } from "react";
-import { FaCheck , FaHourglass} from "react-icons/fa";
-import { useGlobalFilter, useSortBy, useTable } from "react-table";
+import React, { useState, useContext } from "react";
+import { FaHourglass} from "react-icons/fa";
 import Register from '../components/Ipregister.jsx';
 import Getips from '../components/Getips.jsx';
 import '../css/App.css';
-import axios from "axios";
-import GlobalFilter  from "../components/GlobalFilter.jsx";
+import { TransactionContext } from '../context/TransactionContext';
 
 const Ip = () => {
+  const { data } = useContext(TransactionContext);
   return (
     <>
     <div className='mb-96 mt-20'>
@@ -36,7 +35,49 @@ const Ip = () => {
         <input type="text" placeholder='Search...' className="alinput px-3 py-3 rounded-full"/>
         <FaSearch size={40}/>
       </div> */}
-    
+    <div>
+      {/* <div>
+      {Object.keys(data).map((key) => {
+         return (
+           <div className="flex" key={key}>
+              <h1 className="flex">{key}</h1>
+              {data[key]['member'].map((dataItem) => {
+                return (
+                 <span key={dataItem.id}>{dataItem}</span>
+                )
+               })}
+           </div>
+         )
+       })}
+     </div>
+    */}
+
+    <table className='table table-striped'>
+        <thead>
+          <tr className='text-white'>
+            <th>ID</th>
+            <th> Employee Public Key </th>
+            <th> Detail </th>
+          </tr>
+        </thead>
+        <tbody className='bg-gray-100'>
+
+         {data.map((item,index) => ( 
+            <tr key={index}>
+              <td className="">{index}</td>
+              {/* <td>{item}</td>  */}
+              {data[index]['member'].map((i) => {
+                return (<td>{i}</td>)
+              })}
+                           
+      
+            </tr>
+         ))
+         }
+         
+        </tbody>
+      </table> 
+    </div>
     <div className='flex'>    
       {/* <div className='bg-cyan-900 opacity-75 text-white shadow-lg w-48 h-60 px-2'>
       <h2 className='text-2xl'>Search By</h2>

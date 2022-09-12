@@ -75,31 +75,31 @@ contract IP {
         ipCount++;     
     }
 
-    function getMember() public view returns ( address[] memory, string[] memory, string[] memory, string[] memory, string[] memory, string[] memory, uint256[] memory, Status[] memory){    
+    function getMember() public view returns ( string[] memory, string[] memory, string[] memory, string[] memory, string[] memory, Status[] memory){    
         //uint[] memory id = new uint[](ipCount);
-        address[] memory user = new address[](ipCount);
+        //address[] memory user = new address[](ipCount);
         string[] memory IPname = new string[](ipCount);
         string[] memory fullname = new string[](ipCount);
         string[] memory country = new string[](ipCount);
         string[] memory addressplace = new string[](ipCount);
         string[] memory symbol = new string[](ipCount);
-        uint256[] memory timestamp = new uint256[](ipCount);
+        //uint256[] memory timestamp = new uint256[](ipCount);
         Status[] memory status = new Status[](ipCount);
          
         for (uint i = 0; i < ipCount; i++) {
             uint num = newcount[i].count;
             IParameter storage parameter = property[i];
             //id[i] = parameter.id;
-            user[i] = parameter.user;
+           // user[i] = parameter.user;
             IPname[i] = parameter.IPname;
             fullname[i] = parameter.fullname;
             country[i] = parameter.country;
             addressplace[i] = parameter.addressplace;
             symbol[i] = parameter.symbol;
-            timestamp[i] = parameter.timestamp;
+            //timestamp[i] = parameter.timestamp;
             status[i] = parameter.status[num];
         }
-        return (user, IPname, fullname, country, addressplace, symbol, timestamp, status);
+        return (IPname, fullname, country, addressplace, symbol, status);
     }
    
     function changeStatus(uint i, Status val) public onlyOwner returns(bool) {

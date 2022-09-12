@@ -17,9 +17,15 @@ const createEthereumContract = () => {
 };
 
 export const TransactionsProvider = ({ children }) => {
-  const [formData, setformData] = useState({ address:"", empName: "", long: "", lat: "", requiredDistance: "", startHour: "", endHour: "" });
+  const [formData, setformData] = useState({ user:"", IPname: "", fullname: "", country: "", addressplace: "", symbol: "" });
   const [currentAccount, setCurrentAccount] = useState("");
+  const [data, getMembers] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   
+  const handleChange = (e, name) => {
+    setformData((prevState) => ({ ...prevState, [name]: e.target.value }));
+  };
+
   const checkIfWalletIsConnect = async () => {
     try {
       if (!ethereum) return alert("Please install MetaMask.");
@@ -68,9 +74,59 @@ export const TransactionsProvider = ({ children }) => {
     }
   };
 
+  const registerIP= async () => {
+    try {  
+      if (ethereum) {
+        const { user, IPname, fullname, country, addressplace, symbol } = formData;
+        const transactionsContract = createEthereumContract();
+    
+        const transactionHash = await transactionsContract.setIP(user, IPname, fullname, country, addressplace, symbol);
+
+        setIsLoading(true);
+        console.log(`Loading - ${transactionHash.hash}`);
+        await transactionHash.wait();
+        console.log(`Success - ${transactionHash.hash}`);
+        setIsLoading(false);
+
+        //const transactionsCount = await transactionsContract.countEmployees();
+
+        //setTransactionCount(transactionsCount.toNumber());
+        window.location.reload();
+        console.log('success')
+      } else {
+        console.log("No ethereum object now");
+      }
+    } catch (error) {
+      console.log(error);
+      throw new Error("No ethereum object");
+    }
+  };
+
+  const getAllIps = async () => {
+    try {
+      if (ethereum) {
+        const transactionsContract = createEthereumContract();
+
+        const availableIps = await transactionsContract.getMember();
+
+        const structuredMembers = availableIps.map((member) => ({
+          member
+        }));
+        console.log('memebers info', structuredMembers);
+        getMembers(structuredMembers);
+      } else {
+        console.log("Ethereum is not present");
+      }
+    } catch (error) {
+      console.log('ok',error);
+      return alert('Connect to your metamask account!');
+    }
+  };
+
   useEffect(() => {
     checkIfWalletIsConnect();
     checkIfTransactionsExists();
+    getAllIps();
     // handleWalletBalance()
   }, []);
 
@@ -79,6 +135,11 @@ export const TransactionsProvider = ({ children }) => {
       value={{
         connectWallet,
         currentAccount,
+        handleChange, 
+        registerIP,
+        formData,
+        data,
+        getAllIps
         }}
       >
       {children}
