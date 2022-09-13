@@ -25,7 +25,7 @@ describe('IP Unit Test', function () {
 
     it('retrieve returns a Ip status', async function () {
     //  await Employer.setEmployee('0x5B38Da6a701c568545dCfcB03FcB875f56beddC4', '34.09', '98.43', '3:30');
-     expect((await IP.getStatus(0)).toString()).to.equal(0);
+     expect((await IP.getStatus(1)).toString()).to.equal(1);
     }); 
 
     // it('retrieve returns a count of previously stored', async function () {
