@@ -1,4 +1,4 @@
-//import { TransactionsProvider } from "./context/TransactionContext";
+import { TransactionsProvider } from "./context/TransactionContext";
 import "./css/index.css";
 
 import { createRoot } from "react-dom/client";
@@ -11,9 +11,9 @@ const root = createRoot(rootElement);
 
 root.render(
   <BrowserRouter>
-    {/* <TransactionsProvider> */}
+    <TransactionsProvider>
       <App />
-    {/* </TransactionsProvider> */}
+    </TransactionsProvider>
   </BrowserRouter>
 );
 
