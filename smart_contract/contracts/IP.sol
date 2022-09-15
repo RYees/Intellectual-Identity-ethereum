@@ -42,8 +42,7 @@ contract IP {
     mapping (uint => IParameter) public property;
     
     mapping (uint => bid) bidip;
-    //mapping(address => mapping (address => bid)) public allowance;
-    
+    //mapping(address => mapping (address => bid)) public allowance;    
  
     constructor() {
         owner = msg.sender;
