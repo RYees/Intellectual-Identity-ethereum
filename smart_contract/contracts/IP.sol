@@ -3,12 +3,7 @@
 pragma solidity ^0.8.1;
 import "hardhat/console.sol";
 
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "@openzeppelin/contracts/utils/Counters.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
-
-contract IP is ERC721URIStorage, Ownable {
+contract IP {
     address public owner;
 
     struct Count{
@@ -47,10 +42,9 @@ contract IP is ERC721URIStorage, Ownable {
     mapping (uint => IParameter) public property;
     
     mapping (uint => bid) bidip;
-    //mapping(address => mapping (address => bid)) public allowance;
-    
+    //mapping(address => mapping (address => bid)) public allowance;    
  
-    constructor() ERC721("IP", "Ip") {
+    constructor() {
         owner = msg.sender;
         ipCount = 0;
      
