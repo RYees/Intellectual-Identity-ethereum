@@ -1,6 +1,6 @@
 // contracts/GameItem.sol
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.4;
+pragma solidity ^0.8.1;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
@@ -20,9 +20,9 @@ contract IpItem is ERC721URIStorage {
     {
         _tokenIds.increment();
 
-        uint256 newItemId = _tokenIds.current();
-        _mint(player, newItemId);
-        _setTokenURI(newItemId, tokenURI);
+        uint256 approvedIpItemId = _tokenIds.current();
+        _mint(player, approvedIpItemId);
+        _setTokenURI(approvedIpItemId, tokenURI);
 
         return approvedIpItemId;
     }
