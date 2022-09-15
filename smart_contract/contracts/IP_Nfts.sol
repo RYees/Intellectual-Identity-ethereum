@@ -24,6 +24,6 @@ contract IpItem is ERC721URIStorage {
         _mint(player, newItemId);
         _setTokenURI(newItemId, tokenURI);
 
-        return newItemId;
+        return approvedIpItemId;
     }
 }
