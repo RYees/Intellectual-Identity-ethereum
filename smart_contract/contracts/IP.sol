@@ -139,6 +139,19 @@ contract IP {
         return bidProperty;
     }
 
+    function mintnft(address player, string memory tokenURI) public returns (uint256){
+        return nft.mintIpItem(player, tokenURI);
+    }
+    
+    function nameOfnft() view public returns (string memory){
+        return nft.name();
+    }
+
+    function ownerOfnft(uint256 tokenId) view public returns (address){
+        return nft.ownerOf(tokenId);
+    }
+
+
 }
 
 contract IPbidder {
