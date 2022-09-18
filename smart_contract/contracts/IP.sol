@@ -198,6 +198,10 @@ contract IP {
         return nft.ownerOf(tokenId);
     }
 
+    function safeTransferFrom(address from, address to, uint256 tokenId, bytes memory data) public {
+        return nft.safeTransferFrom(from, to, tokenId, data);
+    }
+
     // function block_call() public view returns (uint256){
     //     return block.number; 
     // }
