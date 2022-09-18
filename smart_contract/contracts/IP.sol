@@ -3,9 +3,12 @@
 pragma solidity ^0.8.1;
 import "hardhat/console.sol";
 import "./IP_Nfts.sol";
+import "./Bidder.sol";
 
 contract IP {
+
     IpItem nft = new IpItem();
+    IPbidder bidder = new IPbidder();
 
     address public owner;
 
@@ -45,13 +48,21 @@ contract IP {
     mapping (uint => IParameter) public property;
     
     mapping (uint => bid) bidip;
-    //mapping(address => mapping (address => bid)) public allowance;    
+    //mapping(address => mapping (address => bid)) public allowance;
+    
  
     constructor() {
-        owner = msg.sender;
+        owner = msg.sender; 
+       //ERC721("MyNFT", "NFT") 
         ipCount = 0;
-     
-   }
+        setIP(0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2, "egg1", "stol1", "eth1", "leb", "sym");
+        setIP(0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db, "egg2", "stol2", "eth2", "leb", "sym"); 
+        setIP(0x78731D3Ca6b7E34aC0F824c42a7cC18A495cabaB, "egg3", "stol3", "eth3", "leb", "sym");
+
+        // states[Status.Pending] = "ForSale";
+        // states[Status.Accepted] = "SellerDelisted";
+        // states[Status.Rejected] = "BuyerCancelled";
+    }
 
     address[] public intelProperty;
         
@@ -62,7 +73,22 @@ contract IP {
         _;
     }
     
-     function setIP(address _address, string memory _IPname, string memory _fullname, string memory _country, string memory _addressplace, string memory _symbol) public {
+    // function addIp(address _address, string memory _IPname, string memory _fullname, string memory _country, string memory _addressplace, string memory _symbol,Status a) public {
+    //     property[ipCount] = IParameter(
+    //          ipCount,
+    //         _address,
+    //         _IPname,
+    //         _fullname, 
+    //         _country, 
+    //         _addressplace, 
+    //         _symbol,
+    //         block.timestamp,
+    //         true,
+    //         a);
+    //     ipCount++;
+    // }
+
+    function setIP(address _address, string memory _IPname, string memory _fullname, string memory _country, string memory _addressplace, string memory _symbol) public {
         Status a = Status.Pending;
         property[ipCount].user = _address;
         property[ipCount].IPname = _IPname;
@@ -74,35 +100,52 @@ contract IP {
         property[ipCount].status.push(a);
         newcount[ipCount].count = 0;
         property[ipCount].isRegistered = true;
- 
-        ipCount++;     
+        // property[ipCount].status.push(a);
+        // property[ipCount] = IParameter(
+        //     //  ipCount,
+        //      _address,
+        //      _IPname,
+        //      _fullname,
+        //      _country,
+        //      _addressplace,
+        //      _symbol,
+        //      block.timestamp,
+        //      true
+        // );
+        ipCount++;
+        
+       // intelProperty.push(_address);
     }
 
-    function getMember() public view returns ( string[] memory, string[] memory, string[] memory, string[] memory, string[] memory, Status[] memory){    
+    // function get(uint _memberId) public view returns(IParameter memory) {
+    //     return property[_memberId];
+    // }
+
+    function getMember() public view returns ( address[] memory, string[] memory, string[] memory, string[] memory, string[] memory, string[] memory, uint256[] memory, Status[] memory){    
         //uint[] memory id = new uint[](ipCount);
-        //address[] memory user = new address[](ipCount);
+        address[] memory user = new address[](ipCount);
         string[] memory IPname = new string[](ipCount);
         string[] memory fullname = new string[](ipCount);
         string[] memory country = new string[](ipCount);
         string[] memory addressplace = new string[](ipCount);
         string[] memory symbol = new string[](ipCount);
-        //uint256[] memory timestamp = new uint256[](ipCount);
+        uint256[] memory timestamp = new uint256[](ipCount);
         Status[] memory status = new Status[](ipCount);
          
         for (uint i = 0; i < ipCount; i++) {
             uint num = newcount[i].count;
             IParameter storage parameter = property[i];
             //id[i] = parameter.id;
-           // user[i] = parameter.user;
+            user[i] = parameter.user;
             IPname[i] = parameter.IPname;
             fullname[i] = parameter.fullname;
             country[i] = parameter.country;
             addressplace[i] = parameter.addressplace;
             symbol[i] = parameter.symbol;
-            //timestamp[i] = parameter.timestamp;
+            timestamp[i] = parameter.timestamp;
             status[i] = parameter.status[num];
         }
-        return (IPname, fullname, country, addressplace, symbol, status);
+        return (user, IPname, fullname, country, addressplace, symbol, timestamp, status);
     }
    
     function changeStatus(uint i, Status val) public onlyOwner returns(bool) {
@@ -138,9 +181,10 @@ contract IP {
         return intelProperty.length;
     }
 
-    function getAllbids() view public returns (address[] memory) {
-        return bidProperty;
-    }
+
+
+
+    // // ********* Nft functions ********** // //
 
     function mintnft(address player, string memory tokenURI) public returns (uint256){
         return nft.mintIpItem(player, tokenURI);
@@ -150,10 +194,26 @@ contract IP {
         return nft.name();
     }
 
-    function ownerOfnft(uint256 tokenId) view public returns (address){
+     function ownerOfnft(uint256 tokenId) view public returns (address){
         return nft.ownerOf(tokenId);
     }
 
+    // function block_call() public view returns (uint256){
+    //     return block.number; 
+    // }
+
+    // function Time() public view returns (uint256){
+    //     return block.timestamp; 
+    // }
+
+
+
+
+    // // ********* Bidding functions ********** // //
+
+    function setIPbidder(address _address, string memory _ownerIPname, uint _bidvalue, address _bidderaddress) public{
+         return bidder.setIPbidder(_address, _ownerIPname, _bidvalue, _bidderaddress);
+    }
 
 }
 
