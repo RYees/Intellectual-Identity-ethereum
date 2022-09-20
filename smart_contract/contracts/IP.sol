@@ -64,7 +64,9 @@ contract IP {
         // states[Status.Rejected] = "BuyerCancelled";
     }
 
-    address[] public intelProperty;
+    address[] public acceptedIps;
+    address[] public pendingIps;
+    address[] public rejectedIps;
         
     address[] public bidProperty;
   
@@ -178,11 +180,11 @@ contract IP {
     }
 
     function remove(uint _index) public {
-        require(_index < arr.length, index out of bound);
-        for (uint i = _index; i < arr.length - 1; i++){
-            arr[i] = arr[i+1];
+        require(_index < acceptedIps.length, "index out of bound");
+        for (uint i = _index; i < acceptedIps.length - 1; i++){
+            acceptedIps[i] = acceptedIps[i+1];
         }
-        arr.pop();
+        acceptedIps.pop();
     }
     
     function getStatus(uint i) public view returns(Status status) {
@@ -208,10 +210,17 @@ contract IP {
             );
     }
 
-    function countIP() view public returns (uint) {
-        return intelProperty.length;
+    function countAcceptedIPs() view public returns (uint) {
+        return acceptedIps.length;
     }
 
+    function countPendingIPs() view public returns (uint) {
+        return pendingIps.length;
+    }
+
+    function countRejectedIPs() view public returns (uint) {
+        return rejectedIps.length;
+    }
 
 
 
