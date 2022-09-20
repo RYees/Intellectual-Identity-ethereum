@@ -150,8 +150,31 @@ contract IP {
    
     function changeStatus(uint i, Status val) public onlyOwner returns(bool) {
         property[i].status.push(val);
+        //console.log(property[i].status[num]);
         newcount[i].count++; 
+        conditionStatus(i);
         return true;
+    }
+
+    function conditionStatus(uint i) public {
+        uint num = newcount[i].count;
+        if(property[i].status[num] == Status.Accepted){
+            intelProperty.push(property[i].user);
+            console.log("Address added");
+        } else {
+            uint256 value = indexOf(property[i].user);
+            delete intelProperty[value];
+            console.log("Address removed");
+        }    
+    }
+    
+    function indexOf(address searchFor) private view returns (uint256) {
+    for (uint256 i = 0; i < intelProperty.length; i++) {
+        if (keccak256(abi.encodePacked(intelProperty[i])) == keccak256(abi.encodePacked(searchFor))) {
+        return i;
+        }
+    }
+        return 100; // not found
     }
     
     function getStatus(uint i) public view returns(Status status) {
