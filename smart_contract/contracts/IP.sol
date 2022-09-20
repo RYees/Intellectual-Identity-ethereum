@@ -176,6 +176,14 @@ contract IP {
     }
         return 100; // not found
     }
+
+    function remove(uint _index) public {
+        require(_index < arr.length, index out of bound);
+        for (uint i = _index; i < arr.length - 1; i++){
+            arr[i] = arr[i+1];
+        }
+        arr.pop();
+    }
     
     function getStatus(uint i) public view returns(Status status) {
         //console.log(property[_address].status[newcount[_address].count]);
