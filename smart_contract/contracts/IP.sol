@@ -4,11 +4,13 @@ pragma solidity ^0.8.1;
 import "hardhat/console.sol";
 import "./IP_Nfts.sol";
 import "./Bidder.sol";
+import {convert} from "./Convert.sol";
 
 contract IP {
 
     IpItem nft = new IpItem();
     IPbidder bidder = new IPbidder();
+    convert conv = new convert();
 
     address public owner;
 
@@ -157,35 +159,144 @@ contract IP {
         conditionStatus(i);
         return true;
     }
-
-    function conditionStatus(uint i) public {
+     
+     function conditionStatus(uint i) public {
         uint num = newcount[i].count;
         if(property[i].status[num] == Status.Accepted){
-            intelProperty.push(property[i].user);
+            acceptedIps.push(property[i].user);
             console.log("Address added");
-        } else {
-            uint256 value = indexOf(property[i].user);
-            delete intelProperty[value];
-            console.log("Address removed");
-        }    
-    }
-    
-    function indexOf(address searchFor) private view returns (uint256) {
-    for (uint256 i = 0; i < intelProperty.length; i++) {
-        if (keccak256(abi.encodePacked(intelProperty[i])) == keccak256(abi.encodePacked(searchFor))) {
-        return i;
-        }
-    }
-        return 100; // not found
-    }
+            string memory value1 = indexOfPending(property[i].user);
+            string memory value2 = indexOfRejected(property[i].user);
+                      
+           if(keccak256(abi.encodePacked(value1)) != keccak256(abi.encodePacked('not found')) 
+           && keccak256(abi.encodePacked(value2)) != keccak256(abi.encodePacked('not found'))){
+              uint v1 = conv.st2num(value1);
+              uint v2 = conv.st2num(value2);
+                removePending(v1);  
+                removeRejected(v2);
+           }
+           else if(keccak256(abi.encodePacked(value1)) != keccak256(abi.encodePacked('not found'))){
+              uint v1 = conv.st2num(value1);
+              removePending(v1);  
+            }
+           else if(keccak256(abi.encodePacked(value2)) != keccak256(abi.encodePacked('not found'))){
+              uint v2 = conv.st2num(value2);
+              removeRejected(v2);
+            }
+            else {
+               console.log('not found');
+               result = 'not found';
+           }
+            
+            //removeRejected(value2);
+        } 
+        else if(property[i].status[num] == Status.Pending){
+            pendingIps.push(property[i].user);
+            string memory value1 = indexOfAccepted(property[i].user);
+            string memory value2 = indexOfRejected(property[i].user);
+            if(keccak256(abi.encodePacked(value1)) != keccak256(abi.encodePacked('not found')) 
+           && keccak256(abi.encodePacked(value2)) != keccak256(abi.encodePacked('not found'))){
+              uint v1 = conv.st2num(value1);
+              uint v2 = conv.st2num(value2);
+                removeAccepted(v1); 
+                removeRejected(v2);
+           }
+           else if(keccak256(abi.encodePacked(value1)) != keccak256(abi.encodePacked('not found'))){
+              uint v1 = conv.st2num(value1);
+              removeAccepted(v1); 
+              console.log('momo1');
+              result = 'one'; 
+           }
+           else if(keccak256(abi.encodePacked(value2)) != keccak256(abi.encodePacked('not found'))){
+              uint v2 = conv.st2num(value2);
+              removeRejected(v2);       
+           }
+            else {
+               console.log('not found');
+               result = 'not found';
+           }
+           } else if(property[i].status[num] == Status.Rejected){
+            rejectedIps.push(property[i].user);
+            string memory value1 = indexOfAccepted(property[i].user);
+            string memory value2 = indexOfPending(property[i].user);
+                    
+             if(keccak256(abi.encodePacked(value1)) != keccak256(abi.encodePacked('not found')) 
+           && keccak256(abi.encodePacked(value2)) != keccak256(abi.encodePacked('not found'))){
+              uint v1 = conv.st2num(value1);
+              uint v2 = conv.st2num(value2);
+                removeAccepted(v1);            
+                removePending(v2);
+           }
+           else if(keccak256(abi.encodePacked(value1)) != keccak256(abi.encodePacked('not found'))){
+              uint v1 = conv.st2num(value1);
+              removeAccepted(v1); 
+           }
+           else if(keccak256(abi.encodePacked(value2)) != keccak256(abi.encodePacked('not found'))){
+              uint v2 = conv.st2num(value2);
+              removePending(v2);      
+           }
+            else {
+               console.log('not found');
+               result = 'not found';
+           }
+        }   
+    }    
 
-    function remove(uint _index) public {
+    function removeAccepted(uint _index) public {
         require(_index < acceptedIps.length, "index out of bound");
         for (uint i = _index; i < acceptedIps.length - 1; i++){
             acceptedIps[i] = acceptedIps[i+1];
         }
         acceptedIps.pop();
     }
+
+    function removePending(uint _index) public {
+        require(_index < pendingIps.length, "index out of bound");
+        for (uint i = _index; i < pendingIps.length - 1; i++){
+            pendingIps[i] = pendingIps[i+1];
+        }
+        pendingIps.pop();
+    }
+
+    function removeRejected(uint _index) public {
+        require(_index < rejectedIps.length, "index out of bound");
+        for (uint i = _index; i < rejectedIps.length - 1; i++){
+            rejectedIps[i] = rejectedIps[i+1];
+        }
+        rejectedIps.pop();
+    }
+    
+        function indexOfAccepted(address searchFor) private view returns (string memory) {
+    for (uint i = 0; i < acceptedIps.length; i++) {
+        if (keccak256(abi.encodePacked(acceptedIps[i])) == keccak256(abi.encodePacked(searchFor))) {
+            string memory v = conv.uintToStr(i);
+            return v;
+        }
+    }  
+        return 'not found';
+        }
+
+    function indexOfPending(address searchFor) private view returns (string memory) {
+    for (uint i = 0; i < pendingIps.length; i++) {
+        if (keccak256(abi.encodePacked(pendingIps[i])) == keccak256(abi.encodePacked(searchFor))) {
+            string memory v = conv.uintToStr(i);
+            return v;
+        }
+    }   
+        return 'not found'; // not found
+    }
+
+    function indexOfRejected(address searchFor) private view returns (string memory) {
+    for (uint256 i = 0; i < rejectedIps.length; i++) {
+        if (keccak256(abi.encodePacked(rejectedIps[i])) == keccak256(abi.encodePacked(searchFor))) {
+            string memory v = conv.uintToStr(i);
+            return v;
+        }
+    }  
+     // console.log("not found");
+       return 'not found'; // not found
+    }
+    
     
     function getStatus(uint i) public view returns(Status status) {
         //console.log(property[_address].status[newcount[_address].count]);
