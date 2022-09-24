@@ -4,13 +4,16 @@ pragma solidity ^0.8.1;
 import "hardhat/console.sol";
 import "./IP_Nfts.sol";
 import "./Bidder.sol";
+import {convert} from "./Convert.sol";
 
 contract IP {
 
     IpItem nft = new IpItem();
     IPbidder bidder = new IPbidder();
+    convert conv = new convert();
 
     address public owner;
+    string public result;
 
     struct Count{
        uint count;
@@ -64,7 +67,9 @@ contract IP {
         // states[Status.Rejected] = "BuyerCancelled";
     }
 
-    address[] public intelProperty;
+    address[] public acceptedIps;
+    address[] public pendingIps;
+    address[] public rejectedIps;
         
     address[] public bidProperty;
   
@@ -73,21 +78,6 @@ contract IP {
         _;
     }
     
-    // function addIp(address _address, string memory _IPname, string memory _fullname, string memory _country, string memory _addressplace, string memory _symbol,Status a) public {
-    //     property[ipCount] = IParameter(
-    //          ipCount,
-    //         _address,
-    //         _IPname,
-    //         _fullname, 
-    //         _country, 
-    //         _addressplace, 
-    //         _symbol,
-    //         block.timestamp,
-    //         true,
-    //         a);
-    //     ipCount++;
-    // }
-
     function setIP(address _address, string memory _IPname, string memory _fullname, string memory _country, string memory _addressplace, string memory _symbol) public {
         Status a = Status.Pending;
         property[ipCount].user = _address;
@@ -100,25 +90,13 @@ contract IP {
         property[ipCount].status.push(a);
         newcount[ipCount].count = 0;
         property[ipCount].isRegistered = true;
-        // property[ipCount].status.push(a);
-        // property[ipCount] = IParameter(
-        //     //  ipCount,
-        //      _address,
-        //      _IPname,
-        //      _fullname,
-        //      _country,
-        //      _addressplace,
-        //      _symbol,
-        //      block.timestamp,
-        //      true
-        // );
+
+        pendingIps.push(property[ipCount].user);    
         ipCount++;
-        
-       // intelProperty.push(_address);
     }
 
     // function get(uint _memberId) public view returns(IParameter memory) {
-    //     return property[_memberId];
+    //     return pendingIps[_memberId];
     // }
 
     function getMember() public view returns ( address[] memory, string[] memory, string[] memory, string[] memory, string[] memory, string[] memory, uint256[] memory, Status[] memory){    
@@ -151,16 +129,155 @@ contract IP {
     function changeStatus(uint i, Status val) public onlyOwner returns(bool) {
         property[i].status.push(val);
         newcount[i].count++; 
+        conditionStatus(i);
         return true;
+    }
+     
+    function conditionStatus(uint i) public {
+        uint num = newcount[i].count;
+        if(property[i].status[num] == Status.Accepted){
+            acceptedIps.push(property[i].user);
+            string memory value1 = indexOfPending(property[i].user);
+            string memory value2 = indexOfRejected(property[i].user);
+                      
+           if(keccak256(abi.encodePacked(value1)) != keccak256(abi.encodePacked('not found')) 
+           && keccak256(abi.encodePacked(value2)) != keccak256(abi.encodePacked('not found'))){
+              uint v1 = conv.st2num(value1);
+              uint v2 = conv.st2num(value2);
+                removePending(v1);  
+                removeRejected(v2);
+           }
+           else if(keccak256(abi.encodePacked(value1)) != keccak256(abi.encodePacked('not found'))){
+              uint v1 = conv.st2num(value1);
+              removePending(v1);  
+            }
+           else if(keccak256(abi.encodePacked(value2)) != keccak256(abi.encodePacked('not found'))){
+              uint v2 = conv.st2num(value2);
+              removeRejected(v2);
+            }
+            else {
+                result = 'not found';
+            }
+        } 
+        else if(property[i].status[num] == Status.Pending){
+            pendingIps.push(property[i].user);
+            string memory value1 = indexOfAccepted(property[i].user);
+            string memory value2 = indexOfRejected(property[i].user);
+            if(keccak256(abi.encodePacked(value1)) != keccak256(abi.encodePacked('not found')) 
+           && keccak256(abi.encodePacked(value2)) != keccak256(abi.encodePacked('not found'))){
+              uint v1 = conv.st2num(value1);
+              uint v2 = conv.st2num(value2);
+                removeAccepted(v1); 
+                removeRejected(v2);
+           }
+           else if(keccak256(abi.encodePacked(value1)) != keccak256(abi.encodePacked('not found'))){
+              uint v1 = conv.st2num(value1);
+              removeAccepted(v1); 
+            }
+           else if(keccak256(abi.encodePacked(value2)) != keccak256(abi.encodePacked('not found'))){
+              uint v2 = conv.st2num(value2);
+              removeRejected(v2);       
+           }
+            else {
+               result = 'not found';
+           }
+           } else if(property[i].status[num] == Status.Rejected){
+            rejectedIps.push(property[i].user);
+            string memory value1 = indexOfAccepted(property[i].user);
+            string memory value2 = indexOfPending(property[i].user);
+                    
+            if(keccak256(abi.encodePacked(value1)) != keccak256(abi.encodePacked('not found')) 
+            && keccak256(abi.encodePacked(value2)) != keccak256(abi.encodePacked('not found'))){
+              uint v1 = conv.st2num(value1);
+              uint v2 = conv.st2num(value2);
+                removeAccepted(v1);            
+                removePending(v2);
+           }
+           else if(keccak256(abi.encodePacked(value1)) != keccak256(abi.encodePacked('not found'))){
+              uint v1 = conv.st2num(value1);
+              removeAccepted(v1); 
+           }
+           else if(keccak256(abi.encodePacked(value2)) != keccak256(abi.encodePacked('not found'))){
+              uint v2 = conv.st2num(value2);
+              removePending(v2);      
+           }
+            else {
+               result = 'not found';
+           }
+        }   
+    }    
+
+    function removeAccepted(uint _index) public {
+        require(_index < acceptedIps.length, "index out of bound");
+        for (uint i = _index; i < acceptedIps.length - 1; i++){
+            acceptedIps[i] = acceptedIps[i+1];
+        }
+        acceptedIps.pop();
+    }
+
+    function removePending(uint _index) public {
+        require(_index < pendingIps.length, "index out of bound");
+        for (uint i = _index; i < pendingIps.length - 1; i++){
+            pendingIps[i] = pendingIps[i+1];
+        }
+        pendingIps.pop();
+    }
+
+    function removeRejected(uint _index) public {
+        require(_index < rejectedIps.length, "index out of bound");
+        for (uint i = _index; i < rejectedIps.length - 1; i++){
+            rejectedIps[i] = rejectedIps[i+1];
+        }
+        rejectedIps.pop();
+    }
+    
+        function indexOfAccepted(address searchFor) private view returns (string memory) {
+    for (uint i = 0; i < acceptedIps.length; i++) {
+        if (keccak256(abi.encodePacked(acceptedIps[i])) == keccak256(abi.encodePacked(searchFor))) {
+            string memory v = conv.uintToStr(i);
+            return v;
+        }
+    }  
+        return 'not found';
+        }
+
+    function indexOfPending(address searchFor) private view returns (string memory) {
+    for (uint i = 0; i < pendingIps.length; i++) {
+        if (keccak256(abi.encodePacked(pendingIps[i])) == keccak256(abi.encodePacked(searchFor))) {
+            string memory v = conv.uintToStr(i);
+            return v;
+        }
+    }   
+        return 'not found'; // not found
+    }
+
+    function indexOfRejected(address searchFor) private view returns (string memory) {
+    for (uint256 i = 0; i < rejectedIps.length; i++) {
+        if (keccak256(abi.encodePacked(rejectedIps[i])) == keccak256(abi.encodePacked(searchFor))) {
+            string memory v = conv.uintToStr(i);
+            return v;
+        }
+    }  
+        return 'not found'; // not found
     }
     
     function getStatus(uint i) public view returns(Status status) {
-        //console.log(property[_address].status[newcount[_address].count]);
         return property[i].status[newcount[i].count];
     }
     
-    function getAllIP() view public returns (address[] memory) {
-        return intelProperty;
+    function getAcceptIP() view public returns (address[] memory) {
+        console.log(acceptedIps.length);
+        return acceptedIps;
+    }
+
+    function getPendingIP() view public returns (address[] memory) {
+        console.log(pendingIps.length);
+        return pendingIps;
+    }
+
+    function getRejectIP() view public returns (address[] memory) {
+        console.log(rejectedIps.length);
+        return rejectedIps;
     }
 
     function getIP(uint i) public view returns (string memory, string memory, string memory, string memory, string memory, uint256, Status status) {
@@ -177,8 +294,16 @@ contract IP {
             );
     }
 
-    function countIP() view public returns (uint) {
-        return intelProperty.length;
+    function countAcceptedIPs() view public returns (uint) {
+        return acceptedIps.length;
+    }
+
+    function countPendingIPs() view public returns (uint) {
+        return pendingIps.length;
+    }
+
+    function countRejectedIPs() view public returns (uint) {
+        return rejectedIps.length;
     }
 
 
@@ -186,16 +311,21 @@ contract IP {
 
     // // ********* Nft functions ********** // //
 
-    function mintnft(address player, string memory tokenURI) public returns (uint256){
-        return nft.mintIpItem(player, tokenURI);
+    function mintnft(address owneradd, string memory tokenURI) public {
+        //require(!intelProperty[owneradd], "Sender already stored a value.");
+        //return nft.mintIpItem(owneradd, tokenURI);
     }
     
     function nameOfnft() view public returns (string memory){
         return nft.name();
     }
 
-     function ownerOfnft(uint256 tokenId) view public returns (address){
+    function ownerOfnft(uint256 tokenId) view public returns (address){
         return nft.ownerOf(tokenId);
+    }
+
+    function safeTransferFrom(address from, address to, uint256 tokenId, bytes memory data) public {
+        return nft.safeTransferFrom(from, to, tokenId, data);
     }
 
     // function block_call() public view returns (uint256){
@@ -210,10 +340,19 @@ contract IP {
 
 
     // // ********* Bidding functions ********** // //
+    // struct IPowner = bidder.Ipowner[];
 
     function setIPbidder(address _address, string memory _ownerIPname, uint _bidvalue, address _bidderaddress) public{
          return bidder.setIPbidder(_address, _ownerIPname, _bidvalue, _bidderaddress);
     }
+
+    // function getbidderinfo(address _address, uint i) public view returns(IPowner[] memory){
+    //     return bidder.getbidderinfo(_address, i);
+    // }
+
+    // function bidLoop(address _address) public view returns(IPowner[] memory){
+    //     return bidder.bidLoop(_address);
+    // }
 
 }
 
