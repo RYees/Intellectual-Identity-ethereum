@@ -299,12 +299,22 @@ contract IP {
     
     
     function getStatus(uint i) public view returns(Status status) {
-        //console.log(property[_address].status[newcount[_address].count]);
         return property[i].status[newcount[i].count];
     }
     
-    function getAllIP() view public returns (address[] memory) {
-        return intelProperty;
+    function getAcceptIP() view public returns (address[] memory) {
+        console.log(acceptedIps.length);
+        return acceptedIps;
+    }
+
+    function getPendingIP() view public returns (address[] memory) {
+        console.log(pendingIps.length);
+        return pendingIps;
+    }
+
+    function getRejectIP() view public returns (address[] memory) {
+        console.log(rejectedIps.length);
+        return rejectedIps;
     }
 
     function getIP(uint i) public view returns (string memory, string memory, string memory, string memory, string memory, uint256, Status status) {
@@ -335,17 +345,19 @@ contract IP {
 
 
 
+
     // // ********* Nft functions ********** // //
 
-    function mintnft(address player, string memory tokenURI) public returns (uint256){
-        return nft.mintIpItem(player, tokenURI);
+    function mintnft(address owneradd, string memory tokenURI) public {
+        //require(!intelProperty[owneradd], "Sender already stored a value.");
+        //return nft.mintIpItem(owneradd, tokenURI);
     }
     
     function nameOfnft() view public returns (string memory){
         return nft.name();
     }
 
-     function ownerOfnft(uint256 tokenId) view public returns (address){
+    function ownerOfnft(uint256 tokenId) view public returns (address){
         return nft.ownerOf(tokenId);
     }
 
@@ -365,10 +377,24 @@ contract IP {
 
 
     // // ********* Bidding functions ********** // //
+    // struct IPowner = bidder.Ipowner[];
 
     function setIPbidder(address _address, string memory _ownerIPname, uint _bidvalue, address _bidderaddress) public{
          return bidder.setIPbidder(_address, _ownerIPname, _bidvalue, _bidderaddress);
     }
+
+    // function getbidderinfo(address _address, uint i) public view returns(IPowner[] memory){
+    //     return bidder.getbidderinfo(_address, i);
+    // }
+
+    // function bidLoop(address _address) public view returns(IPowner[] memory){
+    //     return bidder.bidLoop(_address);
+    // }
+
+    function countBids() public view returns(uint) {
+        return bidder.countBids();
+    }
+
 
 }
 
