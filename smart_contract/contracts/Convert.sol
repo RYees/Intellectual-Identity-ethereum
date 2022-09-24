@@ -26,4 +26,60 @@ contract convert {
        return res;
     }
 
+    function addressExistAccept(uint searchFor, uint[] memory acceptedIps) public pure returns (bool) {
+    for (uint i = 0; i < acceptedIps.length; i++) {
+        if (keccak256(abi.encodePacked(acceptedIps[i])) == keccak256(abi.encodePacked(searchFor))) {
+              return true;
+         }
+    }  
+        return false;
+    }
+
+    function addressExistPend(uint searchFor, uint[] memory pendingIps) public pure returns (bool) {
+    for (uint i = 0; i < pendingIps.length; i++) {
+        if (keccak256(abi.encodePacked(pendingIps[i])) == keccak256(abi.encodePacked(searchFor))) {
+            return true;
+        }
+    }   
+        return false; // not found
+    }
+
+    function addressExistReject(uint searchFor, uint[] memory rejectedIps) public pure returns (bool) {
+    for (uint256 i = 0; i < rejectedIps.length; i++) {
+        if (keccak256(abi.encodePacked(rejectedIps[i])) == keccak256(abi.encodePacked(searchFor))) {
+            return true;
+        }
+    } 
+        return false;
+    }
+       
+    function indexOfAccepted(uint searchFor, uint[] memory acceptedIps) public pure returns (string memory) {
+    for (uint i = 0; i < acceptedIps.length; i++) {
+        if (keccak256(abi.encodePacked(acceptedIps[i])) == keccak256(abi.encodePacked(searchFor))) {
+            string memory v = uintToStr(i);
+            return v;
+         }
+    }  
+        return 'not found';
+    }
+  
+    function indexOfPending(uint searchFor, uint[] memory pendingIps) public pure returns (string memory) {
+    for (uint i = 0; i < pendingIps.length; i++) {
+        if (keccak256(abi.encodePacked(pendingIps[i])) == keccak256(abi.encodePacked(searchFor))) {
+            string memory v = uintToStr(i);
+            return v;
+        }
+    }   
+        return 'not found'; // not found
+    }
+
+    function indexOfRejected(uint searchFor, uint[] memory rejectedIps) public pure returns (string memory) {
+    for (uint256 i = 0; i < rejectedIps.length; i++) {
+        if (keccak256(abi.encodePacked(rejectedIps[i])) == keccak256(abi.encodePacked(searchFor))) {
+            string memory v = uintToStr(i);
+            return v;
+        }
+    }  
+        return 'not found'; // not found
+    }
 }

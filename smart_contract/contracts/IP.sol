@@ -67,9 +67,9 @@ contract IP {
         // states[Status.Rejected] = "BuyerCancelled";
     }
 
-    address[] public acceptedIps;
-    address[] public pendingIps;
-    address[] public rejectedIps;
+    uint[] public acceptedIps;
+    uint[] public pendingIps;
+    uint[] public rejectedIps;
         
     address[] public bidProperty;
   
@@ -91,7 +91,7 @@ contract IP {
         newcount[ipCount].count = 0;
         property[ipCount].isRegistered = true;
 
-        pendingIps.push(property[ipCount].user);    
+        pendingIps.push(ipCount);    
         ipCount++;
     }
 
@@ -128,17 +128,21 @@ contract IP {
    
     function changeStatus(uint i, Status val) public onlyOwner returns(bool) {
         property[i].status.push(val);
+        //console.log(property[i].status[num]);
         newcount[i].count++; 
         conditionStatus(i);
         return true;
     }
      
-    function conditionStatus(uint i) public {
+     function conditionStatus(uint i) public {
         uint num = newcount[i].count;
         if(property[i].status[num] == Status.Accepted){
-            acceptedIps.push(property[i].user);
-            string memory value1 = indexOfPending(property[i].user);
-            string memory value2 = indexOfRejected(property[i].user);
+            bool val = conv.addressExistAccept(i, acceptedIps);
+            require((keccak256(abi.encodePacked(val)) != keccak256(abi.encodePacked(true))), 'Address already accepted');
+            acceptedIps.push(i);
+            // console.log("Address added");
+            string memory value1 = conv.indexOfPending(i, pendingIps);
+            string memory value2 = conv.indexOfRejected(i, rejectedIps);
                       
            if(keccak256(abi.encodePacked(value1)) != keccak256(abi.encodePacked('not found')) 
            && keccak256(abi.encodePacked(value2)) != keccak256(abi.encodePacked('not found'))){
@@ -156,13 +160,18 @@ contract IP {
               removeRejected(v2);
             }
             else {
-                result = 'not found';
-            }
+               console.log('not found');
+               result = 'not found';
+           }
+            
+            //removeRejected(value2);
         } 
         else if(property[i].status[num] == Status.Pending){
-            pendingIps.push(property[i].user);
-            string memory value1 = indexOfAccepted(property[i].user);
-            string memory value2 = indexOfRejected(property[i].user);
+            bool val = conv.addressExistPend(i, pendingIps);
+            require((keccak256(abi.encodePacked(val)) != keccak256(abi.encodePacked(true))), 'Address already pending');
+            pendingIps.push(i);
+            string memory value1 = conv.indexOfAccepted(i, acceptedIps);
+            string memory value2 = conv.indexOfRejected(i, rejectedIps);
             if(keccak256(abi.encodePacked(value1)) != keccak256(abi.encodePacked('not found')) 
            && keccak256(abi.encodePacked(value2)) != keccak256(abi.encodePacked('not found'))){
               uint v1 = conv.st2num(value1);
@@ -173,18 +182,23 @@ contract IP {
            else if(keccak256(abi.encodePacked(value1)) != keccak256(abi.encodePacked('not found'))){
               uint v1 = conv.st2num(value1);
               removeAccepted(v1); 
-            }
+              console.log('momo1');
+              result = 'one'; 
+           }
            else if(keccak256(abi.encodePacked(value2)) != keccak256(abi.encodePacked('not found'))){
               uint v2 = conv.st2num(value2);
               removeRejected(v2);       
            }
             else {
+               console.log('not found');
                result = 'not found';
            }
            } else if(property[i].status[num] == Status.Rejected){
-            rejectedIps.push(property[i].user);
-            string memory value1 = indexOfAccepted(property[i].user);
-            string memory value2 = indexOfPending(property[i].user);
+            bool val = conv.addressExistReject(i, rejectedIps);
+            require((keccak256(abi.encodePacked(val)) != keccak256(abi.encodePacked(true))), 'Address already rejected');
+            rejectedIps.push(i);
+            string memory value1 = conv.indexOfAccepted(i, acceptedIps);
+            string memory value2 = conv.indexOfPending(i, pendingIps);
                     
             if(keccak256(abi.encodePacked(value1)) != keccak256(abi.encodePacked('not found')) 
             && keccak256(abi.encodePacked(value2)) != keccak256(abi.encodePacked('not found'))){
@@ -202,6 +216,7 @@ contract IP {
               removePending(v2);      
            }
             else {
+               console.log('not found');
                result = 'not found';
            }
         }   
@@ -231,51 +246,21 @@ contract IP {
         rejectedIps.pop();
     }
     
-        function indexOfAccepted(address searchFor) private view returns (string memory) {
-    for (uint i = 0; i < acceptedIps.length; i++) {
-        if (keccak256(abi.encodePacked(acceptedIps[i])) == keccak256(abi.encodePacked(searchFor))) {
-            string memory v = conv.uintToStr(i);
-            return v;
-        }
-    }  
-        return 'not found';
-        }
-
-    function indexOfPending(address searchFor) private view returns (string memory) {
-    for (uint i = 0; i < pendingIps.length; i++) {
-        if (keccak256(abi.encodePacked(pendingIps[i])) == keccak256(abi.encodePacked(searchFor))) {
-            string memory v = conv.uintToStr(i);
-            return v;
-        }
-    }   
-        return 'not found'; // not found
-    }
-
-    function indexOfRejected(address searchFor) private view returns (string memory) {
-    for (uint256 i = 0; i < rejectedIps.length; i++) {
-        if (keccak256(abi.encodePacked(rejectedIps[i])) == keccak256(abi.encodePacked(searchFor))) {
-            string memory v = conv.uintToStr(i);
-            return v;
-        }
-    }  
-        return 'not found'; // not found
-    }
-    
     function getStatus(uint i) public view returns(Status status) {
         return property[i].status[newcount[i].count];
     }
     
-    function getAcceptIP() view public returns (address[] memory) {
+    function getAcceptIP() view public returns (uint[] memory) {
         console.log(acceptedIps.length);
         return acceptedIps;
     }
 
-    function getPendingIP() view public returns (address[] memory) {
+    function getPendingIP() view public returns (uint[] memory) {
         console.log(pendingIps.length);
         return pendingIps;
     }
 
-    function getRejectIP() view public returns (address[] memory) {
+    function getRejectIP() view public returns (uint[] memory) {
         console.log(rejectedIps.length);
         return rejectedIps;
     }
@@ -305,7 +290,6 @@ contract IP {
     function countRejectedIPs() view public returns (uint) {
         return rejectedIps.length;
     }
-
 
 
 
