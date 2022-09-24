@@ -13,6 +13,7 @@ contract IP {
     convert conv = new convert();
 
     address public owner;
+    string public result;
 
     struct Count{
        uint count;
@@ -352,11 +353,6 @@ contract IP {
     // function bidLoop(address _address) public view returns(IPowner[] memory){
     //     return bidder.bidLoop(_address);
     // }
-
-    function countBids() public view returns(uint) {
-        return bidder.countBids();
-    }
-
 
 }
 
