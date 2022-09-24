@@ -34,7 +34,7 @@ contract IP {
         string fullname;
         string country;
         string addressplace;    
-        string symbol;   
+        string allIpInfoURL;   
         uint256 timestamp;        
         Status[] status; 
         bool isRegistered;
@@ -78,14 +78,14 @@ contract IP {
         _;
     }
     
-    function setIP(address _address, string memory _IPname, string memory _fullname, string memory _country, string memory _addressplace, string memory _symbol) public {
+    function setIP(address _address, string memory _IPname, string memory _fullname, string memory _country, string memory _addressplace, string memory _allIpInfoURL) public {
         Status a = Status.Pending;
         property[ipCount].user = _address;
         property[ipCount].IPname = _IPname;
         property[ipCount].fullname = _fullname;
         property[ipCount].country = _country;
         property[ipCount].addressplace = _addressplace;
-        property[ipCount].symbol = _symbol;
+        property[ipCount].allIpInfoURL = _allIpInfoURL;
         property[ipCount].timestamp = block.timestamp;
         property[ipCount].status.push(a);
         newcount[ipCount].count = 0;
@@ -106,7 +106,7 @@ contract IP {
         string[] memory fullname = new string[](ipCount);
         string[] memory country = new string[](ipCount);
         string[] memory addressplace = new string[](ipCount);
-        string[] memory symbol = new string[](ipCount);
+        string[] memory allIpInfoURL = new string[](ipCount);
         uint256[] memory timestamp = new uint256[](ipCount);
         Status[] memory status = new Status[](ipCount);
          
@@ -119,11 +119,11 @@ contract IP {
             fullname[i] = parameter.fullname;
             country[i] = parameter.country;
             addressplace[i] = parameter.addressplace;
-            symbol[i] = parameter.symbol;
+            allIpInfoURL[i] = parameter.allIpInfoURL;
             timestamp[i] = parameter.timestamp;
             status[i] = parameter.status[num];
         }
-        return (user, IPname, fullname, country, addressplace, symbol, timestamp, status);
+        return (user, IPname, fullname, country, addressplace, allIpInfoURL, timestamp, status);
     }
    
     function changeStatus(uint i, Status val) public onlyOwner returns(bool) {
@@ -273,7 +273,7 @@ contract IP {
             u.fullname,
             u.country,
             u.addressplace, 
-            u.symbol,
+            u.allIpInfoURL,
             u.timestamp, 
             u.status[num]
             );
