@@ -77,21 +77,6 @@ contract IP {
         _;
     }
     
-    // function addIp(address _address, string memory _IPname, string memory _fullname, string memory _country, string memory _addressplace, string memory _symbol,Status a) public {
-    //     property[ipCount] = IParameter(
-    //          ipCount,
-    //         _address,
-    //         _IPname,
-    //         _fullname, 
-    //         _country, 
-    //         _addressplace, 
-    //         _symbol,
-    //         block.timestamp,
-    //         true,
-    //         a);
-    //     ipCount++;
-    // }
-
     function setIP(address _address, string memory _IPname, string memory _fullname, string memory _country, string memory _addressplace, string memory _symbol) public {
         Status a = Status.Pending;
         property[ipCount].user = _address;
@@ -104,25 +89,13 @@ contract IP {
         property[ipCount].status.push(a);
         newcount[ipCount].count = 0;
         property[ipCount].isRegistered = true;
-        // property[ipCount].status.push(a);
-        // property[ipCount] = IParameter(
-        //     //  ipCount,
-        //      _address,
-        //      _IPname,
-        //      _fullname,
-        //      _country,
-        //      _addressplace,
-        //      _symbol,
-        //      block.timestamp,
-        //      true
-        // );
+
+        pendingIps.push(property[ipCount].user);    
         ipCount++;
-        
-       // intelProperty.push(_address);
     }
 
     // function get(uint _memberId) public view returns(IParameter memory) {
-    //     return property[_memberId];
+    //     return pendingIps[_memberId];
     // }
 
     function getMember() public view returns ( address[] memory, string[] memory, string[] memory, string[] memory, string[] memory, string[] memory, uint256[] memory, Status[] memory){    
@@ -154,17 +127,15 @@ contract IP {
    
     function changeStatus(uint i, Status val) public onlyOwner returns(bool) {
         property[i].status.push(val);
-        //console.log(property[i].status[num]);
         newcount[i].count++; 
         conditionStatus(i);
         return true;
     }
      
-     function conditionStatus(uint i) public {
+    function conditionStatus(uint i) public {
         uint num = newcount[i].count;
         if(property[i].status[num] == Status.Accepted){
             acceptedIps.push(property[i].user);
-            console.log("Address added");
             string memory value1 = indexOfPending(property[i].user);
             string memory value2 = indexOfRejected(property[i].user);
                       
@@ -184,11 +155,8 @@ contract IP {
               removeRejected(v2);
             }
             else {
-               console.log('not found');
-               result = 'not found';
-           }
-            
-            //removeRejected(value2);
+                result = 'not found';
+            }
         } 
         else if(property[i].status[num] == Status.Pending){
             pendingIps.push(property[i].user);
@@ -204,15 +172,12 @@ contract IP {
            else if(keccak256(abi.encodePacked(value1)) != keccak256(abi.encodePacked('not found'))){
               uint v1 = conv.st2num(value1);
               removeAccepted(v1); 
-              console.log('momo1');
-              result = 'one'; 
-           }
+            }
            else if(keccak256(abi.encodePacked(value2)) != keccak256(abi.encodePacked('not found'))){
               uint v2 = conv.st2num(value2);
               removeRejected(v2);       
            }
             else {
-               console.log('not found');
                result = 'not found';
            }
            } else if(property[i].status[num] == Status.Rejected){
@@ -220,8 +185,8 @@ contract IP {
             string memory value1 = indexOfAccepted(property[i].user);
             string memory value2 = indexOfPending(property[i].user);
                     
-             if(keccak256(abi.encodePacked(value1)) != keccak256(abi.encodePacked('not found')) 
-           && keccak256(abi.encodePacked(value2)) != keccak256(abi.encodePacked('not found'))){
+            if(keccak256(abi.encodePacked(value1)) != keccak256(abi.encodePacked('not found')) 
+            && keccak256(abi.encodePacked(value2)) != keccak256(abi.encodePacked('not found'))){
               uint v1 = conv.st2num(value1);
               uint v2 = conv.st2num(value2);
                 removeAccepted(v1);            
@@ -236,7 +201,6 @@ contract IP {
               removePending(v2);      
            }
             else {
-               console.log('not found');
                result = 'not found';
            }
         }   
@@ -293,10 +257,8 @@ contract IP {
             return v;
         }
     }  
-     // console.log("not found");
-       return 'not found'; // not found
+        return 'not found'; // not found
     }
-    
     
     function getStatus(uint i) public view returns(Status status) {
         return property[i].status[newcount[i].count];
