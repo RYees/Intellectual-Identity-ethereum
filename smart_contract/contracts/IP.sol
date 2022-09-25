@@ -288,9 +288,10 @@ contract IP {
 
     // // ********* Nft functions ********** // //
 
-    function mintnft(address owneradd, string memory tokenURI) public {
-        //require(!intelProperty[owneradd], "Sender already stored a value.");
-        //return nft.mintIpItem(owneradd, tokenURI);
+    function mintnft(uint index, address owneradd, string memory tokenURI) external returns(uint256) {
+        bool val = conv.addressExistAccept(index, acceptedIps);
+        require((keccak256(abi.encodePacked(val)) == keccak256(abi.encodePacked(true))), 'Address not accepted');
+        return nft.mintIpItem(owneradd, tokenURI);
     }
     
     function nameOfnft() view public returns (string memory){
@@ -304,14 +305,6 @@ contract IP {
     function safeTransferFrom(address from, address to, uint256 tokenId, bytes memory data) public {
         return nft.safeTransferFrom(from, to, tokenId, data);
     }
-
-    // function block_call() public view returns (uint256){
-    //     return block.number; 
-    // }
-
-    // function Time() public view returns (uint256){
-    //     return block.timestamp; 
-    // }
 
 
 
