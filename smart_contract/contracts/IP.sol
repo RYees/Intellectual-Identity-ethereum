@@ -56,15 +56,8 @@ contract IP {
  
     constructor() {
         owner = msg.sender; 
-       //ERC721("MyNFT", "NFT") 
         ipCount = 0;
-        setIP(0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2, "egg1", "stol1", "eth1", "leb", "sym");
-        setIP(0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db, "egg2", "stol2", "eth2", "leb", "sym"); 
-        setIP(0x78731D3Ca6b7E34aC0F824c42a7cC18A495cabaB, "egg3", "stol3", "eth3", "leb", "sym");
-
-        // states[Status.Pending] = "ForSale";
-        // states[Status.Accepted] = "SellerDelisted";
-        // states[Status.Rejected] = "BuyerCancelled";
+        bidCount = 0;
     }
 
     uint[] public acceptedIps;
@@ -324,19 +317,26 @@ contract IP {
 
 
     // // ********* Bidding functions ********** // //
-    // struct IPowner = bidder.Ipowner[];
+    uint public bidCount;
+    struct IPowner {
+        string ownerIPname;
+        uint bidValue;
+        address bidderAddress;
+    }
+    mapping(address => IPowner[]) public ipowner;
 
-    function setIPbidder(address _address, string memory _ownerIPname, uint _bidvalue, address _bidderaddress) public{
-         return bidder.setIPbidder(_address, _ownerIPname, _bidvalue, _bidderaddress);
+    function setIPbidder1(address _address, string memory _ownerIPname, uint _bidvalue, address _bidderaddress) public {             
+        ipowner[_address].push(IPowner(_ownerIPname, _bidvalue, _bidderaddress));
+        bidCount++;
+    }
+     
+    function getbidderinfo(address _address) public view returns(IPowner[] memory){
+        return ipowner[_address];
     }
 
-    // function getbidderinfo(address _address, uint i) public view returns(IPowner[] memory){
-    //     return bidder.getbidderinfo(_address, i);
-    // }
-
-    // function bidLoop(address _address) public view returns(IPowner[] memory){
-    //     return bidder.bidLoop(_address);
-    // }
+    function countBids(address _address) view public returns (uint) {
+        return ipowner[_address].length;
+    }
 
 }
 
