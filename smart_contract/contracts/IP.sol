@@ -34,7 +34,7 @@ contract IP {
         string fullname;
         string country;
         string addressplace;    
-        string symbol;   
+        string allIpInfoURL;   
         uint256 timestamp;        
         Status[] status; 
         bool isRegistered;
@@ -56,15 +56,8 @@ contract IP {
  
     constructor() {
         owner = msg.sender; 
-       //ERC721("MyNFT", "NFT") 
         ipCount = 0;
-        setIP(0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2, "egg1", "stol1", "eth1", "leb", "sym");
-        setIP(0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db, "egg2", "stol2", "eth2", "leb", "sym"); 
-        setIP(0x78731D3Ca6b7E34aC0F824c42a7cC18A495cabaB, "egg3", "stol3", "eth3", "leb", "sym");
-
-        // states[Status.Pending] = "ForSale";
-        // states[Status.Accepted] = "SellerDelisted";
-        // states[Status.Rejected] = "BuyerCancelled";
+        bidCount = 0;
     }
 
     uint[] public acceptedIps;
@@ -78,14 +71,14 @@ contract IP {
         _;
     }
     
-    function setIP(address _address, string memory _IPname, string memory _fullname, string memory _country, string memory _addressplace, string memory _symbol) public {
+    function setIP(address _address, string memory _IPname, string memory _fullname, string memory _country, string memory _addressplace, string memory _allIpInfoURL) public {
         Status a = Status.Pending;
         property[ipCount].user = _address;
         property[ipCount].IPname = _IPname;
         property[ipCount].fullname = _fullname;
         property[ipCount].country = _country;
         property[ipCount].addressplace = _addressplace;
-        property[ipCount].symbol = _symbol;
+        property[ipCount].allIpInfoURL = _allIpInfoURL;
         property[ipCount].timestamp = block.timestamp;
         property[ipCount].status.push(a);
         newcount[ipCount].count = 0;
@@ -106,7 +99,7 @@ contract IP {
         string[] memory fullname = new string[](ipCount);
         string[] memory country = new string[](ipCount);
         string[] memory addressplace = new string[](ipCount);
-        string[] memory symbol = new string[](ipCount);
+        string[] memory allIpInfoURL = new string[](ipCount);
         uint256[] memory timestamp = new uint256[](ipCount);
         Status[] memory status = new Status[](ipCount);
          
@@ -119,11 +112,11 @@ contract IP {
             fullname[i] = parameter.fullname;
             country[i] = parameter.country;
             addressplace[i] = parameter.addressplace;
-            symbol[i] = parameter.symbol;
+            allIpInfoURL[i] = parameter.allIpInfoURL;
             timestamp[i] = parameter.timestamp;
             status[i] = parameter.status[num];
         }
-        return (user, IPname, fullname, country, addressplace, symbol, timestamp, status);
+        return (user, IPname, fullname, country, addressplace, allIpInfoURL, timestamp, status);
     }
    
     function changeStatus(uint i, Status val) public onlyOwner returns(bool) {
@@ -273,7 +266,7 @@ contract IP {
             u.fullname,
             u.country,
             u.addressplace, 
-            u.symbol,
+            u.allIpInfoURL,
             u.timestamp, 
             u.status[num]
             );
@@ -295,9 +288,10 @@ contract IP {
 
     // // ********* Nft functions ********** // //
 
-    function mintnft(address owneradd, string memory tokenURI) public {
-        //require(!intelProperty[owneradd], "Sender already stored a value.");
-        //return nft.mintIpItem(owneradd, tokenURI);
+    function mintnft(uint index, address owneradd, string memory tokenURI) external returns(uint256) {
+        bool val = conv.addressExistAccept(index, acceptedIps);
+        require((keccak256(abi.encodePacked(val)) == keccak256(abi.encodePacked(true))), 'Address not accepted');
+        return nft.mintIpItem(owneradd, tokenURI);
     }
     
     function nameOfnft() view public returns (string memory){
@@ -312,31 +306,30 @@ contract IP {
         return nft.safeTransferFrom(from, to, tokenId, data);
     }
 
-    // function block_call() public view returns (uint256){
-    //     return block.number; 
-    // }
-
-    // function Time() public view returns (uint256){
-    //     return block.timestamp; 
-    // }
-
 
 
 
     // // ********* Bidding functions ********** // //
-    // struct IPowner = bidder.Ipowner[];
+    uint public bidCount;
+    struct IPowner {
+        string ownerIPname; 
+        uint bidValue;
+        address bidderAddress;
+    }
+    mapping(address => IPowner[]) public ipowner;
 
-    function setIPbidder(address _address, string memory _ownerIPname, uint _bidvalue, address _bidderaddress) public{
-         return bidder.setIPbidder(_address, _ownerIPname, _bidvalue, _bidderaddress);
+    function setIPbidder1(address _address, string memory _ownerIPname, uint _bidvalue, address _bidderaddress) public {             
+        ipowner[_address].push(IPowner(_ownerIPname, _bidvalue, _bidderaddress));
+        bidCount++;
+    }
+     
+    function getbidderinfo(address _address) public view returns(IPowner[] memory){
+        return ipowner[_address];
     }
 
-    // function getbidderinfo(address _address, uint i) public view returns(IPowner[] memory){
-    //     return bidder.getbidderinfo(_address, i);
-    // }
-
-    // function bidLoop(address _address) public view returns(IPowner[] memory){
-    //     return bidder.bidLoop(_address);
-    // }
+    function countBids(address _address) view public returns (uint) {
+        return ipowner[_address].length;
+    }
 
 }
 
