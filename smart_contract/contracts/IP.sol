@@ -312,7 +312,7 @@ contract IP {
     // // ********* Bidding functions ********** // //
     uint public bidCount;
     struct IPowner {
-        string ownerIPname;
+        string ownerIPname; 
         uint bidValue;
         address bidderAddress;
     }
