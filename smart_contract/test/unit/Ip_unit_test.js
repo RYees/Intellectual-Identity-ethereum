@@ -18,10 +18,26 @@ describe('IP Unit Test', function () {
      await IP.setIP('0x5B38Da6a701c568545dCfcB03FcB875f56beddC4', 'skkns','mary joe', 'India', 'street12', 'https://skku.com');
      //await IP.setIP('0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2', 'skkns','mary joe', 'India', 'street12', 'https://skku.com');
   });
+  
+  // it('get array value', async function () {
+  //   expect((await IP.getPendingIP()).toString()).to.equal('0');
+  // });
+
+  // it('get a IP value', async function () {
+  //    expect((await IP.getIP(0)).toString()).to.equal('skkns,mary joe,India,street12,https://skku.com');
+  // });
+
+  // it('change status', async function () {
+  //   //await IP.changeStatus(0,1);
+  //   //expect(await IP.changeStatus(0,1)).to.be.true;
+  //   const expectedNumber = true;
+  //   assert.equal(IP.changeStatus(0,1), expectedNumber)  
     
-  it('get a IP value', async function () {
-     expect((await IP.getIP(0)).toString()).to.equal('skkns,mary joe,India,street12,https://skku.com');
-  });
+  // }); 
+
+  // it('check status', async function () {
+  //   expect((await IP.getStatus(0)).toNumber()).to.equal(0);
+  // }); 
   
   it('retrieve returns a pending count of previously stored', async function () {
       expect((await IP.countPendingIPs()).toNumber()).to.equal(0);

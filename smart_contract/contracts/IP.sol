@@ -244,17 +244,17 @@ contract IP {
     }
     
     function getAcceptIP() view public returns (uint[] memory) {
-        console.log(acceptedIps.length);
+        //console.log(acceptedIps.length);
         return acceptedIps;
     }
 
     function getPendingIP() view public returns (uint[] memory) {
-        console.log(pendingIps.length);
+        //console.log(pendingIps.length);
         return pendingIps;
     }
 
     function getRejectIP() view public returns (uint[] memory) {
-        console.log(rejectedIps.length);
+        //console.log(rejectedIps.length);
         return rejectedIps;
     }
 
