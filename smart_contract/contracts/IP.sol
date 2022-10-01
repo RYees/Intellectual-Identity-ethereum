@@ -258,17 +258,15 @@ contract IP {
         return rejectedIps;
     }
 
-    function getIP(uint i) public view returns (string memory, string memory, string memory, string memory, string memory, uint256, Status status) {
-        uint num = newcount[i].count;
+    function getIP(uint i) public view returns (string memory, string memory, string memory, string memory, string memory) {
+        //uint num = newcount[i].count;
         IParameter memory u = property[i];
         return (
             u.IPname, 
             u.fullname,
             u.country,
             u.addressplace, 
-            u.allIpInfoURL,
-            u.timestamp, 
-            u.status[num]
+            u.allIpInfoURL
             );
     }
 
