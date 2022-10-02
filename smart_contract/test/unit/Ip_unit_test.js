@@ -97,6 +97,7 @@ describe('Employer Unit Test', function () {
     }); 
 
 
+
     // Bidder Tesing 
 
     it('store, get and total counts of bidders of an intellectual property owner', async function () {
@@ -107,6 +108,25 @@ describe('Employer Unit Test', function () {
 
       expect((await Employer.countBids('0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2')).toString()).to.equal('1');
  
+    }); 
+
+
+
+    // Nfts testing
+
+    it('create nft for accepted intellectual property', async function () {
+
+      await Employer.changeStatus(0,1); 
+      await Employer.mintnft(0, '0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2', 'https://skku.com');
+      
+    }); 
+
+    it('get nft name, symbol and owner of an Nft intellectual property owner', async function () {
+      
+      expect((await Employer.nameOfnft()).toString()).to.equal('IpItem');
+      expect((await Employer.symbolOfnft()).toString()).to.equal('IpMt');
+      expect((await Employer.ownerOfnft(1)).toString()).to.equal('0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2');
+
     }); 
   
   
