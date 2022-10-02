@@ -22,13 +22,29 @@ describe('Employer Unit Test', function () {
 
 
     it('storing a intellectual property in the blockchain', async function () {
-      // await IP.setIP('0x5B38Da6a701c568545dCfcB03FcB875f56beddC4', 'skkns','mary joe', 'India', 'street12', 'https://skku.com');
-       await Employer.setIP('0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2', 'skkns','mary joe', 'India', 'street12', 'https://skku.com');
+      await Employer.setIP('0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2', 'skkns','mary joe', 'India', 'street12', 'https://skku.com');
+      await Employer.setIP('0x5B38Da6a701c568545dCfcB03FcB875f56beddC4', 'kkns','joe', 'Gojam', 'street912', 'https://su.com');
     });
     
-    it('store and getting pending ID values', async function () {
-      await Employer.setIP('0x5B38Da6a701c568545dCfcB03FcB875f56beddC4', 'kkns','joe', 'Gojam', 'street912', 'https://su.com');
+    // it('getting all registered intelletual property', async function () {      
+    //   expect((await Employer.getAllRegisteredIps()).toString()).to.equal('0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2,0x5B38Da6a701c568545dCfcB03FcB875f56beddC4,skkns,kkns,mary joe,joe,India,Gojam,street12,street912,https://skku.com,https://su.com,1664724609,1664724610,0,0');
+    // });
+
+
+    // it('getting all registered intelletual property', async function () {  
+    //   const getAllIps = await Employer.getAllRegisteredIps();
+    //   const expectedNumber = '0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2,0x5B38Da6a701c568545dCfcB03FcB875f56beddC4,skkns,kkns,mary joe,joe,India,Gojam,street12,street912,https://skku.com,https://su.com,1664724663,1664724664,0,0';
+
+    //   const expectedValue = [['0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2','0x5B38Da6a701c568545dCfcB03FcB875f56beddC4'],['skkns','kkns'],['mary joe','joe'],['India','Gojam'],['street12','street912'],['https://skku.com','https://su.com'],[1664724663,1664724664],[0,0]];
+
+    //   assert.equal(getAllIps.toString(), expectedNumber);   
+    // });
+
+  
+    it('store and getting pending ID values', async function () {      
       expect((await Employer.getPendingIP()).toString()).to.equal('0,1');
+      expect((await Employer.getAcceptIP()).toString()).to.equal('');
+      expect((await Employer.getRejectIP()).toString()).to.equal('');
     });
   
     it('get a single intellectual property value', async function () {
@@ -50,6 +66,13 @@ describe('Employer Unit Test', function () {
       expect((await Employer.countAcceptedIPs()).toNumber()).to.equal(1);
       expect((await Employer.countPendingIPs()).toNumber()).to.equal(1);
       expect((await Employer.countRejectedIPs()).toNumber()).to.equal(0);
+ 
+      const accept = await Employer.getAcceptIP();
+      const pend = await Employer.getPendingIP();
+      const reject = await Employer.getRejectIP();
+      assert.equal(accept.toString(), '0');
+      assert.equal(pend.toString(),'1');
+      assert.equal(reject.toString(),'');
     }); 
 
     it('retrieve returns of counts when status changed to rejected', async function () {
@@ -57,6 +80,13 @@ describe('Employer Unit Test', function () {
       expect((await Employer.countAcceptedIPs()).toNumber()).to.equal(0);
       expect((await Employer.countPendingIPs()).toNumber()).to.equal(1);
       expect((await Employer.countRejectedIPs()).toNumber()).to.equal(1);
+
+      const accept = await Employer.getAcceptIP();
+      const pend = await Employer.getPendingIP();
+      const reject = await Employer.getRejectIP();
+      assert.equal(accept.toString(), '');
+      assert.equal(pend.toString(),'1');
+      assert.equal(reject.toString(),'0');
     }); 
 
     it('retrieve returns of counts when status changed to pending', async function () {
@@ -64,7 +94,15 @@ describe('Employer Unit Test', function () {
       expect((await Employer.countAcceptedIPs()).toNumber()).to.equal(0);
       expect((await Employer.countPendingIPs()).toNumber()).to.equal(2);
       expect((await Employer.countRejectedIPs()).toNumber()).to.equal(0);
+
+      const accept = await Employer.getAcceptIP();
+      const pend = await Employer.getPendingIP();
+      const reject = await Employer.getRejectIP();
+      assert.equal(accept.toString(), '');
+      assert.equal(pend.toString(),'1,0');
+      assert.equal(reject.toString(),'');
     }); 
+  
   
   
   });
