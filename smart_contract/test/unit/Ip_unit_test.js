@@ -14,13 +14,6 @@ describe('Employer Unit Test', function () {
     //   await Employer.setIP('0x5B38Da6a701c568545dCfcB03FcB875f56beddC4', 'kkns','joe', 'Gojam', 'street912', 'https://su.com');
     // })
 
-    it('store and get bidder value', async function () {
-      await Employer.setIPbidder1('0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2', 'skkns', 1000, '0x5B38Da6a701c568545dCfcB03FcB875f56beddC4'); 
-      expect((await Employer.getbidderinfo('0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2')).toString()).to.equal('skkns,1000,0x5B38Da6a701c568545dCfcB03FcB875f56beddC4');
-    }); 
-
-
-
     it('storing a intellectual property in the blockchain', async function () {
       await Employer.setIP('0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2', 'skkns','mary joe', 'India', 'street12', 'https://skku.com');
       await Employer.setIP('0x5B38Da6a701c568545dCfcB03FcB875f56beddC4', 'kkns','joe', 'Gojam', 'street912', 'https://su.com');
@@ -102,6 +95,20 @@ describe('Employer Unit Test', function () {
       assert.equal(pend.toString(),'1,0');
       assert.equal(reject.toString(),'');
     }); 
+
+
+    // Bidder Tesing 
+
+    it('store, get and total counts of bidders of an intellectual property owner', async function () {
+
+      await Employer.setIPbidder1('0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2', 'skkns', 1000, '0x5B38Da6a701c568545dCfcB03FcB875f56beddC4'); 
+
+      expect((await Employer.getbidderinfo('0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2')).toString()).to.equal('skkns,1000,0x5B38Da6a701c568545dCfcB03FcB875f56beddC4');
+
+      expect((await Employer.countBids('0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2')).toString()).to.equal('1');
+ 
+    }); 
+  
   
   
   
