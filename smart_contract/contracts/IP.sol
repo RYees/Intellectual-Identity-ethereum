@@ -244,31 +244,29 @@ contract IP {
     }
     
     function getAcceptIP() view public returns (uint[] memory) {
-        console.log(acceptedIps.length);
+        //console.log(acceptedIps.length);
         return acceptedIps;
     }
 
     function getPendingIP() view public returns (uint[] memory) {
-        console.log(pendingIps.length);
+        //console.log(pendingIps.length);
         return pendingIps;
     }
 
     function getRejectIP() view public returns (uint[] memory) {
-        console.log(rejectedIps.length);
+        //console.log(rejectedIps.length);
         return rejectedIps;
     }
 
-    function getIP(uint i) public view returns (string memory, string memory, string memory, string memory, string memory, uint256, Status status) {
-        uint num = newcount[i].count;
+    function getIP(uint i) public view returns (string memory, string memory, string memory, string memory, string memory) {
+        //uint num = newcount[i].count;
         IParameter memory u = property[i];
         return (
             u.IPname, 
             u.fullname,
             u.country,
             u.addressplace, 
-            u.allIpInfoURL,
-            u.timestamp, 
-            u.status[num]
+            u.allIpInfoURL
             );
     }
 
