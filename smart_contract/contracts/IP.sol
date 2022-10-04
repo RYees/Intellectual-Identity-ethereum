@@ -7,9 +7,7 @@ import "./Bidder.sol";
 import {convert} from "./Convert.sol";
 
 contract IP {
-
     IpItem nft = new IpItem();
-    IPbidder bidder = new IPbidder();
     convert conv = new convert();
 
     address public owner;
@@ -42,18 +40,8 @@ contract IP {
 
     uint public ipCount;  
 
-    struct bid {
-        address bidder;
-        uint256 value;
-        mapping (address => IParameter) ipara;
-    }
-
     mapping (uint => IParameter) public property;
     
-    mapping (uint => bid) bidip;
-    //mapping(address => mapping (address => bid)) public allowance;
-    
- 
     constructor() {
         owner = msg.sender; 
         ipCount = 0;
@@ -63,8 +51,6 @@ contract IP {
     uint[] public acceptedIps;
     uint[] public pendingIps;
     uint[] public rejectedIps;
-        
-    address[] public bidProperty;
   
     modifier onlyOwner {
         require(msg.sender == owner);
@@ -92,7 +78,7 @@ contract IP {
     //     return pendingIps[_memberId];
     // }
 
-    function getMember() public view returns ( address[] memory, string[] memory, string[] memory, string[] memory, string[] memory, string[] memory, uint256[] memory, Status[] memory){    
+    function getAllRegisteredIps() public view returns ( address[] memory, string[] memory, string[] memory, string[] memory, string[] memory, string[] memory, uint256[] memory, Status[] memory){    
         //uint[] memory id = new uint[](ipCount);
         address[] memory user = new address[](ipCount);
         string[] memory IPname = new string[](ipCount);
@@ -153,8 +139,7 @@ contract IP {
               removeRejected(v2);
             }
             else {
-               console.log('not found');
-               result = 'not found';
+              result = 'not found';
            }
             
             //removeRejected(value2);
@@ -175,7 +160,6 @@ contract IP {
            else if(keccak256(abi.encodePacked(value1)) != keccak256(abi.encodePacked('not found'))){
               uint v1 = conv.st2num(value1);
               removeAccepted(v1); 
-              console.log('momo1');
               result = 'one'; 
            }
            else if(keccak256(abi.encodePacked(value2)) != keccak256(abi.encodePacked('not found'))){
@@ -183,8 +167,7 @@ contract IP {
               removeRejected(v2);       
            }
             else {
-               console.log('not found');
-               result = 'not found';
+              result = 'not found';
            }
            } else if(property[i].status[num] == Status.Rejected){
             bool val = conv.addressExistReject(i, rejectedIps);
@@ -209,8 +192,7 @@ contract IP {
               removePending(v2);      
            }
             else {
-               console.log('not found');
-               result = 'not found';
+              result = 'not found';
            }
         }   
     }    
@@ -288,12 +270,16 @@ contract IP {
 
     function mintnft(uint index, address owneradd, string memory tokenURI) external returns(uint256) {
         bool val = conv.addressExistAccept(index, acceptedIps);
-        require((keccak256(abi.encodePacked(val)) == keccak256(abi.encodePacked(true))), 'Address not accepted');
+        require((keccak256(abi.encodePacked(val)) == keccak256(abi.encodePacked(true))), 'Intellectual property not accepted');
         return nft.mintIpItem(owneradd, tokenURI);
     }
     
     function nameOfnft() view public returns (string memory){
         return nft.name();
+    }
+
+    function symbolOfnft() view public returns (string memory){
+        return nft.symbol();
     }
 
     function ownerOfnft(uint256 tokenId) view public returns (address){
@@ -328,6 +314,7 @@ contract IP {
     function countBids(address _address) view public returns (uint) {
         return ipowner[_address].length;
     }
+
 
 }
 
