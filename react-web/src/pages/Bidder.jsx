@@ -1,5 +1,6 @@
 import React,{useContext} from 'react';
 import { TransactionContext } from '../context/TransactionContext';
+import Bidregister from '../components/Bidregister.jsx';
 import '../css/App.css'
 
 const Bidder = () => {
@@ -16,6 +17,12 @@ const Bidder = () => {
 
       <div className='bg-white mb-20'>
          <p className='text-center py-20'>Connect to your wallet, to see your IP bidders'</p>
+      </div>
+
+      <div className='flex justify-between'>
+      <p className='mx-4 py-4 text-3xl cursor-pointer'>Register bid</p>
+      {/* <button className='mt-8 mx-10 bg-gray-300 py-4 cursor-pointer border-none hover:brightness-105'><FaPlus className='inline'/> Register IPs</button> */}
+      <Bidregister/>
       </div>
 
       <div className='mx-20'>
