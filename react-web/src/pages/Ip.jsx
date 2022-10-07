@@ -8,6 +8,7 @@ import { TransactionContext } from '../context/TransactionContext';
 const Ip = () => {
   const { data, getAllIps, countAccepted, accept, countRejected, reject, countPend, pend } = useContext(TransactionContext);
   useEffect(()=>{
+  //  getAllIps();
     countAccepted();
     countRejected();
     countPend();

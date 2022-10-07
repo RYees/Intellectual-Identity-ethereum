@@ -25,6 +25,7 @@ export const TransactionsProvider = ({ children }) => {
   const [accept, acceptCounts] = useState("");
   const [reject, rejectCounts] = useState("");
   const [pend, pendCounts] = useState("");
+  const [countbids, bidsCounts] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   
   const handleChange = (e, name) => {
@@ -145,11 +146,11 @@ export const TransactionsProvider = ({ children }) => {
 
         const availableIps = await transactionsContract.getAllRegisteredIps();
 
-        const structuredMembers = availableIps.map((member) => ({
-          member
-        }));
-        console.log('members info', structuredMembers);
-        getMembers(structuredMembers);
+        // const structuredMembers = availableIps.map((member) => ({
+        //   member
+        // }));
+        console.log('ALl members info', availableIps);
+        getMembers(availableIps);
       } else {
         console.log("Ethereum is not present");
       }
@@ -165,6 +166,9 @@ export const TransactionsProvider = ({ children }) => {
         const transactionsContract = createEthereumContract();
 
         const availableBidders = await transactionsContract.getbidderinfo(addres);
+        // const structuredMembers = availableBidders.map((member) => ({
+        //   member
+        // }));
         console.log('bidderss info', availableBidders[0]);
         console.log('bidderss info', availableBidders[0]['ownerIPname'] );
         console.log('bidderss info', availableBidders[0]['bidderAddress'] );
@@ -205,6 +209,15 @@ export const TransactionsProvider = ({ children }) => {
     pendCounts(val);
   };
 
+  const countbidders = async (address) => {
+    const transactionsContract = createEthereumContract();
+    const acceptCount = await transactionsContract.countBids(address);
+    let bal = acceptCount['_hex'];
+    let val = parseInt(bal)
+    console.log('accepted count info',val);
+    bidsCounts(val);
+  };
+
 
 
 
@@ -235,7 +248,9 @@ export const TransactionsProvider = ({ children }) => {
         bidformData,
         registerBidder,
         getBidders,
-        bidData
+        bidData,
+        countbidders,
+        countbids
         }}
       >
       {children}

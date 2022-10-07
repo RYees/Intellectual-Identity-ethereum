@@ -4,9 +4,10 @@ import Bidregister from '../components/Bidregister.jsx';
 import '../css/App.css'
 
 const Bidder = () => {
-  const { connectWallet, currentAccount, getBidders, bidData } = useContext(TransactionContext);
+  const { connectWallet, currentAccount, getBidders, bidData, countbidders,countbids} = useContext(TransactionContext);
   useEffect(()=>{
     getBidders(currentAccount);
+    countbidders(currentAccount);
   });
 
   function vals (valk){
@@ -30,7 +31,9 @@ const Bidder = () => {
 
       <div className='flex justify-between'>
       <p className='mx-4 py-4 text-3xl cursor-pointer'>Register bid</p>
-      {/* <button className='mt-8 mx-10 bg-gray-300 py-4 cursor-pointer border-none hover:brightness-105'><FaPlus className='inline'/> Register IPs</button> */}
+      <div>
+        <p>Total bids:{countbids}</p>
+      </div>
       <Bidregister/>
       </div>
 
@@ -52,12 +55,11 @@ const Bidder = () => {
               <td >{index}</td>
               <td >{item.ownerIPname}</td>    
               <td className='text-black'>{item.bidderAddress}</td>             
-              <td>{item.bidValue['_hex']}</td>
+              <td>{vals(item.bidValue['_hex'])}wei</td>
               <td className='text-center'><button className='bg-green-400 py-3 px-6 rounded'>Accept</button></td>
             </tr>
          ))
-         }
-         
+         }         
         </tbody>
       </table> 
      </div>
