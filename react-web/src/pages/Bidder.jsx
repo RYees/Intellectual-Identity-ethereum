@@ -1,17 +1,26 @@
-import React,{useContext} from 'react';
+import React,{useContext, useEffect} from 'react';
 import { TransactionContext } from '../context/TransactionContext';
 import Bidregister from '../components/Bidregister.jsx';
 import '../css/App.css'
 
 const Bidder = () => {
-  const { connectWallet, currentAccount } = useContext(TransactionContext);
+  const { connectWallet, currentAccount, getBidders, bidData } = useContext(TransactionContext);
+  useEffect(()=>{
+    getBidders(currentAccount);
+  });
+
+  function vals (valk){
+      const val = parseInt(valk);
+      return val;
+  }
+
   return (
     <div className='mb-96 mt-20'>
       <div className='text-center py-10'>
         <button
         onClick={connectWallet}
         className='bg-gradient-to-r from-cyan-700 via-gray-300 to-cyan-700 transition duration-150 ease-out hover:ease-in
-        p-8 rounded-3xl text-gray-900 text-white text-2xl'>
+        p-8 rounded-3xl text-gray-900 text-2xl'>
         Connect Wallet</button>
       </div>
 
@@ -26,42 +35,32 @@ const Bidder = () => {
       </div>
 
       <div className='mx-20'>
-      <table className='scrolltunnel'>
-        {/* <caption className='my-10 text-3xl'>Intellectual properties</caption> */}
+      <table className='table table-striped'>
         <thead>
-          <tr>
-            <th scope="col">Ip-name</th>
-            <th scope="col">Bidders Address</th>
-            <th scope="col">Value</th>
+          <tr className='text-black'>
+            <th className='text-black'>ID</th>
+            <th className='text-black'> Ip Name </th>
+            <th className='text-black'> Bidder Address </th>
+            <th className='text-black'> value </th>
+            <th className='text-black'> Transfer Ownership</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <th scope="row">Buzzcocks</th>
-            <td>1976</td>
-            <td>9</td>
-          </tr>
-          <tr>
-            <th scope="row">The Clash</th>
-            <td>1976</td>
-            <td>6</td>
-          </tr>
+        <tbody className='bg-gray-100'>
 
-          <tr>
-            <th scope="row">The Stranglers</th>
-            <td>1974</td>
-            <td>17</td>
-          </tr>
-
-          <tr>
-            <th scope="row">The Stranglers</th>
-            <td>1974</td>
-            <td>17</td>
-          </tr>         
+        {bidData.map((item,index) => ( 
+            <tr key={index}>
+              <td >{index}</td>
+              <td >{item.ownerIPname}</td>    
+              <td className='text-black'>{item.bidderAddress}</td>             
+              <td>{item.bidValue['_hex']}</td>
+              <td className='text-center'><button className='bg-green-400 py-3 px-6 rounded'>Accept</button></td>
+            </tr>
+         ))
+         }
+         
         </tbody>
-       </table>
-      </div>
-
+      </table> 
+     </div>
     </div>
   )
 }

@@ -21,6 +21,7 @@ export const TransactionsProvider = ({ children }) => {
   const [bidformData, setbidformData] = useState({ address:"", ownerIPname: "", bidvalue: "", bidderaddress: ""});
   const [currentAccount, setCurrentAccount] = useState("");
   const [data, getMembers] = useState([]);
+  const [bidData, getbidders] = useState([]);
   const [accept, acceptCounts] = useState("");
   const [reject, rejectCounts] = useState("");
   const [pend, pendCounts] = useState("");
@@ -30,7 +31,7 @@ export const TransactionsProvider = ({ children }) => {
     setformData((prevState) => ({ ...prevState, [name]: e.target.value }));
   };
   
-  const bidhandleChange = (e, name) => {
+  const handleChanges = (e, name) => {
     setbidformData((prevState) => ({ ...prevState, [name]: e.target.value }));
   };
 
@@ -110,7 +111,8 @@ export const TransactionsProvider = ({ children }) => {
     }
   };
 
-  const registerBidder= async () => {console.log('success')
+  const registerBidder= async () => {
+    console.log('success')
     try {  
       if (ethereum) {
         const { address, ownerIPname, bidvalue, bidderaddress } = bidformData;
@@ -155,6 +157,25 @@ export const TransactionsProvider = ({ children }) => {
       console.log('ok',error);
       return alert('Connect to your metamask account!');
     }
+  };
+
+  const getBidders = async (addres) => {
+    try {
+      if (ethereum) {
+        const transactionsContract = createEthereumContract();
+
+        const availableBidders = await transactionsContract.getbidderinfo(addres);
+        console.log('bidderss info', availableBidders[0]);
+        console.log('bidderss info', availableBidders[0]['ownerIPname'] );
+        console.log('bidderss info', availableBidders[0]['bidderAddress'] );
+        console.log('bidderss info', availableBidders[0]['bidValue']['_hex']);
+        getbidders(availableBidders);
+      } else { 
+        console.log("Ethereum is not present");
+      }
+    } catch (error) {
+      console.log(error);
+    }  
   };
 
   const countAccepted = async () => {
@@ -210,9 +231,11 @@ export const TransactionsProvider = ({ children }) => {
         reject,
         countPend,
         pend,
-        bidhandleChange,
+        handleChanges,
         bidformData,
-        registerBidder
+        registerBidder,
+        getBidders,
+        bidData
         }}
       >
       {children}
