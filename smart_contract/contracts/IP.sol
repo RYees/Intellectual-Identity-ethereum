@@ -74,52 +74,27 @@ contract IP {
         ipCount++;
     }
 
-    // function get(uint _memberId) public view returns(IParameter memory) {
-    //     return pendingIps[_memberId];
-    // }
-
-    function getAllRegisteredIps() public view returns ( address[] memory, string[] memory, string[] memory, string[] memory, string[] memory, string[] memory, uint256[] memory, Status[] memory){    
-        //uint[] memory id = new uint[](ipCount);
-        address[] memory user = new address[](ipCount);
-        string[] memory IPname = new string[](ipCount);
-        string[] memory fullname = new string[](ipCount);
-        string[] memory country = new string[](ipCount);
-        string[] memory addressplace = new string[](ipCount);
-        string[] memory allIpInfoURL = new string[](ipCount);
-        uint256[] memory timestamp = new uint256[](ipCount);
-        Status[] memory status = new Status[](ipCount);
-         
+    function AllIps() public view returns (IParameter[] memory){
+        IParameter[] memory rec = new IParameter[](ipCount);
         for (uint i = 0; i < ipCount; i++) {
-            uint num = newcount[i].count;
-            IParameter storage parameter = property[i];
-            //id[i] = parameter.id;
-            user[i] = parameter.user;
-            IPname[i] = parameter.IPname;
-            fullname[i] = parameter.fullname;
-            country[i] = parameter.country;
-            addressplace[i] = parameter.addressplace;
-            allIpInfoURL[i] = parameter.allIpInfoURL;
-            timestamp[i] = parameter.timestamp;
-            status[i] = parameter.status[num];
+            rec[i] =  property[i];
         }
-        return (user, IPname, fullname, country, addressplace, allIpInfoURL, timestamp, status);
+        return rec;
     }
-   
+     
     function changeStatus(uint i, Status val) public onlyOwner returns(bool) {
         property[i].status.push(val);
-        //console.log(property[i].status[num]);
         newcount[i].count++; 
         conditionStatus(i);
         return true;
     }
      
-     function conditionStatus(uint i) public {
+    function conditionStatus(uint i) public {
         uint num = newcount[i].count;
         if(property[i].status[num] == Status.Accepted){
             bool val = conv.addressExistAccept(i, acceptedIps);
             require((keccak256(abi.encodePacked(val)) != keccak256(abi.encodePacked(true))), 'Address already accepted');
             acceptedIps.push(i);
-            // console.log("Address added");
             string memory value1 = conv.indexOfPending(i, pendingIps);
             string memory value2 = conv.indexOfRejected(i, rejectedIps);
                       
@@ -141,8 +116,6 @@ contract IP {
             else {
               result = 'not found';
            }
-            
-            //removeRejected(value2);
         } 
         else if(property[i].status[num] == Status.Pending){
             bool val = conv.addressExistPend(i, pendingIps);
@@ -224,24 +197,8 @@ contract IP {
     function getStatus(uint i) public view returns(Status status) {
         return property[i].status[newcount[i].count];
     }
-    
-    function getAcceptIP() view public returns (uint[] memory) {
-        //console.log(acceptedIps.length);
-        return acceptedIps;
-    }
-
-    function getPendingIP() view public returns (uint[] memory) {
-        //console.log(pendingIps.length);
-        return pendingIps;
-    }
-
-    function getRejectIP() view public returns (uint[] memory) {
-        //console.log(rejectedIps.length);
-        return rejectedIps;
-    }
 
     function getIP(uint i) public view returns (string memory, string memory, string memory, string memory, string memory) {
-        //uint num = newcount[i].count;
         IParameter memory u = property[i];
         return (
             u.IPname, 
