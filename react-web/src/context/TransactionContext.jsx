@@ -18,12 +18,22 @@ const createEthereumContract = () => {
 
 export const TransactionsProvider = ({ children }) => {
   const [formData, setformData] = useState({ user:"", IPname: "", fullname: "", country: "", addressplace: "", symbol: "" });
+  const [bidformData, setbidformData] = useState({ address:"", ownerIPname: "", bidvalue: "", bidderaddress: ""});
   const [currentAccount, setCurrentAccount] = useState("");
   const [data, getMembers] = useState([]);
+  const [bidData, getbidders] = useState([]);
+  const [accept, acceptCounts] = useState("");
+  const [reject, rejectCounts] = useState("");
+  const [pend, pendCounts] = useState("");
+  const [countbids, bidsCounts] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   
   const handleChange = (e, name) => {
     setformData((prevState) => ({ ...prevState, [name]: e.target.value }));
+  };
+  
+  const handleChanges = (e, name) => {
+    setbidformData((prevState) => ({ ...prevState, [name]: e.target.value }));
   };
 
   const checkIfWalletIsConnect = async () => {
@@ -102,18 +112,45 @@ export const TransactionsProvider = ({ children }) => {
     }
   };
 
+  const registerBidder= async () => {
+    console.log('success')
+    try {  
+      if (ethereum) {
+        const { address, ownerIPname, bidvalue, bidderaddress } = bidformData;
+        const transactionsContract = createEthereumContract();
+        
+        const transactionHash = await transactionsContract.setIPbidder1(address, ownerIPname, bidvalue, bidderaddress);
+
+        setIsLoading(true);
+        console.log(`Loading - ${transactionHash.hash}`);
+        await transactionHash.wait();
+        console.log(`Success - ${transactionHash.hash}`);
+        setIsLoading(false);
+
+         window.location.reload();
+        console.log('success')
+      } else {
+        console.log("No ethereum object now");
+      }
+    } catch (error) {
+      console.log(error);
+      throw new Error("No ethereum object");
+    }
+  };
+
+
   const getAllIps = async () => {
     try {
       if (ethereum) {
         const transactionsContract = createEthereumContract();
 
-        const availableIps = await transactionsContract.getMember();
+        const availableIps = await transactionsContract.getAllRegisteredIps();
 
-        const structuredMembers = availableIps.map((member) => ({
-          member
-        }));
-        console.log('memebers info', structuredMembers);
-        getMembers(structuredMembers);
+        // const structuredMembers = availableIps.map((member) => ({
+        //   member
+        // }));
+        console.log('ALl members info', availableIps);
+        getMembers(availableIps);
       } else {
         console.log("Ethereum is not present");
       }
@@ -123,10 +160,71 @@ export const TransactionsProvider = ({ children }) => {
     }
   };
 
+  const getBidders = async (addres) => {
+    try {
+      if (ethereum) {
+        const transactionsContract = createEthereumContract();
+
+        const availableBidders = await transactionsContract.getbidderinfo(addres);
+        // const structuredMembers = availableBidders.map((member) => ({
+        //   member
+        // }));
+        console.log('bidderss info', availableBidders[0]);
+        console.log('bidderss info', availableBidders[0]['ownerIPname'] );
+        console.log('bidderss info', availableBidders[0]['bidderAddress'] );
+        console.log('bidderss info', availableBidders[0]['bidValue']['_hex']);
+        getbidders(availableBidders);
+      } else { 
+        console.log("Ethereum is not present");
+      }
+    } catch (error) {
+      console.log(error);
+    }  
+  };
+
+  const countAccepted = async () => {
+    const transactionsContract = createEthereumContract();
+    const acceptCount = await transactionsContract.countAcceptedIPs();
+    let bal = acceptCount['_hex'];
+    let val = parseInt(bal)
+    console.log('accepted count info',val);
+    acceptCounts(val);
+  };
+
+  const countRejected = async () => {
+    const transactionsContract = createEthereumContract();
+    const rejectCount = await transactionsContract.countRejectedIPs();
+    let bal = rejectCount['_hex'];
+    let val = parseInt(bal)
+    console.log('accepted count info',val);
+    rejectCounts(val);
+  };
+
+  const countPend = async () => {
+    const transactionsContract = createEthereumContract();
+    const pendCount = await transactionsContract.countPendingIPs();
+    let bal = pendCount['_hex'];
+    let val = parseInt(bal)
+    console.log('accepted count info',val);
+    pendCounts(val);
+  };
+
+  const countbidders = async (address) => {
+    const transactionsContract = createEthereumContract();
+    const acceptCount = await transactionsContract.countBids(address);
+    let bal = acceptCount['_hex'];
+    let val = parseInt(bal)
+    console.log('accepted count info',val);
+    bidsCounts(val);
+  };
+
+
+
+
   useEffect(() => {
     checkIfWalletIsConnect();
     checkIfTransactionsExists();
-    getAllIps();
+    //getAllIps();
     // handleWalletBalance()
   }, []);
 
@@ -139,7 +237,20 @@ export const TransactionsProvider = ({ children }) => {
         registerIP,
         formData,
         data,
-        getAllIps
+        getAllIps,
+        countAccepted,
+        accept,
+        countRejected,
+        reject,
+        countPend,
+        pend,
+        handleChanges,
+        bidformData,
+        registerBidder,
+        getBidders,
+        bidData,
+        countbidders,
+        countbids
         }}
       >
       {children}
