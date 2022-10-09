@@ -74,14 +74,15 @@ const Ip = () => {
     {/* <button onClick={getAllIps}>click</button> */}
     <table className='table table-striped'>
         <thead>
-          <tr className='text-black'>
-            <th className='text-black'>ID</th>
-            <th className='text-black'> Ip Name </th>
-            <th className='text-black'> Full Name</th>
-            <th className='text-black'> Country Name</th>
-            <th className='text-black'> Address</th>
-            <th className='text-black'> Status</th>
-            <th className='text-black'> Date</th>
+          <tr className=''>
+            <th className=''>ID</th>
+            <th className=''> Ip Name </th>
+            <th className=''> Full Name</th>
+            <th className=''> Country Name</th>
+            <th className=''> Address</th>
+            <th className=''> Status</th>
+            <th className=''> Date</th>
+            <th className=''></th>
           </tr>
         </thead>
         <tbody className='bg-gray-100'>
@@ -95,6 +96,7 @@ const Ip = () => {
               <td className='text-black'>{item.addressplace}</td>  
               <td className='text-black'>{item.status[item.status.length-1]}</td>     
               <td>{vals(item.timestamp['_hex'])}</td>
+              <td className='text-center'><button className="bg-black py-3 px-6 rounded text-white">bid</button></td>
               </tr>
          ))
          }         

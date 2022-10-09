@@ -1,6 +1,5 @@
 import React,{useContext, useEffect} from 'react';
 import { TransactionContext } from '../context/TransactionContext';
-import Bidregister from '../components/Bidregister.jsx';
 import '../css/App.css'
 
 const Bidder = () => {
@@ -34,7 +33,6 @@ const Bidder = () => {
       <div>
         <p>Total bids:{countbids}</p>
       </div>
-      <Bidregister/>
       </div>
 
       <div className='mx-20'>

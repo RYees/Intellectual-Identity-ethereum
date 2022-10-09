@@ -10,12 +10,12 @@ const Header = () => {
       <div> <img src={logo} alt="home-image" className='h-14 rounded-full'/></div>
       <nav className=''>
         <ul className='flex justify-between gap-16 mt-3 text-xl font-serif'>
-          <li className=''>
+          {/* <li className=''>
             <Link className='hover:text-black' to="/">Home</Link>
-          </li>
+          </li> */}
 
           <li>
-            <Link className='hover:text-black' to="/ips">Ips</Link>
+            <Link className='hover:text-black' to="/">Ips</Link>
           </li>
 
           <li>

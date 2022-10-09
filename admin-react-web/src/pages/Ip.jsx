@@ -1,7 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { FaHourglass} from "react-icons/fa";
-import Register from '../components/Ipregister.jsx';
-import Getips from '../components/Getips.jsx';
+// import Getips from '../components/Getips.jsx';
 import '../css/App.css';
 import { TransactionContext } from '../context/TransactionContext';
 
@@ -32,8 +31,6 @@ const Ip = () => {
     <div className='mb-96 mt-20'>
       <div className='flex justify-between'>
       <p className='mx-4 py-4 text-3xl cursor-pointer'>Intellectual Properties</p>
-      {/* <button className='mt-8 mx-10 bg-gray-300 py-4 cursor-pointer border-none hover:brightness-105'><FaPlus className='inline'/> Register IPs</button> */}
-      <Register/>
       </div>
 
       <div className='flex gap-14 mx-5 mb-10 my-5'>
@@ -50,38 +47,21 @@ const Ip = () => {
         <h3 className=" flex justify-between text-sm"> Total Rejects <FaHourglass className="text-cyan-700 text-3xl"/></h3>
          <br></br><span className='text-bold text-black text-4xl'>{reject}</span></div>
       </div>
-
-      {/* <div className='mb-10 mt-20'>
-        <input type="text" placeholder='Search...' className="alinput px-3 py-3 rounded-full"/>
-        <FaSearch size={40}/>
-      </div> */}
     <div>
-      {/* <div>
-      {Object.keys(data).map((key) => {
-         return (
-           <div className="flex" key={key}>
-              <h1 className="flex">{key}</h1>
-              {data[key]['member'].map((dataItem) => {
-                return (
-                 <span key={dataItem.id}>{dataItem}</span>
-                )
-               })}
-           </div>
-         )
-       })}
-     </div>
-    */}
+      
     {/* <button onClick={getAllIps}>click</button> */}
-    <table className='table table-striped'>
+    <table className='table table-striped mx-8 mt-24 shadow-lg'>
         <thead>
-          <tr className='text-black'>
-            <th className='text-black'>ID</th>
-            <th className='text-black'> Ip Name </th>
-            <th className='text-black'> Full Name</th>
-            <th className='text-black'> Country Name</th>
-            <th className='text-black'> Address</th>
-            <th className='text-black'> Status</th>
-            <th className='text-black'> Date</th>
+          <tr className=''>
+            <th className=''>ID</th>
+            <th className=''> Ip Name </th>
+            <th className=''> Full Name</th>
+            <th className=''> Country Name</th>
+            <th className=''> Address</th>
+            <th className=''> Metadata</th>
+            <th className=''> Status</th>
+            <th className=''> Date</th>
+            <th className=''> </th>
           </tr>
         </thead>
         <tbody className='bg-gray-100'>
@@ -93,8 +73,10 @@ const Ip = () => {
               <td className='text-black'>{item.fullname}</td>  
               <td className='text-black'>{item.country}</td>  
               <td className='text-black'>{item.addressplace}</td>  
-              <td className='text-black'>{item.status[item.status.length-1]}</td>     
+              <td className='text-black'>{item.allIpInfoURL}</td>  
+              <td className='text-black'>{item.status[item.status.length-1]}</td>
               <td>{vals(item.timestamp['_hex'])}</td>
+              <td className='text-center'><button className="bg-blue-500 py-3 px-6 rounded text-white hover:brightness-110">change-status</button></td>
               </tr>
          ))
          }         
@@ -112,7 +94,7 @@ const Ip = () => {
         </ul>
       </div>
       */}
-        <Getips/>
+        {/* <Getips/> */}
     </div>
   </div>
   </>

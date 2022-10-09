@@ -8,7 +8,6 @@ import img1 from "../assets/regular.jpg";
 import img2 from "../assets/miladfak.jpg";
 import img3 from "../assets/guyeth.jpg";
 import img4 from "../assets/nenad.jpg";
-import Contact from "../pages/Contact.jsx";
 
 import '../css/App.css';
 
@@ -82,7 +81,6 @@ const Home = () => {
     </div>
     
     <div  className='bg-gray-100'>
-     <Contact/>   
     </div>
   </>
   )

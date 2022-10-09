@@ -15,8 +15,8 @@ function App() {
       <>
         <Header className=''/>
         <Routes>
-            <Route path='/' element={<Home />} />
-            <Route path='/ips' element={<Ip />} />
+            {/* <Route path='/home' element={<Home />} /> */}
+            <Route path='/' element={<Ip />} />
             <Route path='/bidders' element={<Bidder />} />
             <Route path='/table' element={<Tablen/>} />
             <Route path='/tab' element={<ReactTable/>} />
