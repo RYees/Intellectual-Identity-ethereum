@@ -19,6 +19,7 @@ const createEthereumContract = () => {
 export const TransactionsProvider = ({ children }) => {
   const [formData, setformData] = useState({ user:"", IPname: "", fullname: "", country: "", addressplace: "", symbol: "" });
   const [bidformData, setbidformData] = useState({ address:"", ownerIPname: "", bidvalue: "", bidderaddress: ""});
+  const [statusformData, setstatusformData] = useState({ id:"", val: ""});
   const [currentAccount, setCurrentAccount] = useState("");
   const [datas, getMembers] = useState([]);
   const [bidData, getbidders] = useState([]);
@@ -34,6 +35,10 @@ export const TransactionsProvider = ({ children }) => {
   
   const handleChanges = (e, name) => {
     setbidformData((prevState) => ({ ...prevState, [name]: e.target.value }));
+  };
+
+  const statusChange = (e, name) => {
+    setstatusformData((prevState) => ({ ...prevState, [name]: e.target.value }));
   };
 
   const checkIfWalletIsConnect = async () => {
@@ -138,6 +143,29 @@ export const TransactionsProvider = ({ children }) => {
     }
   };
 
+  const changeStatus = async (id,val) => {
+    // console.log('success')
+    try {  
+      if (ethereum) {
+        // const { id, val } = statusformData;
+        const transactionsContract = createEthereumContract();        
+        const transactionHash = await transactionsContract.changeStatus(id,val);
+        setIsLoading(true);
+        console.log(`Loading - ${transactionHash.hash}`);
+        await transactionHash.wait();
+        console.log(`Success - ${transactionHash.hash}`);
+        setIsLoading(false);
+
+         window.location.reload();
+        console.log('success')
+      } else {
+        console.log("No ethereum object now");
+      }
+    } catch (error) {
+      console.log(error);
+      throw new Error("No ethereum object");
+    }
+  };
 
   const getAllIps = async () => {
     try {
@@ -250,7 +278,10 @@ export const TransactionsProvider = ({ children }) => {
         getBidders,
         bidData,
         countbidders,
-        countbids
+        countbids,
+        changeStatus,
+        statusformData,
+        statusChange
         }}
       >
       {children}

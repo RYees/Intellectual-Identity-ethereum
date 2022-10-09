@@ -234,7 +234,7 @@
 table {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
-  width: 100%;
+  width: 95%;
 }
 
 table td, table th {
@@ -242,7 +242,8 @@ table td, table th {
   padding: 8px;
 }
 
-table tr:nth-child(even){background-color: #f2f2f2;}
+table tr:nth-child(odd){background-color: #ffffff;}
+table tr:nth-child(even){background-color: #bebbbb3d;}
 
 table tr:hover {background-color: #ddd;}
 
@@ -250,11 +251,8 @@ table th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: center;
-  /* background-color: #037777; */
-  /* #E0FFFF	
-#00FFFF	rgb(0,255,255)
-#00FFFF */
   color: white;
+  background-color: #035269;
 }
 
 /* Responsive */

@@ -3,9 +3,10 @@ import { FaHourglass} from "react-icons/fa";
 // import Getips from '../components/Getips.jsx';
 import '../css/App.css';
 import { TransactionContext } from '../context/TransactionContext';
+import ChangeStatus from '../components/ChangeStatus.jsx';
 
 const Ip = () => {
-  const { datas, getAllIps, countAccepted, accept, countRejected, reject, countPend, pend } = useContext(TransactionContext);
+  const { datas, getAllIps,changeStatus, countAccepted, accept, countRejected, reject, countPend, pend } = useContext(TransactionContext);
   useEffect(()=>{
     getAllIps();
     countAccepted();
@@ -23,9 +24,20 @@ const Ip = () => {
     let date = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(currentTimestamp)
     let time =  date.split(' ')[1];
     return date;
-   // console.log('timt',time)
-  //  const [hour, minute, second] = time.split(':');        
-}
+    // console.log('timt',time)
+    //  const [hour, minute, second] = time.split(':');        
+  }
+
+  function status (statusNumber) {
+     if(statusNumber === 0){
+      return <div className="font-semibold">Pending</div>;
+     } else if (statusNumber === 1){
+      return <div className="text-green-800 font-semibold">Accepted</div>;
+     } else if (statusNumber === 2){
+      return <div className="text-red-800 font-semibold">Rejected</div>;
+     }
+  }
+
   return (
     <>
     <div className='mb-96 mt-20'>
@@ -74,9 +86,9 @@ const Ip = () => {
               <td className='text-black'>{item.country}</td>  
               <td className='text-black'>{item.addressplace}</td>  
               <td className='text-black'>{item.allIpInfoURL}</td>  
-              <td className='text-black'>{item.status[item.status.length-1]}</td>
+              <td className='text-black'>{status(item.status[item.status.length-1])}</td>
               <td>{vals(item.timestamp['_hex'])}</td>
-              <td className='text-center'><button className="bg-blue-500 py-3 px-6 rounded text-white hover:brightness-110">change-status</button></td>
+              <td className='text-center'><ChangeStatus/></td>
               </tr>
          ))
          }         
@@ -84,16 +96,6 @@ const Ip = () => {
       </table> 
     </div>
     <div className='flex'>    
-      {/* <div className='bg-cyan-900 opacity-75 text-white shadow-lg w-48 h-60 px-2'>
-      <h2 className='text-2xl'>Search By</h2>
-        <ul className='my-5'>
-          <li><FaCheck className='inline'/> IP-name</li>
-          <li><FaCheck className='inline'/> Location</li>
-          <li><FaCheck className='inline'/> Year</li>
-          <li></li>
-        </ul>
-      </div>
-      */}
         {/* <Getips/> */}
     </div>
   </div>
