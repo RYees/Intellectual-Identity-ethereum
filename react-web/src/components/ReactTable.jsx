@@ -1,24 +1,29 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useContext, useState, useEffect, useMemo } from "react";
 import { FaCheck } from "react-icons/fa";
 import { useGlobalFilter, useSortBy, useTable } from "react-table";
 import '../css/App.css';
 import axios from "axios";
 import GlobalFilter  from "./GlobalFilter.jsx";
+import { TransactionContext } from '../context/TransactionContext';
 
 const ReactTable = () => {
+  const { datas, getAllIps} = useContext(TransactionContext);
+
   const[products, setProducts] = useState([]);
-  const fetchProducts = async () => {
-    const response = await axios.get("https://fakestoreapi.com/products")
-    .catch(err => console.log(err));
-    if(response) {
-      const products = response.data;
-      console.log("Products:", products);
-      setProducts(products);
-    }
-  };
+  setProducts(datas);
+  // const fetchProducts = async () => {
+  //   const response = await axios.get("https://fakestoreapi.com/products")
+  //   .catch(err => console.log(err));
+  //   if(response) {
+  //     const products = response.data;
+  //     console.log("Products:", products);
+  //     setProducts(products);
+  //   }
+  // };
 
   useEffect(() => {
-    fetchProducts();
+    //fetchProducts();
+    //getAllIps();
   }, []);
   
   const data = useMemo(() => 
@@ -77,15 +82,15 @@ const ReactTable = () => {
   const columns = useMemo(() => ([
     {
       Header: "Id",
-      accessor: "id"
+      accessor: "fullname"
     },
     {
-      Header: "Price",
-      accessor: "price"
+      Header: "Country",
+      accessor: "country"
     },
     {
-      Header: "Title",
-      accessor: "title"
+      Header: "Address",
+      accessor: "addressplace"
     }
   ]));
 
@@ -95,18 +100,18 @@ const ReactTable = () => {
     () =>
       products[0]
         ? Object.keys(products[0])
-            .filter((key) => key !== "rating")
-            .map((key) => {
-              if (key === "image")
-                return {
-                  Header: key,
-                  accessor: key,
-                  Cell: ({ value }) => <img src={value} />,
-                  maxWidth: 30,
-                };
+            .filter((key) => key !== "IPname")
+            // .map((key) => {
+            //   if (key === "image")
+            //     return {
+            //       Header: key,
+            //       accessor: key,
+            //       Cell: ({ value }) => <img src={value} />,
+            //       maxWidth: 30,
+            //     };
 
-              return { Header: key, accessor: key };
-            })
+            //   return { Header: key, accessor: key };
+            // })
         : [],
     [products]
   );
@@ -118,7 +123,7 @@ const ReactTable = () => {
         id: "Edit",
         Header: "Edit",
         Cell: ({ row }) => (
-          <button onClick={() => alert("Editing: " + row.values.price)}>
+          <button onClick={() => alert("Editing: " + row.values.country)}>
             Edit
           </button>
         ),

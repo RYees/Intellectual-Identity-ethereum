@@ -6,14 +6,27 @@ import '../css/App.css';
 import { TransactionContext } from '../context/TransactionContext';
 
 const Ip = () => {
-  const { data, getAllIps, countAccepted, accept, countRejected, reject, countPend, pend } = useContext(TransactionContext);
+  const { datas, getAllIps, countAccepted, accept, countRejected, reject, countPend, pend } = useContext(TransactionContext);
   useEffect(()=>{
-  //  getAllIps();
+    getAllIps();
     countAccepted();
     countRejected();
     countPend();
   });
-  
+  function vals (valk){
+    const val = parseInt(valk);
+    let result = epochTohumanReadble(val)
+    return result;
+  }
+  const epochTohumanReadble = (timestamp) => {        
+    let epoch = timestamp;
+    let currentTimestamp = epoch;
+    let date = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(currentTimestamp)
+    let time =  date.split(' ')[1];
+    return date;
+   // console.log('timt',time)
+  //  const [hour, minute, second] = time.split(':');        
+}
   return (
     <>
     <div className='mb-96 mt-20'>
@@ -58,30 +71,33 @@ const Ip = () => {
        })}
      </div>
     */}
-    <button onClick={getAllIps}>click</button>
+    {/* <button onClick={getAllIps}>click</button> */}
     <table className='table table-striped'>
         <thead>
-          <tr className='text-white'>
-            <th>ID</th>
-            <th> Employee Public Key </th>
-            <th> Detail </th>
+          <tr className='text-black'>
+            <th className='text-black'>ID</th>
+            <th className='text-black'> Ip Name </th>
+            <th className='text-black'> Full Name</th>
+            <th className='text-black'> Country Name</th>
+            <th className='text-black'> Address</th>
+            <th className='text-black'> Status</th>
+            <th className='text-black'> Date</th>
           </tr>
         </thead>
         <tbody className='bg-gray-100'>
 
-         {data.map((item,index) => ( 
+        {datas.map((item,index) => ( 
             <tr key={index}>
-              <td className="">{index}</td>
-              {/* <td>{item}</td>  */}
-              {data[index]['member'].map((i) => {
-                return (<td>{i}</td>)
-              })}
-                           
-      
-            </tr>
+              <td >{index}</td>
+              <td >{item.IPname}</td>    
+              <td className='text-black'>{item.fullname}</td>  
+              <td className='text-black'>{item.country}</td>  
+              <td className='text-black'>{item.addressplace}</td>  
+              <td className='text-black'>{item.status[item.status.length-1]}</td>     
+              <td>{vals(item.timestamp['_hex'])}</td>
+              </tr>
          ))
-         }
-         
+         }         
         </tbody>
       </table> 
     </div>

@@ -20,7 +20,7 @@ export const TransactionsProvider = ({ children }) => {
   const [formData, setformData] = useState({ user:"", IPname: "", fullname: "", country: "", addressplace: "", symbol: "" });
   const [bidformData, setbidformData] = useState({ address:"", ownerIPname: "", bidvalue: "", bidderaddress: ""});
   const [currentAccount, setCurrentAccount] = useState("");
-  const [data, getMembers] = useState([]);
+  const [datas, getMembers] = useState([]);
   const [bidData, getbidders] = useState([]);
   const [accept, acceptCounts] = useState("");
   const [reject, rejectCounts] = useState("");
@@ -144,12 +144,12 @@ export const TransactionsProvider = ({ children }) => {
       if (ethereum) {
         const transactionsContract = createEthereumContract();
 
-        const availableIps = await transactionsContract.getAllRegisteredIps();
+        const availableIps = await transactionsContract.AllIps();
 
         // const structuredMembers = availableIps.map((member) => ({
         //   member
         // }));
-        console.log('ALl members info', availableIps);
+        console.log('ALl members info', availableIps[0].status.length);
         getMembers(availableIps);
       } else {
         console.log("Ethereum is not present");
@@ -236,7 +236,7 @@ export const TransactionsProvider = ({ children }) => {
         handleChange, 
         registerIP,
         formData,
-        data,
+        datas,
         getAllIps,
         countAccepted,
         accept,
