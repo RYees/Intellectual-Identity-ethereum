@@ -1,11 +1,11 @@
 // import { useState } from 'react';
 import { Route, Routes} from 'react-router-dom';
-import Home from './pages/Home.jsx';
-import Ip from './pages/Ip.jsx';
-import Bidder from './pages/Bidder.jsx';
+//import Home from './pages/Home.jsx';
+import Ip from './pages/IP/Ip.jsx';
+import Bidder from './pages/Bidder/Bidder.jsx';
 // import Contact from './pages/Contact.jsx';
-import Header from './components/Header.jsx';
-import Footer from './components/Footer.jsx';
+import Header from './components/Header/Header.jsx';
+import Footer from './components/Footer/Footer.jsx';
 import Tablen from './components/Tablen.jsx';
 import ReactTable from './components/ReactTable.jsx';
 

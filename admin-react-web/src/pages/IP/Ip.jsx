@@ -1,9 +1,9 @@
 import React, { useState, useContext, useEffect } from "react";
 import { FaHourglass} from "react-icons/fa";
 // import Getips from '../components/Getips.jsx';
-import '../css/App.css';
-import { TransactionContext } from '../context/TransactionContext';
-import ChangeStatus from '../components/ChangeStatus.jsx';
+import '../../css/App.css';
+import { TransactionContext } from '../../context/TransactionContext';
+import ChangeStatus from '../../components/ChangeStatus/ChangeStatus.jsx';
 
 const Ip = () => {
   const { datas, getAllIps,changeStatus, countAccepted, accept, countRejected, reject, countPend, pend } = useContext(TransactionContext);
