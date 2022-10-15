@@ -16,7 +16,6 @@ describe("Header", ()=>{
     beforeAll(() => {
         console.log("Testing started");
     });
-
  
     afterAll(() => {
         console.log("Testing completed");
@@ -28,24 +27,20 @@ describe("Header", ()=>{
     expect(headingElement).toBeInTheDocument();
     });
 
-    it('should pass', () => {
+    it('should pass router path ips', () => {
+        render(<TestHeader/>);
         const history = createMemoryHistory({ initialEntries: ['/'] });
-        // const { getByText } = render(
-        //   <Router history={history}>
-        //     <ButtonLogin />
-        //   </Router>
-        // );
-        // expect(history.location.pathname).toBe('/home');
-        fireEvent.click(getByText('Ips'));
+        const linkElement = screen.getByText(/Ips/i);
+        fireEvent.click(linkElement);
         expect(history.location.pathname).toBe('/');
-      });
-    // it('renders app heading by the header tag found in the Header component with name of the heading that is `My Header` ', () => {
-    //     render(<Header title="My Header"/>);
-    //     // we made the change below is because there are two headings in the Header component and since getByRole only work for returning one element we specify a single heading declaration so that it cna only found one match where the title is now 'My Header'
-    //     const headingElement = screen.getByRole("heading", {name: 'My Header'});
-    //     expect(headingElement).toBeInTheDocument();
-    // });
+    });
 
+    it('should pass router path bidders', () => {
+        render(<TestHeader/>);
+        const history = createMemoryHistory({ initialEntries: ['/bidders'] });
+        const linkElement = screen.getByText(/Bidders/i);
+        fireEvent.click(linkElement);
+        expect(history.location.pathname).toBe('/bidders');
+    });
 
-   
 });
