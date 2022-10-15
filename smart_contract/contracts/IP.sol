@@ -209,6 +209,19 @@ contract IP {
             );
     }
 
+
+    function getPendingIP() view public returns (uint[] memory) {
+        return pendingIps;
+    }
+
+    function getAcceptIP() view public returns (uint[] memory) {
+        return acceptedIps;
+    }
+
+    function getRejectIP() view public returns (uint[] memory) {
+        return rejectedIps;
+    }
+
     function countAcceptedIPs() view public returns (uint) {
         return acceptedIps.length;
     }
