@@ -26,7 +26,18 @@ const Ip = () => {
     return date;
    // console.log('timt',time)
   //  const [hour, minute, second] = time.split(':');        
-}
+  }
+
+  function status (statusNumber) {
+    if(statusNumber === 0){
+     return <div className="font-semibold">Pending</div>;
+    } else if (statusNumber === 1){
+     return <div className="text-green-800 font-semibold">Accepted</div>;
+    } else if (statusNumber === 2){
+     return <div className="text-red-800 font-semibold">Rejected</div>;
+    }
+  }
+
   return (
     <>
     <div className='mb-96 mt-20'>
@@ -94,7 +105,7 @@ const Ip = () => {
               <td className='text-black'>{item.fullname}</td>  
               <td className='text-black'>{item.country}</td>  
               <td className='text-black'>{item.addressplace}</td>  
-              <td className='text-black'>{item.status[item.status.length-1]}</td>     
+              <td className='text-black'>{status(item.status[item.status.length-1])}</td>   
               <td>{vals(item.timestamp['_hex'])}</td>
               <td className='text-center'><button className="bg-black py-3 px-6 rounded text-white hover:bg-gray-500">bid</button></td>
               </tr>
