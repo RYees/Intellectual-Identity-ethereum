@@ -21,7 +21,7 @@ describe("Header", ()=>{
         console.log("Testing completed");
     });
 
-    it('should render same text passed into title prop', () => {
+    it('should render same text', () => {
     render(<TestHeader/>);
     const headingElement = screen.getByTestId("header-start");
     expect(headingElement).toBeInTheDocument();
