@@ -3,7 +3,7 @@ import { FaHourglass} from "react-icons/fa";
 // import Getips from '../components/Getips.jsx';
 import '../../css/App.css';
 import { TransactionContext } from '../../context/TransactionContext';
-import ChangeStatus from '../../components/ChangeStatus/ChangeStatus.jsx';
+import Status from '../../components/Status/Status.jsx';
 
 const Ip = () => {
   const { datas, getAllIps,changeStatus, countAccepted, accept, countRejected, reject, countPend, pend } = useContext(TransactionContext);
@@ -88,7 +88,7 @@ const Ip = () => {
               <td className='text-black'>{item.allIpInfoURL}</td>  
               <td className='text-black'>{status(item.status[item.status.length-1])}</td>
               <td>{vals(item.timestamp['_hex'])}</td>
-              <td className='text-center'><ChangeStatus/></td>
+              <td className='text-center'><Status/></td>
               </tr>
          ))
          }         
