@@ -13,7 +13,7 @@ const Input = ({ placeholder, name, type, value, handleChange }) => (
     />
   );
 
-const ChangeStatus = () => {
+const Status = () => {
     const {changeStatus, statusformData, statusChange } = useContext(TransactionContext);
     const[show, setShow] = useState(false);
 
@@ -38,7 +38,9 @@ const ChangeStatus = () => {
     return (
         <>
         <div>
-            <button onClick={changeView} 
+            <button
+             data-testid='status-check'
+             onClick={changeView} 
              className="bg-blue-500 py-3 px-6 rounded text-white hover:brightness-110">
              change-status
             </button>
@@ -81,4 +83,4 @@ const ChangeStatus = () => {
   )
 }
 
-export default ChangeStatus
+export default Status

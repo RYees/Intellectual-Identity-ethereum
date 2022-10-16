@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, cleanup } from '@testing-library/react';
 import Header from '../Header';
 import { createMemoryHistory } from 'history';
 import { BrowserRouter } from 'react-router-dom';
@@ -19,6 +19,11 @@ describe("Header", ()=>{
  
     afterAll(() => {
         console.log("Testing completed");
+    });
+
+    // Cleanup mock
+    afterEach(() => {
+        cleanup();
     });
 
     it('should render same text', () => {
