@@ -1,40 +1,49 @@
 const React = require('react');
-import { render, screen, cleanup } from '@testing-library/react';
-import ShallowRenderer from 'react-test-renderer/shallow';
+import { render, screen, cleanup, renderHook, fireEvent } from '@testing-library/react';
+import { TransactionsProvider } from '../../../context/TransactionContext';
 import Status from '../Status';
 
+const MockStatus = () => {
+    return (
+        <TransactionsProvider>
+            <Status/>
+        </TransactionsProvider>
+    )
+};
 
 describe("ChangeStatus", ()=>{
-    let realUseContext;
-    let useContextMock;
-    // Setup mock
     beforeEach(() => {
-        realUseContext = React.useContext;
-        useContextMock = React.useContext = jest.fn();
+        render(<MockStatus/>); 
     });
     // Cleanup mock
     afterEach(() => {
-        React.useContext = realUseContext;
         cleanup();
     });
 
-    // beforeAll(() => {
-    //     console.log("Testing started");
-    // });
- 
-    // afterAll(() => {
-    //     console.log("Testing completed");
-    // });
+    afterAll(() => {
+        console.log("Testing completed");
+    });
 
     it('should render text correctly', () => {
-        //render(<Status/>);
-        // useContextMock.mockReturnValue("Test Value");
-        // const element = new ShallowRenderer().render(
-        //     <Status />
-        // );
-        // const statusElement = screen.getByTestId("status-check");
-        // expect(statusElement).toBeInTheDocument();
-        expect(2+2).toEqual(4);
+        const statusElement = screen.getByTestId("status-check");
+        expect(statusElement).toBeInTheDocument();
+        // expect(2+2).toEqual(4);
     });
+
+    it('should have a state value of show to be true', () => {
+        //const buttonElement = screen.getByRole("button", {name: /Add/i });
+        const buttonElement = screen.getByTestId("status-check");
+        fireEvent.click(buttonElement);
+        expect(screen.getByTestId("show")).toBeVisible();
+    });
+
+    it('should have a state value of show to be false', () => {   
+        const buttonElement = screen.getByTestId("status-check");
+        fireEvent.click(buttonElement);
+        const iconcloseElement = screen.getByTestId("close");
+        fireEvent.click(iconcloseElement);
+        expect(screen.getByTestId("status-check")).toBeVisible();
+    });    
+    
 
 });
