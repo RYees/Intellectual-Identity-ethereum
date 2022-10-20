@@ -45,5 +45,14 @@ describe("ChangeStatus", ()=>{
         expect(screen.getByTestId("status-check")).toBeVisible();
     });    
     
+    it('should have a change status form value correct', () => {   
+        const buttonsElement = screen.getByTestId("status-check");
+        fireEvent.click(buttonsElement);
+        const input1Element = screen.getByPlaceholderText(/id number of the intellectual property/i);
+        const input2Element = screen.getByPlaceholderText(/status number/i);
+        const buttonElement = screen.getByRole("button", { name: /Submit/i});
+        fireEvent.click(buttonElement);
+        expect(screen.getByTestId("status-check")).toBeVisible();
+    });    
 
 });
