@@ -40,10 +40,10 @@ describe("Home", ()=>{
         expect(footElement).toBeInTheDocument();
     });
 
-    it('should render same text', () => {
-        //const btnElement = screen.getByRole("button", { name: 'Connect Wallet'});
-        const btnElement = screen.getByTestId("button-one");
-        expect(btnElement).toBeInTheDocument();
-    });
+    // it('should render same text', () => {
+    //     //const btnElement = screen.getByRole("button", { name: 'Connect Wallet'});
+    //     const btnElement = screen.getByTestId("button-one");
+    //     expect(btnElement).toBeInTheDocument();
+    // });
    
 });

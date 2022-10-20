@@ -21,7 +21,7 @@ const MockIp = () => {
 
 describe("Home", ()=>{
 
-    beforeAll(() => {
+    beforeEach(() => {
         render(<MockIp/>);
         console.log("Testing started");
     });

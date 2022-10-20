@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { FaHourglass} from "react-icons/fa";
 import Register from '../../components/Ipregister/Ipregister.jsx';
-import Getips from '../../components/Getips.jsx';
+// import Getips from '../../components/Getips.jsx';
 import '../../css/App.css';
 import { TransactionContext } from '../../context/TransactionContext';
 
@@ -125,7 +125,7 @@ const Ip = () => {
         </ul>
       </div>
       */}
-        <Getips/>
+        {/* <Getips/> */}
     </div>
   </div>
   </>

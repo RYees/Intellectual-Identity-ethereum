@@ -5,10 +5,10 @@ import '../../css/App.css'
 
 const Bidder = () => {
   const { connectWallet, currentAccount, getBidders, bidData, countbidders,countbids} = useContext(TransactionContext);
-  useEffect(()=>{
-    getBidders(currentAccount);
-    countbidders(currentAccount);
-  });
+  // useEffect(()=>{
+  //   getBidders(currentAccount);
+  //   countbidders(currentAccount);
+  // },[]);
 
   function vals (valk){
       const val = parseInt(valk);
