@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useContext} from 'react';
 import banner from "../../assets/pexel.jpg";
 import eth from "../../assets/eth.png";
 import copy from "../../assets/copyright2.png";
@@ -9,10 +9,11 @@ import img2 from "../../assets/miladfak.jpg";
 import img3 from "../../assets/guyeth.jpg";
 import img4 from "../../assets/nenad.jpg";
 import Contact from "../../pages/Contact/Contact.jsx";
-
+import { TransactionContext } from '../../context/TransactionContext';
 import '../../css/App.css';
 
 const Home = () => {
+  const { connectWallet } = useContext(TransactionContext);
   return (
     <>
     <div className=''>
@@ -21,14 +22,21 @@ const Home = () => {
         <div className='overlay'></div>
       </div>
       
-      <div className='homecontain'>
+      <div className='homecontain' data-testid='section-one'>
         <div className='first'>
           <h1>Register your
             <strong className='italic text-gray-900'> Intellectual Property</strong>    
           </h1>
           <p className='mt-4 text-gray-200 m-2'>Prevent others from using yours' invention and decide who is allowed to produce, sell or import your invention. Use NFT tokens of blockchain technology to prove your ownership of any piece of content now!!!</p>
+          <button
+            onClick={connectWallet}
+            data-testid='button-one'
+            className='bg-gray-300 transition duration-150 ease-out hover:ease-in
+            p-4 mt-5 rounded-3xl text-gray-900 text-xl'>
+            Connect Wallet
+          </button>
         </div>
-
+        
         <div className='second'>
            <img src={eth} alt="ethereum image" className='imagetwo'/>
         </div>
