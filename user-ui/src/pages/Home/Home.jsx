@@ -1,16 +1,16 @@
 import React from 'react';
-import banner from "../assets/pexel.jpg";
-import eth from "../assets/eth.png";
-import copy from "../assets/copyright2.png";
-import check from "../assets/check.png";
-import guerlia from "../assets/guerlia.jpg";
-import img1 from "../assets/regular.jpg";
-import img2 from "../assets/miladfak.jpg";
-import img3 from "../assets/guyeth.jpg";
-import img4 from "../assets/nenad.jpg";
-import Contact from "../pages/Contact.jsx";
+import banner from "../../assets/pexel.jpg";
+import eth from "../../assets/eth.png";
+import copy from "../../assets/copyright2.png";
+import check from "../../assets/check.png";
+import guerlia from "../../assets/guerlia.jpg";
+import img1 from "../../assets/regular.jpg";
+import img2 from "../../assets/miladfak.jpg";
+import img3 from "../../assets/guyeth.jpg";
+import img4 from "../../assets/nenad.jpg";
+import Contact from "../../pages/Contact/Contact.jsx";
 
-import '../css/App.css';
+import '../../css/App.css';
 
 const Home = () => {
   return (

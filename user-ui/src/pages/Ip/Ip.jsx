@@ -1,9 +1,9 @@
 import React, { useState, useContext, useEffect } from "react";
 import { FaHourglass} from "react-icons/fa";
-import Register from '../components/Ipregister.jsx';
-import Getips from '../components/Getips.jsx';
-import '../css/App.css';
-import { TransactionContext } from '../context/TransactionContext';
+import Register from '../../components/Ipregister/Ipregister.jsx';
+import Getips from '../../components/Getips.jsx';
+import '../../css/App.css';
+import { TransactionContext } from '../../context/TransactionContext';
 
 const Ip = () => {
   const { datas, getAllIps, countAccepted, accept, countRejected, reject, countPend, pend } = useContext(TransactionContext);

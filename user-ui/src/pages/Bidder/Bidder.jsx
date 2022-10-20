@@ -1,7 +1,7 @@
 import React,{useContext, useEffect} from 'react';
-import { TransactionContext } from '../context/TransactionContext';
-import Bidregister from '../components/Bidregister.jsx';
-import '../css/App.css'
+import { TransactionContext } from '../../context/TransactionContext';
+import Bidregister from '../../components/Bidregister/Bidregister.jsx';
+import '../../css/App.css'
 
 const Bidder = () => {
   const { connectWallet, currentAccount, getBidders, bidData, countbidders,countbids} = useContext(TransactionContext);

@@ -1,6 +1,6 @@
 import React,{useState, useContext} from 'react';
 import { FaPlus, FaTimes } from "react-icons/fa";
-import { TransactionContext } from '../context/TransactionContext';
+import { TransactionContext } from '../../context/TransactionContext';
 
 const Input = ({ placeholder, name, type, value, handleChange }) => (
   <input
