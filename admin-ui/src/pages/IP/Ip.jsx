@@ -43,6 +43,13 @@ const Ip = () => {
     <div className='mb-96 mt-20'>
       <div className='flex justify-between'>
       <p className='mx-4 py-4 text-3xl cursor-pointer'>Intellectual Properties</p>
+      <button
+            onClick={connectWallet}
+            data-testid='button-one'
+            className='bg-gray-300 transition duration-150 ease-out hover:ease-in
+            p-4 mt-5 rounded-3xl text-gray-900 text-xl'>
+            Connect Wallet
+          </button>
       </div>
 
       <div className='flex gap-14 mx-5 mb-10 my-5'>

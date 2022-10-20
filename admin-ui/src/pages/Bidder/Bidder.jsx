@@ -7,7 +7,7 @@ const Bidder = () => {
   useEffect(()=>{
     getBidders(currentAccount);
     countbidders(currentAccount);
-  });
+  },[]);
 
   function vals (valk){
       const val = parseInt(valk);
@@ -18,6 +18,7 @@ const Bidder = () => {
     <div className='mb-96 mt-20'>
       <div className='text-center py-10'>
         <button
+        data-testid="wallet"
         onClick={connectWallet}
         className='bg-gradient-to-r from-cyan-700 via-gray-300 to-cyan-700 transition duration-150 ease-out hover:ease-in
         p-8 rounded-3xl text-gray-900 text-2xl'>

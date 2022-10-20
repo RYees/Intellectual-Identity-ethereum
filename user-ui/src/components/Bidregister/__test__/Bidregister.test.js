@@ -1,19 +1,19 @@
 const React = require('react');
 import { render, screen, cleanup, renderHook, fireEvent } from '@testing-library/react';
 import { TransactionsProvider } from '../../../context/TransactionContext';
-import Status from '../Status';
+import Bidregister from '../Bidregister';
 
-const MockStatus = () => {
+const MockBidregister = () => {
     return (
         <TransactionsProvider>
-            <Status/>
+            <Bidregister/>
         </TransactionsProvider>
     )
 };
 
-describe("ChangeStatus", ()=>{
+describe("Bid registration form", ()=>{
     beforeEach(() => {
-        render(<MockStatus/>); 
+        render(<MockBidregister/>); 
     });
     // Cleanup mock
     afterEach(() => {
@@ -25,34 +25,37 @@ describe("ChangeStatus", ()=>{
     });
 
     it('should render text correctly', () => {
-        const statusElement = screen.getByTestId("status-check");
-        expect(statusElement).toBeInTheDocument();
+        const btnElement = screen.getByTestId("button-one");
+        expect(btnElement).toBeInTheDocument();
         // expect(2+2).toEqual(4);
     });
-
+    
     it('should have a state value of show to be true', () => {
         //const buttonElement = screen.getByRole("button", {name: /Add/i });
-        const buttonElement = screen.getByTestId("status-check");
+        const buttonElement = screen.getByTestId("button-one");
         fireEvent.click(buttonElement);
         expect(screen.getByTestId("show")).toBeVisible();
     });
 
     it('should have a state value of show to be false', () => {   
-        const buttonElement = screen.getByTestId("status-check");
+        const buttonElement = screen.getByTestId("button-one");
         fireEvent.click(buttonElement);
         const iconcloseElement = screen.getByTestId("close");
         fireEvent.click(iconcloseElement);
-        expect(screen.getByTestId("status-check")).toBeVisible();
+        expect(screen.getByTestId("button-one")).toBeVisible();
     });    
     
+
     it('should have a change status form value correct', () => {   
-        const buttonsElement = screen.getByTestId("status-check");
+        const buttonsElement = screen.getByTestId("button-one");
         fireEvent.click(buttonsElement);
-        const input1Element = screen.getByPlaceholderText(/id number of the intellectual property/i);
-        const input2Element = screen.getByPlaceholderText(/status number/i);
+        const input1Element = screen.getByPlaceholderText(/ip owner public address/i);
+        const input2Element = screen.getByPlaceholderText(/owner intellectual property name/i);
+        const input3Element = screen.getByPlaceholderText(/bid value/i);
+        const input4Element = screen.getAllByPlaceholderText(/your public address/i);
         const buttonElement = screen.getByRole("button", { name: /Submit/i});
         fireEvent.click(buttonElement);
-        expect(screen.getByTestId("status-check")).toBeVisible();
+        expect(screen.getByTestId("button-one")).toBeVisible();
     });    
 
 });

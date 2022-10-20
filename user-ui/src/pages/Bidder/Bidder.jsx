@@ -1,14 +1,14 @@
 import React,{useContext, useEffect} from 'react';
-import { TransactionContext } from '../context/TransactionContext';
-import Bidregister from '../components/Bidregister.jsx';
-import '../css/App.css'
+import { TransactionContext } from '../../context/TransactionContext';
+import Bidregister from '../../components/Bidregister/Bidregister.jsx';
+import '../../css/App.css'
 
 const Bidder = () => {
   const { connectWallet, currentAccount, getBidders, bidData, countbidders,countbids} = useContext(TransactionContext);
-  useEffect(()=>{
-    getBidders(currentAccount);
-    countbidders(currentAccount);
-  });
+  // useEffect(()=>{
+  //   getBidders(currentAccount);
+  //   countbidders(currentAccount);
+  // },[]);
 
   function vals (valk){
       const val = parseInt(valk);

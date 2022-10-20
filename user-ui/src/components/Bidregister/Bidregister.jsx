@@ -1,6 +1,6 @@
 import React,{useState, useContext} from 'react';
 import { FaPlus, FaTimes } from "react-icons/fa";
-import { TransactionContext } from '../context/TransactionContext';
+import { TransactionContext } from '../../context/TransactionContext';
 
 const Input = ({ placeholder, name, type, value, handleChange }) => (
   <input
@@ -41,6 +41,7 @@ const Bidregister = () => {
     <>
     <div>
        <button onClick={changeView} 
+       data-testid='button-one'
        className='bg-gradient-to-r from-cyan-700 via-gray-300 to-cyan-700 transition
         duration-150 ease-out hover:ease-in mt-4 mb-8 mx-10
         text-xl px-5 py-4 rounded shadow-lg cursor-pointer border-none 
@@ -50,7 +51,8 @@ const Bidregister = () => {
     </div>
 
    {show ? ( 
-   <div className='regis absolute z-10 text-gray-600 font-serif flex justify-between'>
+   <div data-testid='show'
+    className='regis absolute z-10 text-gray-600 font-serif flex justify-between'>
       <form className='regform px-5 mx-20 my-16 bg-white flex'>
        <div className='cont-one'>
         <div className='mb-6 py-3'><h1>Register IP Bidders'</h1></div>
@@ -94,7 +96,7 @@ const Bidregister = () => {
       </form>  
     
       <div className=''>
-        <FaTimes size={35} onClick={closeView} className="cursor-pointer bg-red-500 -ml-20 mt-4"/>
+        <FaTimes data-testid='close' size={35} onClick={closeView} className="cursor-pointer bg-red-500 -ml-20 mt-4"/>
       </div> 
     </div>):( null)}
     </>

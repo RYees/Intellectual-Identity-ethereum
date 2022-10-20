@@ -47,7 +47,7 @@ const Status = () => {
         </div>
 
         {show ? ( 
-    <div className='regis absolute z-10 text-gray-600 font-serif flex justify-between'>
+    <div data-testid='show' className='regis absolute z-10 text-gray-600 font-serif flex justify-between'>
         <form className='regform px-5 mx-20 my-16 bg-white flex justify-around'>
         <div className='my-36 text-2xl'>
         <p className='mb-5'>Status number value options:</p>
@@ -76,9 +76,9 @@ const Status = () => {
         </div>    
         </form>        
         <div className=''>
-            <FaTimes size={35} onClick={closeView} className="cursor-pointer bg-red-500 -ml-20 mt-4"/>
+            <FaTimes data-testid="close" size={35} onClick={closeView} data-testid="close" className="cursor-pointer bg-red-500 -ml-20 mt-4"/>
         </div> 
-        </div>):( null)}
+        </div>):(null)}
     </>
   )
 }
