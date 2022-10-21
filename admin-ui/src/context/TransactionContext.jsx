@@ -152,7 +152,7 @@ export const TransactionsProvider = ({ children }) => {
     // console.log('success')
     try {  
       if (ethereum) {
-        const { id, val } = statusformData;
+        //const { id, val } = statusformData;
         const transactionsContract = createEthereumContract();        
         const transactionHash = await transactionsContract.changeStatus(id,val);
         setIsLoading(true);
@@ -176,7 +176,7 @@ export const TransactionsProvider = ({ children }) => {
     // console.log('success')
     try {  
       if (ethereum) {
-        const { id,address,url } = mintformData;
+        //const { id,address,url } = mintformData;
         const transactionsContract = createEthereumContract();        
         const transactionHash = await transactionsContract.mintnft(id,address,url);
         setIsLoading(true);

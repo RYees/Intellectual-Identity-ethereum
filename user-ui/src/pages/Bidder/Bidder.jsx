@@ -5,10 +5,10 @@ import '../../css/App.css'
 
 const Bidder = () => {
   const { connectWallet, currentAccount, getBidders, bidData, countbidders,countbids} = useContext(TransactionContext);
-  // useEffect(()=>{
-  //   getBidders(currentAccount);
-  //   countbidders(currentAccount);
-  // },[]);
+  useEffect(()=>{
+    getBidders(currentAccount);
+    countbidders(currentAccount);
+  },[]);
 
   function vals (valk){
       const val = parseInt(valk);
@@ -21,7 +21,7 @@ const Bidder = () => {
         <button
         onClick={connectWallet}
         className='bg-gradient-to-r from-cyan-700 via-gray-300 to-cyan-700 transition duration-150 ease-out hover:ease-in
-        p-8 rounded-3xl text-gray-900 text-2xl'>
+        p-4 rounded-3xl text-gray-900 text-2xl'>
         Connect Wallet</button>
       </div>
 

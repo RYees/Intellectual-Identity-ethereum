@@ -101,21 +101,31 @@ const Ip = () => {
               <td className='text-black'>{item.allIpInfoURL}</td>  
               <td className='text-black'>{status(item.status[item.status.length-1])}</td>
               <td>{vals(item.timestamp['_hex'])}</td>
-              <td className='text-center'><Status/></td>
+              {/* <td className='text-center'><Status index={index}/></td> */}
+              <td className='text-center'>
+              <NavLink to={{ pathname:`/status/${index}/${item.user}`}}  state={{item,index}}> 
+                <button
+                  className='bg-black text-white transition duration-150 ease-out hover:ease-in
+                  p-2 py-2 mt-5 rounded text-gray-900'>
+                  Status
+                </button>
+              </NavLink>
+              </td>
+
                <td className='text-center'>
               <NavLink to={{ pathname:`/mint/${index}/${item.user}`}}  state={{item,index}}> 
                 <button
                   className='bg-black text-white transition duration-150 ease-out hover:ease-in
-                  p-4 mt-5 rounded-3xl text-gray-900 text-xl'>
+                  p-2 py-2 mt-5 rounded text-gray-900'>
                   Mint
                 </button>
               </NavLink>
               </td>
               <td className='text-center'>
-              <NavLink to={{ pathname:`/bidders/${item.user}`}}  state={{item}}> 
+              <NavLink to={{ pathname:`/bidders/${index}/${item.user}`}}  state={{item}}> 
                 <button
                   className='bg-black text-white transition duration-150 ease-out hover:ease-in
-                  p-4 mt-5 rounded-3xl text-gray-900 text-xl'>
+                  p-2 py-2 mt-5 rounded text-gray-900'>
                   Bidders
                 </button>
               </NavLink>

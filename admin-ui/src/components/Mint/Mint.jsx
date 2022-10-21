@@ -15,11 +15,14 @@ const Input = ({ placeholder, name, type, value, handleChange }) => (
 );
 
 const Mint = (props) => {
-  const { connectWallet, mintNft, mintformData, mintChange} = useContext(TransactionContext);
+  const { connectWallet, mintNft } = useContext(TransactionContext);
   const { state } = useLocation();
   const { item } = state || {};
   const { index } = state || {};
-  console.log("para value" + item  + "id" + index);
+  // console.log("para value" + item  + "id" + index);
+  const id = React.useRef();
+  const address = React.useRef();
+  const url = React.useRef();
 
   // useEffect(()=>{
   // },[]);
@@ -28,15 +31,14 @@ const Mint = (props) => {
   const routeChange = () =>{ 
     let path = `/`; 
     navigate(path);
+    navigate(0);
   }
 
   const handleSubmit = (e) => {
-    const {id, address, url } = mintformData;
-    
+    // const {id, address, url } = mintformData;    
     e.preventDefault();
-    if (!id || !address || !url ) return;
-
-    mintNft();
+    // if (!id || !address || !url ) return;
+    mintNft(id, address, url);
   };
 
   return (
@@ -78,19 +80,19 @@ const Mint = (props) => {
           <div className=''>    
             <div className="mb-4">
             <label className='text-xl'>IP id </label><br></br>
-                <Input  type="text" name="id" value={index} placeholder="IP id" handleChange={mintChange}/>
+                <input  type="text" name="id" ref={id} value={index} placeholder="IP id"/>
             </div>
             <div className='mb-4'>
             <label className='text-xl'>Approved Address</label><br></br>
-                <Input type="text" name="address" value={item.user} placeholder='approved address' handleChange={mintChange}/>
+                <input type="text" name="address" ref={address} value={item.user} placeholder='approved address'/>
             </div>
             <div className='mb-4'>
             <label className='text-xl'>Ip data url</label><br></br>
-                <Input type="text" name="url" value={item.allIpInfoURL} placeholder='token url' handleChange={mintChange}/>
+                <input type="text" name="url" ref={url} value={item.allIpInfoURL} placeholder='token url'/>
             </div>
             
             <div className='py-3'>
-              <button onClick={handleSubmit} className='w-32  py-4 bg-gray-300 cursor-pointer'>Submit</button>
+              <button onClick={handleSubmit} className='w-32  py-4 bg-gray-300 cursor-pointer'>Mint</button>
             </div>
            
         </div>

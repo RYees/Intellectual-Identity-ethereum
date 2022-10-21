@@ -24,6 +24,7 @@ const Bidder = (props) => {
   const routeChange = () =>{ 
     let path = `/`; 
     navigate(path);
+    navigate(0);
   }
 
   return (

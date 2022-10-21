@@ -7,6 +7,7 @@ import Bidder from './pages/Bidder/Bidder.jsx';
 import Header from './components/Header/Header.jsx';
 import Footer from './components/Footer/Footer.jsx';
 import Mint from "./components/Mint/Mint.jsx";
+import Status from "./components/Status/Status.jsx";
 // import Tablen from './components/Tablen.jsx';
 // import ReactTable from './components/ReactTable.jsx';
 
@@ -18,6 +19,7 @@ function App() {
         <Routes>
             {/* <Route path='/home' element={<Home />} /> */}
             <Route path='/' element={<Ip />} />
+            <Route path='/status/:id/:address' element={<Status />} />
             <Route path='/bidders/:id/:address' element={<Bidder />} />
             <Route path='/mint/:id/:address' element={<Mint />} />
             {/* <Route path='/table' element={<Tablen/>} />
