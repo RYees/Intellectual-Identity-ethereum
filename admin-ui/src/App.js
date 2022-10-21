@@ -17,7 +17,7 @@ function App() {
         <Routes>
             {/* <Route path='/home' element={<Home />} /> */}
             <Route path='/' element={<Ip />} />
-            <Route path='/bidders' element={<Bidder />} />
+            <Route path='/bidders/:id/:address' element={<Bidder />} />
             {/* <Route path='/table' element={<Tablen/>} />
             <Route path='/tab' element={<ReactTable/>} /> */}
         </Routes>

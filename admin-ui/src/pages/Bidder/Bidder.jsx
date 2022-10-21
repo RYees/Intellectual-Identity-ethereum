@@ -1,13 +1,18 @@
 import React,{useContext, useEffect} from 'react';
 import { TransactionContext } from '../../context/TransactionContext';
 import '../../css/App.css';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 
-const Bidder = () => {
+const Bidder = (props) => {
   const { connectWallet, currentAccount, getBidders, bidData, countbidders,countbids} = useContext(TransactionContext);
+  const { state } = useLocation();
+  const { item } = state || {};
+  const { index } = state || {};
+  console.log("para value" + item  + "id" + index);
+
   useEffect(()=>{
-    getBidders(currentAccount);
-    countbidders(currentAccount);
+    getBidders(item.user);
+    countbidders(item.user);
   },[]);
 
   function vals (valk){

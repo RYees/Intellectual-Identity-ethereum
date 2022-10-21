@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { FaHourglass} from "react-icons/fa";
 // import Getips from '../components/Getips.jsx';
-import { useNavigate, NavLink  } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 import '../../css/App.css';
 import { TransactionContext } from '../../context/TransactionContext';
 import Status from '../../components/Status/Status.jsx';
@@ -87,7 +87,6 @@ const Ip = () => {
             <th className=''> Metadata</th>
             <th className=''> Status</th>
             <th className=''> Date</th>
-            <th className=''> </th>
           </tr>
         </thead>
         <tbody className='bg-gray-100'>
@@ -103,15 +102,21 @@ const Ip = () => {
               <td className='text-black'>{status(item.status[item.status.length-1])}</td>
               <td>{vals(item.timestamp['_hex'])}</td>
               <td className='text-center'><Status/></td>
-              <td className='text-center'>
-              <NavLink to={{                            
-    pathname:`/bidders/${item.user}`,                            
-   }}> 
+               <td className='text-center'>
+              <NavLink to={{ pathname:`/bidders/${index}/${item.user}`}}  state={{item,index}}> 
                 <button
-                className='bg-black text-white transition duration-150 ease-out hover:ease-in
-                p-4 mt-5 rounded-3xl text-gray-900 text-xl'
-                onClick={routeChange}>
-                Bidders
+                  className='bg-black text-white transition duration-150 ease-out hover:ease-in
+                  p-4 mt-5 rounded-3xl text-gray-900 text-xl'>
+                  Mint
+                </button>
+              </NavLink>
+              </td>
+              <td className='text-center'>
+              <NavLink to={{ pathname:`/bidders/${item.user}`}}  state={{item}}> 
+                <button
+                  className='bg-black text-white transition duration-150 ease-out hover:ease-in
+                  p-4 mt-5 rounded-3xl text-gray-900 text-xl'>
+                  Bidders
                 </button>
               </NavLink>
               </td>

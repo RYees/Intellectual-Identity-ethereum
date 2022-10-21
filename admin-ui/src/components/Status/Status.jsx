@@ -41,8 +41,9 @@ const Status = () => {
             <button
              data-testid='status-check'
              onClick={changeView} 
-             className="bg-blue-500 py-3 px-6 rounded text-white hover:brightness-110">
-             change-status
+             className='bg-black text-white transition duration-150 ease-out hover:ease-in
+                  p-4 mt-5 rounded-3xl text-gray-900 text-xl'>
+             status
             </button>
         </div>
 
