@@ -1,6 +1,7 @@
 import React,{useContext, useEffect} from 'react';
 import { TransactionContext } from '../../context/TransactionContext';
-import '../../css/App.css'
+import '../../css/App.css';
+import { useNavigate } from "react-router-dom";
 
 const Bidder = () => {
   const { connectWallet, currentAccount, getBidders, bidData, countbidders,countbids} = useContext(TransactionContext);
@@ -13,6 +14,12 @@ const Bidder = () => {
       const val = parseInt(valk);
       return val;
   }
+  
+  let navigate = useNavigate(); 
+  const routeChange = () =>{ 
+    let path = `/`; 
+    navigate(path);
+  }
 
   return (
     <div className='mb-96 mt-20'>
@@ -21,16 +28,25 @@ const Bidder = () => {
         data-testid="wallet"
         onClick={connectWallet}
         className='bg-gradient-to-r from-cyan-700 via-gray-300 to-cyan-700 transition duration-150 ease-out hover:ease-in
-        p-8 rounded-3xl text-gray-900 text-2xl'>
+        p-4 rounded-3xl text-gray-900 text-2xl'>
         Connect Wallet</button>
       </div>
 
-      <div className='bg-white mb-20'>
+      <div className='bg-white'>
          <p className='text-center py-20'>Connect to your wallet, to see your IP bidders'</p>
       </div>
 
+      <div>
+        <button
+          className='bg-black text-white transition duration-150 ease-out hover:ease-in
+          p-4  rounded-xl text-gray-900 text-xl'
+          onClick={routeChange}>
+          Back
+        </button>
+      </div>
+
       <div className='flex justify-between'>
-      <p className='mx-4 py-4 text-3xl cursor-pointer'>Register bid</p>
+      <p className='mx-4 py-4 text-3xl cursor-pointer'>Bids</p>
       <div>
         <p>Total bids:{countbids}</p>
       </div>

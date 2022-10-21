@@ -1,12 +1,13 @@
 import React, { useState, useContext, useEffect } from "react";
 import { FaHourglass} from "react-icons/fa";
 // import Getips from '../components/Getips.jsx';
+import { useNavigate, NavLink  } from "react-router-dom";
 import '../../css/App.css';
 import { TransactionContext } from '../../context/TransactionContext';
 import Status from '../../components/Status/Status.jsx';
 
 const Ip = () => {
-  const { datas, getAllIps,changeStatus, countAccepted, accept, countRejected, reject, countPend, pend } = useContext(TransactionContext);
+  const { connectWallet, datas, getAllIps,changeStatus, countAccepted, accept, countRejected, reject, countPend, pend } = useContext(TransactionContext);
   useEffect(()=>{
     getAllIps();
     countAccepted();
@@ -38,6 +39,12 @@ const Ip = () => {
      }
   }
 
+  let navigate = useNavigate(); 
+  const routeChange = () =>{ 
+    let path = `bidders`; 
+    navigate(path);
+  }
+
   return (
     <>
     <div className='mb-96 mt-20'>
@@ -46,7 +53,7 @@ const Ip = () => {
       <button
             onClick={connectWallet}
             data-testid='button-one'
-            className='bg-gray-300 transition duration-150 ease-out hover:ease-in
+            className='bg-black text-white transition duration-150 ease-out hover:ease-in
             p-4 mt-5 rounded-3xl text-gray-900 text-xl'>
             Connect Wallet
           </button>
@@ -96,6 +103,18 @@ const Ip = () => {
               <td className='text-black'>{status(item.status[item.status.length-1])}</td>
               <td>{vals(item.timestamp['_hex'])}</td>
               <td className='text-center'><Status/></td>
+              <td className='text-center'>
+              <NavLink to={{                            
+    pathname:`/bidders/${item.user}`,                            
+   }}> 
+                <button
+                className='bg-black text-white transition duration-150 ease-out hover:ease-in
+                p-4 mt-5 rounded-3xl text-gray-900 text-xl'
+                onClick={routeChange}>
+                Bidders
+                </button>
+              </NavLink>
+              </td>
               </tr>
          ))
          }         

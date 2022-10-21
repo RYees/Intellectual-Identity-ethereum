@@ -147,7 +147,7 @@ export const TransactionsProvider = ({ children }) => {
     // console.log('success')
     try {  
       if (ethereum) {
-        // const { id, val } = statusformData;
+        const { id, val } = statusformData;
         const transactionsContract = createEthereumContract();        
         const transactionHash = await transactionsContract.changeStatus(id,val);
         setIsLoading(true);
