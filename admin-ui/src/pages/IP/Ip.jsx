@@ -49,14 +49,14 @@ const Ip = () => {
     <>
     <div className='mb-96 mt-20'>
       <div className='flex justify-between'>
-      <p className='mx-4 py-4 text-3xl cursor-pointer'>Intellectual Properties</p>
-      <button
+        <p className='mx-4 py-4 text-3xl cursor-pointer'>Intellectual Properties</p>
+        <button
+            data-testid="wallet"
             onClick={connectWallet}
-            data-testid='button-one'
-            className='bg-black text-white transition duration-150 ease-out hover:ease-in
-            p-4 mt-5 rounded-3xl text-gray-900 text-xl'>
+            className='bg-gradient-to-r from-black via-gray-300 to-black transition duration-150 ease-out hover:ease-in
+            p-4 rounded-3xl text-white text-2xl mt-5 mb-10 hover:brightness-105 transition duration-150 ease-in-out shadow-lg'>
             Connect Wallet
-          </button>
+        </button>
       </div>
 
       <div className='flex gap-14 mx-5 mb-10 my-5'>
@@ -106,7 +106,7 @@ const Ip = () => {
               <NavLink to={{ pathname:`/status/${index}/${item.user}`}}  state={{item,index}}> 
                 <button
                   className='bg-black text-white transition duration-150 ease-out hover:ease-in
-                  p-2 py-2 mt-5 rounded text-gray-900'>
+                  py-1 px-6 mt-5 rounded text-gray-900'>
                   Status
                 </button>
               </NavLink>
@@ -116,7 +116,7 @@ const Ip = () => {
               <NavLink to={{ pathname:`/mint/${index}/${item.user}`}}  state={{item,index}}> 
                 <button
                   className='bg-black text-white transition duration-150 ease-out hover:ease-in
-                  p-2 py-2 mt-5 rounded text-gray-900'>
+                  py-1 px-6 mt-5 rounded text-gray-900'>
                   Mint
                 </button>
               </NavLink>
@@ -125,7 +125,7 @@ const Ip = () => {
               <NavLink to={{ pathname:`/bidders/${index}/${item.user}`}}  state={{item}}> 
                 <button
                   className='bg-black text-white transition duration-150 ease-out hover:ease-in
-                  p-2 py-2 mt-5 rounded text-gray-900'>
+                  py-1 px-6 mt-5 rounded text-gray-900'>
                   Bidders
                 </button>
               </NavLink>

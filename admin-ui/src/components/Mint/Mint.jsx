@@ -2,6 +2,7 @@ import React,{useContext, useEffect} from 'react';
 import { TransactionContext } from '../../context/TransactionContext';
 import '../../css/App.css';
 import { useNavigate, useParams, useLocation } from "react-router-dom";
+import '../../css/Style.css';
 
 const Input = ({ placeholder, name, type, value, handleChange }) => (
   <input
@@ -38,69 +39,62 @@ const Mint = (props) => {
     // const {id, address, url } = mintformData;    
     e.preventDefault();
     // if (!id || !address || !url ) return;
-    mintNft(id, address, url);
+    mintNft(id.current.value , address.current.value , url.current.value);
+    // mintNft(1, '0xdD870fA1b7C4700F2BD7f44238821C26f7392148', 'https://newcomer.com');
   };
 
   return (
-    <div className='mb-96 mt-20'>
-      <div className='text-center py-10'>
+    <>
+      <div className='text-center'>
         <button
-        data-testid="wallet"
-        onClick={connectWallet}
-        className='bg-gradient-to-r from-cyan-700 via-gray-300 to-cyan-700 transition duration-150 ease-out hover:ease-in
-        p-4 rounded-3xl text-gray-900 text-2xl'>
-        Connect Wallet</button>
-      </div>
-
-      <div className='bg-white'>
-         <p className='text-center py-20'>Connect to your wallet'</p>
-      </div>
-
-      <div>
-        <button
-          className='bg-black text-white transition duration-150 ease-out hover:ease-in
-          p-4  rounded-xl text-gray-900 text-xl'
-          onClick={routeChange}>
-          Back
+            data-testid="wallet"
+            onClick={connectWallet}
+            className='bg-gradient-to-r from-black via-gray-300 to-black transition duration-150 ease-out hover:ease-in
+            p-4 rounded-3xl text-white text-2xl mt-36 mb-10 hover:brightness-105 transition duration-150 ease-in-out shadow-lg'>
+            Connect Wallet
         </button>
       </div>
 
-      <div className='flex justify-between'>
-      <p className='mx-4 py-4 text-3xl cursor-pointer'>Bids</p>
-      <div>
-        <p>Mint Nft for Approved Ips</p>
+      <div className='bg-white'>
+         <p className='text-center mb-16'>Connect to your wallet, to see your IP bidders'</p>
       </div>
+
+      <div>
+         <a class="arrow mb-4 bg-gradient-to-r from-black via-gray-300" onClick={routeChange}>Back</a>
+      </div>
+
+      <div className='flex justify-end'>
+      <p className='mx-4 py-4 text-3xl cursor-pointer'>Mint Nft for Approved Ips</p>
       </div>
 
     <div data-testid='show'
-      className='text-gray-600 font-serif flex justify-between'>
-      <form className='px-5 mx-20 my-16 bg-white'>
-       <div className='cont-one'>
-        <div className='mb-6 py-3'><h1>Mint Nft'</h1></div>
+      className='container text-gray-600 font-serif flex justify-between'>
+      <form className='form text-black px-5 mx-20 my-16 bg-white'>
+       <div className='text-center fields mx-28'>
+        <div className='mb-6 py-3 text-4xl'><h1>Mint Nft'</h1></div>
           <div className=''>    
             <div className="mb-4">
             <label className='text-xl'>IP id </label><br></br>
-                <input  type="text" name="id" ref={id} value={index} placeholder="IP id"/>
+                <input className='input-box text-gray-700 border py-2 px-2 rounded' type="text" name="id" ref={id} value={index} placeholder="IP id"/>
             </div>
             <div className='mb-4'>
             <label className='text-xl'>Approved Address</label><br></br>
-                <input type="text" name="address" ref={address} value={item.user} placeholder='approved address'/>
+                <input className='input-box text-gray-700 border py-2 px-2 rounded' type="text" name="address" ref={address} value={item.user} placeholder='approved address'/>
             </div>
             <div className='mb-4'>
             <label className='text-xl'>Ip data url</label><br></br>
-                <input type="text" name="url" ref={url} value={item.allIpInfoURL} placeholder='token url'/>
+                <input className='input-box text-gray-700 border py-2 px-2 rounded' type="text" name="url" ref={url} value={item.allIpInfoURL} placeholder='token url'/>
             </div>
             
             <div className='py-3'>
-              <button onClick={handleSubmit} className='w-32  py-4 bg-gray-300 cursor-pointer'>Mint</button>
+              <button onClick={handleSubmit} className='w-32 text-white text-lg rounded py-4 bg-black cursor-pointer'>Mint</button>
             </div>
            
         </div>
        </div>    
       </form>  
      </div>
-    
-   </div>
+    </>
   )
 }
 

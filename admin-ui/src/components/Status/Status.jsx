@@ -2,7 +2,7 @@ import React,{useState, useContext} from 'react';
 import { FaPlus, FaTimes } from "react-icons/fa";
 import { TransactionContext } from '../../context/TransactionContext';
 import { useNavigate, useParams, useLocation } from "react-router-dom";
-
+import '../../css/Style.css';
 const Input = ({ placeholder, name, type, value, handleChange }) => (
     <input
       placeholder={placeholder}
@@ -10,7 +10,7 @@ const Input = ({ placeholder, name, type, value, handleChange }) => (
       step="0.0001"
       value={value}
       onChange={(e) => handleChange(e, name)}
-      className="border w-96 p-3"
+      className="border p-3"
     />
   );
 
@@ -61,53 +61,48 @@ const Status = (props) => {
             </button>
         </div> */}
 
-        <div className='text-center py-10'>
+        <div className='text-center'>
             <button
                 data-testid="wallet"
                 onClick={connectWallet}
-                className='bg-gradient-to-r from-cyan-700 via-gray-300 to-cyan-700 transition duration-150 ease-out hover:ease-in
-                p-4 rounded-3xl text-gray-900 text-2xl'>
+                className='bg-gradient-to-r from-black via-gray-300 to-black transition duration-150 ease-out hover:ease-in
+                p-4 rounded-3xl text-white text-2xl mt-36 mb-10 hover:brightness-105 transition duration-150 ease-in-out shadow-lg'>
                 Connect Wallet
             </button>
         </div>
 
       <div className='bg-white'>
-         <p className='text-center py-20'>Connect to your wallet, to see your IP bidders'</p>
+         <p className='text-center mb-16'>Connect to your wallet, to see your IP bidders'</p>
       </div>
 
       <div>
-        <button
-          className='bg-black text-white transition duration-150 ease-out hover:ease-in
-          p-4  rounded-xl text-gray-900 text-xl'
-          onClick={routeChange}>
-          Back
-        </button>
+         <a class="arrow mb-4 bg-gradient-to-r from-black via-gray-300" onClick={routeChange}>Back</a>
       </div>
 
-    <div data-testid='show' className='text-gray-600 font-serif flex justify-between'>
-        <form className='px-5 mx-20 my-16 bg-white flex justify-between gap-36'>
+    <div data-testid='show' className='container text-gray-600 font-serif flex justify-between'>
+        <form className='form text-black shadow-2xl px-5 mx-20 my-20 bg-white flex justify-around'>
         <div className='my-36 text-2xl'>
-        <p className='mb-5'>Status number value options:</p>
+        <p className='mb-5 text-2xl'>Status number value options:</p>
             <ul>
-                <li className='mb-5'>Pending: <strong>0</strong></li>
-                <li className='mb-5'>Accepted: <strong>1</strong></li>
-                <li>Rejected: <strong>2</strong></li>
+                <li className='mb-5 text-xl'>Pending: <strong>0</strong></li>
+                <li className='mb-5 text-xl'>Accepted: <strong>1</strong></li>
+                <li className='text-xl'>Rejected: <strong>2</strong></li>
             </ul>
         </div>
-        <div className=''>
-            <div className='mb-6 py-3'><h1>Change IP Status</h1></div>
+        <div className='fields px-10'>
+            <div className='mb-10 py-3 text-4xl text-black'><h1>Change IP Status</h1></div>
             <div className=''>    
-                <div className="mb-4">
+                <div className="mb-6">
                 <label className='text-xl'>IP ID </label><br></br>
-                    <input  type="text" name="id" ref={idp} value={index} placeholder="id number of the intellectual property" />
+                    <input className='input-box text-gray-700 border py-2 px-2 rounded' type="text" name="id" ref={idp} value={index} placeholder="id number of the intellectual property" />
                 </div>
                 <div className='mb-4'>
                 <label className='text-xl'>Status No.</label><br></br>
-                    <input type="text" name="val" ref={lsg} placeholder='status number'/>
+                    <input className='input-box text-gray-700 border py-2 px-2 rounded' type="text" name="val" ref={lsg} placeholder='status number'/>
                 </div>
 
                 <div className='py-3'>
-                  <button onClick={handleSubmit} className='w-32  py-4 bg-gray-300 cursor-pointer'>Submit</button>
+                  <button onClick={handleSubmit} className='mt-5 w-28 py-3 bg-black rounded text-white text-lg cursor-pointer'>Change</button>
                 </div>                        
             </div>
         </div>    

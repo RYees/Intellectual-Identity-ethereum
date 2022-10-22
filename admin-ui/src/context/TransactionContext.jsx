@@ -185,14 +185,14 @@ export const TransactionsProvider = ({ children }) => {
         console.log(`Success - ${transactionHash.hash}`);
         setIsLoading(false);
 
-         window.location.reload();
+        window.location.reload();
         console.log('success')
       } else {
         console.log("No ethereum object now");
       }
     } catch (error) {
       console.log(error);
-      throw new Error("No ethereum object");
+      throw new Error("The intellectual property is not accepted");
     }
   };
 
