@@ -56,7 +56,7 @@ const Mint = (props) => {
       </div>
 
       <div className='bg-white'>
-         <p className='text-center mb-16'>Connect to your wallet, to see your IP bidders'</p>
+         <p className='text-center mb-16'>Don't forget to connect to your wallet</p>
       </div>
 
       <div>

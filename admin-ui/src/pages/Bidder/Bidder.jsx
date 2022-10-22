@@ -58,12 +58,12 @@ const Bidder = (props) => {
       <div className='mx-20 mb-32'>
       <table className='table table-striped'>
         <thead>
-          <tr className='text-black'>
-            <th className='text-black'>ID</th>
-            <th className='text-black'> Ip Name </th>
-            <th className='text-black'> Bidder Address </th>
-            <th className='text-black'> value </th>
-            <th className='text-black'> Transfer Ownership</th>
+          <tr className=''>
+            <th className='text-gray-900'>ID</th>
+            <th className='text-gray-900'> Ip Name </th>
+            <th className='text-gray-900'> Bidder Address </th>
+            <th className='text-gray-900'> value </th>
+            <th className='text-gray-900'> Transfer Ownership</th>
           </tr>
         </thead>
         <tbody className='bg-gray-100'>

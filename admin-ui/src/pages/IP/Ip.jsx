@@ -61,16 +61,16 @@ const Ip = () => {
 
       <div className='flex gap-14 mx-5 mb-10 my-5'>
         <div className='box hover:brightness-105 transition duration-150 ease-out hover:ease-in border border-10 border-gray-300 rounded-lg bg-white w-56 p-2'>
-         <h3 className="text-sm flex justify-between"> Total Ips <FaHourglass className="text-cyan-700 text-3xl"/></h3> 
+         <h3 className="text-sm text-gray-600 flex justify-between"> Total Ips <FaHourglass className="text-black text-3xl"/></h3> 
          <br></br><span className='text-bold text-black text-4xl'>{pend + accept + reject}</span></div>
         <div className='box hover:brightness-105 transition duration-150 ease-out hover:ease-in border border-10 border-gray-300 rounded-lg bg-white w-56 p-2'>
-        <h3 className="text-sm flex justify-between"> Total Pendings <FaHourglass className="text-cyan-700 text-3xl"/></h3>
+        <h3 className="text-sm text-gray-600 flex justify-between"> Total Pendings <FaHourglass className="text-black text-3xl"/></h3>
          <br></br><span className='text-bold text-black text-4xl'>{pend}</span></div>
         <div className='box hover:brightness-105 transition duration-150 ease-out hover:ease-in border border-10 border-gray-300 rounded-lg bg-white w-56 p-2'>
-        <h3 className="text-sm flex justify-between"> Total Approves<FaHourglass className="text-cyan-700 text-3xl"/></h3> 
+        <h3 className="text-sm text-gray-600 flex justify-between"> Total Approves<FaHourglass className="text-black text-3xl"/></h3> 
          <br></br><span className='text-bold text-black text-4xl'>{accept}</span></div>
         <div className='box hover:brightness-105 transition duration-150 ease-out hover:ease-in border border-10 border-gray-300 rounded-lg bg-white w-56 p-2'>
-        <h3 className=" flex justify-between text-sm"> Total Rejects <FaHourglass className="text-cyan-700 text-3xl"/></h3>
+        <h3 className="text-sm text-gray-600 flex justify-between text-sm"> Total Rejects <FaHourglass className="text-black text-3xl"/></h3>
          <br></br><span className='text-bold text-black text-4xl'>{reject}</span></div>
       </div>
     <div>
@@ -79,14 +79,14 @@ const Ip = () => {
     <table className='table table-striped mx-8 mt-24 shadow-lg'>
         <thead>
           <tr className=''>
-            <th className=''>ID</th>
-            <th className=''> Ip Name </th>
-            <th className=''> Full Name</th>
-            <th className=''> Country Name</th>
-            <th className=''> Address</th>
-            <th className=''> Metadata</th>
-            <th className=''> Status</th>
-            <th className=''> Date</th>
+            <th className='text-gray-900'>ID</th>
+            <th className='text-gray-900'> Ip Name </th>
+            <th className='text-gray-900'> Full Name</th>
+            <th className='text-gray-900'> Country Name</th>
+            <th className='text-gray-900'> Address</th>
+            <th className='text-gray-900'> Metadata</th>
+            <th className='text-gray-900'> Status</th>
+            <th className='text-gray-900'> Date</th>
           </tr>
         </thead>
         <tbody className='bg-gray-100'>
