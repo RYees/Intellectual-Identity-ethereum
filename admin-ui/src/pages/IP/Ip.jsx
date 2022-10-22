@@ -8,17 +8,20 @@ import Status from '../../components/Status/Status.jsx';
 
 const Ip = () => {
   const { connectWallet, datas, getAllIps,changeStatus, countAccepted, accept, countRejected, reject, countPend, pend } = useContext(TransactionContext);
+  
   useEffect(()=>{
     getAllIps();
     countAccepted();
     countRejected();
     countPend();
   });
+
   function vals (valk){
     const val = parseInt(valk);
     let result = epochTohumanReadble(val)
     return result;
   }
+  console.log("claire", datas);
   const epochTohumanReadble = (timestamp) => {        
     let epoch = timestamp;
     let currentTimestamp = epoch;
@@ -59,7 +62,7 @@ const Ip = () => {
         </button>
       </div>
 
-      <div className='flex gap-14 mx-5 mb-10 my-5'>
+      <div className='flex flex-wrap gap-14 mx-5 ml-12 mb-10 my-5'>
         <div className='box hover:brightness-105 transition duration-150 ease-out hover:ease-in border border-10 border-gray-300 rounded-lg bg-white w-56 p-2'>
          <h3 className="text-sm text-gray-600 flex justify-between"> Total Ips <FaHourglass className="text-black text-3xl"/></h3> 
          <br></br><span className='text-bold text-black text-4xl'>{pend + accept + reject}</span></div>

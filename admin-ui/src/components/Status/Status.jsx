@@ -79,8 +79,8 @@ const Status = (props) => {
          <a class="arrow mb-4 bg-gradient-to-r from-black via-gray-300" onClick={routeChange}>Back</a>
       </div>
 
-    <div data-testid='show' className='container text-gray-600 font-serif flex justify-between'>
-        <form className='form text-black shadow-2xl px-5 mx-20 my-20 bg-white flex justify-around'>
+    <div data-testid='show' className='container contain-1 text-gray-600 font-serif flex justify-between'>
+        <form className='form contain-form text-black shadow-2xl px-5 mx-20 my-20 bg-white flex justify-around'>
         <div className='my-36 text-2xl'>
         <p className='mb-5 text-2xl'>Status number value options:</p>
             <ul>

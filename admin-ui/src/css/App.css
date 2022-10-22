@@ -315,7 +315,14 @@ table th {
   .thirimg {
     margin-left: 0;
   }
+  
+  .box {
+    width: 30rem;
+  }
 
+  .foot {
+    flex-direction: column;
+  }
 
  }
 
