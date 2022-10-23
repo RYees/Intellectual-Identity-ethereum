@@ -1,3 +1,7 @@
+.container {
+  margin-top: 33rem;
+}
+
 .ball1{
   position: absolute;
   background-color: rgba(165, 168, 168, 0.096);
@@ -111,7 +115,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(31, 30, 29, 0.336);
+  background-color: rgba(71, 70, 68, 0.397);
 }
 
 .homecontain {
@@ -127,9 +131,16 @@
 }
 
 .first {
-  margin-top: 4rem;
+  margin-top: 10rem;
 }
 
+.sect-one {
+  margin-top: 30rem;
+}
+
+.content {
+  margin-top: 35rem;
+}
 .second {
   margin-top: -6rem;
 }
@@ -143,10 +154,10 @@
   height: 26rem;
   text-align: center;
   margin: 0 auto;
-  background-image: 
+  /* background-image: 
    radial-gradient(at 0% 0%, rgb(240, 240, 255) 0, transparent 50%), 
    radial-gradient(at 50% 0%, rgb(255, 255, 255) 0, transparent 50%), 
-   radial-gradient(at 100% 0%, rgb(240, 240, 255) 0, transparent 50%);
+   radial-gradient(at 100% 0%, rgb(240, 240, 255) 0, transparent 50%); */
 }
 
 .cop {
@@ -268,6 +279,21 @@ table th {
   .container {
     margin-left: -18rem;
   }
+   
+  .phot {
+    flex-direction: column;
+    margin: 40px 254px;
+  }
+
+  .content {
+    margin-top: 70rem;
+  }
+
+  .thirimg{
+    margin-top: 0.6rem;
+  }
+  
+  
 }
   
 @media (max-width: 768px) {
@@ -300,7 +326,12 @@ table th {
   }
 
   .phot {
-    margin: 40px 10px;
+    flex-direction: column;
+    margin: 40px 54px;
+  }
+  
+  .content {
+    margin-top: 70rem;
   }
 
   .phot2 {
