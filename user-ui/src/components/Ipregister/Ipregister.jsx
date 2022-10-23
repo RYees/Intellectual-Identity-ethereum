@@ -65,7 +65,7 @@ const Ipregister = () => {
           <div className=''>    
             <div className="mb-4">
             <label className='text-xl'>Public Address </label><br></br>
-                <input ref={address} placeholder="your public address" type="text" name="user"/>
+                <input className='ip-box text-gray-700 border py-2 px-2 rounded' ref={address} placeholder="your public address" type="text" name="user"/>
             </div>
             <div className='mb-4'>
             <label className='text-xl'>IP Name</label><br></br>
@@ -82,18 +82,18 @@ const Ipregister = () => {
            
         </div>
        </div> 
-       <div className='fields mt-28 px-4 ml-6'>
-            <div className='mb-4'>
+       <div className='fields second-box mt-28 px-4 ml-6'>
+            <div className='mb-4 second-lab'>
                 <label className='text-xl'>Street Name</label><br></br>
                 <input className='ip-box text-gray-700 border py-2 px-2 rounded' ref={street} type="text" name="addressplace" placeholder='your street name'/>
             </div>
 
-            <div className='mb-4'>
+            <div className='mb-4 second-lab'>
                 <label className='text-xl'>Logo link</label><br></br>
                 <input className='ip-box text-gray-700 border py-2 px-2 rounded' ref={url} type="text" name="symbol" placeholder='your ipfs logo link'/>
             </div>
 
-            <div className='py-3'>
+            <div className='py-3 second-lab'>
                 <button onClick={handleSubmit} className='mt-5 w-28 py-3 bg-black rounded text-white text-lg cursor-pointer'>Register</button>
             </div>
         </div>        

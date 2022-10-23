@@ -108,7 +108,7 @@ const Ip = () => {
               <td>{vals(item.timestamp['_hex'])}</td>
              {show ? ( <NavLink to={{ pathname:`/bidregister/${item.IPname}/${item.user}`}}  state={{item}}> 
                 <button
-                  className='bg-black text-white transition duration-150 ease-out hover:ease-in
+                  className='ml-2 my-2 bg-black text-gray-100 transition duration-150 ease-out hover:ease-in
                   py-1 px-6 mt-5 rounded text-gray-900'>
                   Bid
                 </button>

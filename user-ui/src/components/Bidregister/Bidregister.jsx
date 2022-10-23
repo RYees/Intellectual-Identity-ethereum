@@ -67,14 +67,14 @@ const Bidregister = (props) => {
     className='container contain-1 text-gray-600 font-serif flex justify-between'>
       <form className='bidform px-5 mx-20 mt-28 bg-white flex justify-center'>
        <div className='fields px-10'>
-        <div className='mb-6 py-3 text-center text-black'><h1>Register IP Bidders'</h1></div>
+        <div className='mb-6 py-3 text-center text-sm text-black'><h1>Register IP Bidders'</h1></div>
           <div className=''>    
             <div className="mb-4">
             <label className='text-xl'>IP owner public address </label><br></br>
                 <input className='input-box text-gray-700 border py-2 px-2 rounded' ref={ipname} type="text" name="address" value={item.user} placeholder="ip owner public address"/>
             </div>
 
-            <div className='fields mb-4'>
+            <div className='mb-4'>
             <label className='text-xl'>Owners' IP Name</label><br></br>
                 <input className='input-box text-gray-700 border py-2 px-2 rounded' ref={ipadd} type="text" name="ownerIPname" value={item.IPname} placeholder='owner intellectual property name'/>
             </div>

@@ -78,6 +78,29 @@
     width: 29rem;
     /* margin-left: 0.5rem; */
    }
+  .ipform {
+    display: flex;
+    flex-direction: column;
+    margin-left: -0.6rem;
+  }
+
+ .input-box {
+  width: 24rem;
+ }
+
+ .fields {
+  width: 27rem;
+  margin-left: 6rem;
+  padding: 0 10px 0 10px;
+ }
+
+ .ip-box {
+  width: 26rem;
+ }
+
+ .second-box {
+  margin-top: -0.2rem; 
+ }
 }
 
 @media (max-width: 768px) {
@@ -99,6 +122,27 @@
   margin-left: 0.5rem;
  }
 
+ .ip-box {
+  width: 26rem;
+ }
+
+ .second-lab {
+  margin-left: -1rem;
+ }
+
+ .second-box {
+  margin-top: -0.5rem; 
+ }
+ 
+ .ipform {
+   display: flex;
+   flex-direction: column;
+   margin-left: -0.6rem;
+ }
+
+ .bidform {
+   margin-left: -0.6rem;
+ } 
 }
 
 @media (max-width: 640px) {        
