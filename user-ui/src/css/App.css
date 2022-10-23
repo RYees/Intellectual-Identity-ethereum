@@ -194,6 +194,7 @@
 }
 
 .regform{
+  margin-top: 5rem;
   width: 70rem;
   border-radius: 10px;
 }
@@ -238,21 +239,21 @@ table {
 }
 
 table td, table th {
-  border: 1px solid #ddd;
+  border: 1px solid rgba(156, 156, 156, 0.473);
   padding: 8px;
 }
 
 table tr:nth-child(odd){background-color: #ffffff;}
-table tr:nth-child(even){background-color: #bebbbb3d;}
+table tr:nth-child(even){background-color: #ffffff00;}
 
-table tr:hover {background-color: #ddd;}
+table tr:hover {background-color: rgba(124, 113, 113, 0);}
 
 table th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: center;
   color: white;
-  background-color: #035269;
+  background-color: #93949659;
 }
 
 /* Responsive */
@@ -314,7 +315,14 @@ table th {
   .thirimg {
     margin-left: 0;
   }
+  
+  .box {
+    width: 30rem;
+  }
 
+  .foot {
+    flex-direction: column;
+  }
 
  }
 

@@ -1,6 +1,7 @@
 import React,{useState, useContext} from 'react';
 import { FaPlus, FaTimes } from "react-icons/fa";
 import { TransactionContext } from '../../context/TransactionContext';
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 
 const Input = ({ placeholder, name, type, value, handleChange }) => (
   <input
@@ -41,8 +42,8 @@ const Ipregister = () => {
     <div>
        <button onClick={changeView} 
        data-testid='button-one'
-       className='bg-gradient-to-r from-cyan-700 via-gray-300 to-cyan-700 transition duration-150 ease-out hover:ease-in mt-4 mb-8 mx-10 text-white
-        text-xl px-5 py-4 rounded shadow-lg cursor-pointer border-none hover:brightness-105 text-gray-900'>
+       className='bg-gradient-to-r from-black via-gray-300 to-black transition duration-150 ease-out hover:ease-in
+       p-4 rounded-3xl text-white text-2xl mt-5 mb-10 hover:brightness-105 transition duration-150 ease-in-out shadow-lg'>
        <FaPlus className='inline text-white'/> Register IPs
        </button>
     </div>

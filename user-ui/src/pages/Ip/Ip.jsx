@@ -2,17 +2,20 @@ import React, { useState, useContext, useEffect } from "react";
 import { FaHourglass} from "react-icons/fa";
 import Register from '../../components/Ipregister/Ipregister.jsx';
 // import Getips from '../../components/Getips.jsx';
+import { NavLink } from "react-router-dom";
 import '../../css/App.css';
 import { TransactionContext } from '../../context/TransactionContext';
 
 const Ip = () => {
   const { datas, getAllIps, countAccepted, accept, countRejected, reject, countPend, pend } = useContext(TransactionContext);
+  const[show, setShow] = useState(true);
+  
   useEffect(()=>{
     getAllIps();
     countAccepted();
     countRejected();
     countPend();
-  });
+  },[]);
   function vals (valk){
     const val = parseInt(valk);
     let result = epochTohumanReadble(val)
@@ -32,7 +35,8 @@ const Ip = () => {
     if(statusNumber === 0){
      return <div className="font-semibold">Pending</div>;
     } else if (statusNumber === 1){
-     return <div className="text-green-800 font-semibold">Accepted</div>;
+      //setShow(true);
+      return <div className="text-green-800 font-semibold">Accepted</div>;
     } else if (statusNumber === 2){
      return <div className="text-red-800 font-semibold">Rejected</div>;
     }
@@ -47,18 +51,19 @@ const Ip = () => {
       <Register/>
       </div>
 
-      <div className='flex gap-14 mx-5 mb-10 my-5'>
+     
+      <div className='flex flex-wrap gap-14 mx-5 ml-12 mb-10 my-5'>
         <div className='box hover:brightness-105 transition duration-150 ease-out hover:ease-in border border-10 border-gray-300 rounded-lg bg-white w-56 p-2'>
-         <h3 className="text-sm flex justify-between"> Total Ips <FaHourglass className="text-cyan-700 text-3xl"/></h3> 
+         <h3 className="text-sm text-gray-600 flex justify-between"> Total Ips <FaHourglass className="text-black text-3xl"/></h3> 
          <br></br><span className='text-bold text-black text-4xl'>{pend + accept + reject}</span></div>
         <div className='box hover:brightness-105 transition duration-150 ease-out hover:ease-in border border-10 border-gray-300 rounded-lg bg-white w-56 p-2'>
-        <h3 className="text-sm flex justify-between"> Total Pendings <FaHourglass className="text-cyan-700 text-3xl"/></h3>
+        <h3 className="text-sm text-gray-600 flex justify-between"> Total Pendings <FaHourglass className="text-black text-3xl"/></h3>
          <br></br><span className='text-bold text-black text-4xl'>{pend}</span></div>
         <div className='box hover:brightness-105 transition duration-150 ease-out hover:ease-in border border-10 border-gray-300 rounded-lg bg-white w-56 p-2'>
-        <h3 className="text-sm flex justify-between"> Total Approves<FaHourglass className="text-cyan-700 text-3xl"/></h3> 
+        <h3 className="text-sm text-gray-600 flex justify-between"> Total Approves<FaHourglass className="text-black text-3xl"/></h3> 
          <br></br><span className='text-bold text-black text-4xl'>{accept}</span></div>
         <div className='box hover:brightness-105 transition duration-150 ease-out hover:ease-in border border-10 border-gray-300 rounded-lg bg-white w-56 p-2'>
-        <h3 className=" flex justify-between text-sm"> Total Rejects <FaHourglass className="text-cyan-700 text-3xl"/></h3>
+        <h3 className="text-sm text-gray-600 flex justify-between text-sm"> Total Rejects <FaHourglass className="text-black text-3xl"/></h3>
          <br></br><span className='text-bold text-black text-4xl'>{reject}</span></div>
       </div>
 
@@ -86,14 +91,14 @@ const Ip = () => {
     <table className='table table-striped mx-8 mt-24 shadow-lg'>
         <thead>
           <tr className=''>
-            <th className=''>ID</th>
-            <th className=''> Ip Name </th>
-            <th className=''> Full Name</th>
-            <th className=''> Country Name</th>
-            <th className=''> Address</th>
-            <th className=''> Status</th>
-            <th className=''> Date</th>
-            <th className=''></th>
+            <th className='text-gray-900'>ID</th>
+            <th className='text-gray-900'> Ip Name </th>
+            <th className='text-gray-900'> Full Name</th>
+            <th className='text-gray-900'> Country Name</th>
+            <th className='text-gray-900'> Address</th>
+            <th className='text-gray-900'> Status</th>
+            <th className='text-gray-900'> Date</th>
+            <th className='text-gray-900'></th>
           </tr>
         </thead>
         <tbody className='bg-gray-100'>
@@ -107,7 +112,13 @@ const Ip = () => {
               <td className='text-black'>{item.addressplace}</td>  
               <td className='text-black'>{status(item.status[item.status.length-1])}</td>   
               <td>{vals(item.timestamp['_hex'])}</td>
-              <td className='text-center'><button className="bg-black py-3 px-6 rounded text-white hover:bg-gray-500">bid</button></td>
+             {show ? ( <NavLink to={{ pathname:`/bidregister/${item.IPname}/${item.user}`}}  state={{item}}> 
+                <button
+                  className='bg-black text-white transition duration-150 ease-out hover:ease-in
+                  py-1 px-6 mt-5 rounded text-gray-900'>
+                  Bid
+                </button>
+              </NavLink>):( null)}
               </tr>
          ))
          }         

@@ -65,13 +65,13 @@ const Footer = () => {
         </p>
         <p className="text-lg my-2">
           <FaPhone data-testid='icon1'
-          className="inline-block"/> 
+          className="inline-block mr-2"/> 
           302-103-133
         </p>
         <p 
           className="text-lg my-2">
           <FaEnvelope data-testid='icon2'
-          className="inline-block"/>
+          className="inline-block mr-2"/>
           ips@gov.com
         </p>
       </div>

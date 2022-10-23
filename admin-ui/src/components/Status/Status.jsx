@@ -17,8 +17,8 @@ const Input = ({ placeholder, name, type, value, handleChange }) => (
 const Status = (props) => {
     const {connectWallet, changeStatus } = useContext(TransactionContext);
     //const[show, setShow] = useState(false);
-    const idp = React.useRef();
-    const lsg = React.useRef();
+    const id = React.useRef();
+    const status = React.useRef();
 
     const { state } = useLocation();
     const { index } = state || {};
@@ -46,7 +46,7 @@ const Status = (props) => {
         e.preventDefault();
         // if (!id || !val) return;    
         //console.log("input values" + idp.current.value, lsg.current.value);
-        changeStatus(idp.current.value, lsg.current.value);
+        changeStatus(id.current.value, status.current.value);
     };
 
     return (
@@ -94,11 +94,11 @@ const Status = (props) => {
             <div className=''>    
                 <div className="mb-6">
                 <label className='text-xl'>IP ID </label><br></br>
-                    <input className='input-box text-gray-700 border py-2 px-2 rounded' type="text" name="id" ref={idp} value={index} placeholder="id number of the intellectual property" />
+                    <input className='input-box text-gray-700 border py-2 px-2 rounded' type="text" name="id" ref={id} value={index} placeholder="id number of the intellectual property" />
                 </div>
                 <div className='mb-4'>
                 <label className='text-xl'>Status No.</label><br></br>
-                    <input className='input-box text-gray-700 border py-2 px-2 rounded' type="text" name="val" ref={lsg} placeholder='status number'/>
+                    <input className='input-box text-gray-700 border py-2 px-2 rounded' type="text" name="val" ref={status} placeholder='status number'/>
                 </div>
 
                 <div className='py-3'>
