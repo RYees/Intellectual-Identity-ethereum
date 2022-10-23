@@ -49,14 +49,14 @@ const Mint = (props) => {
         <button
             data-testid="wallet"
             onClick={connectWallet}
-            className='bg-gradient-to-r from-black via-gray-300 to-black transition duration-150 ease-out hover:ease-in
-            p-4 rounded-3xl text-white text-2xl mt-36 mb-10 hover:brightness-105 transition duration-150 ease-in-out shadow-lg'>
+            className='bg-gradient-to-r from-black via-gray-500 to-black transition duration-150 ease-out hover:ease-in
+            p-4 px-6 rounded-full text-white text-xl mt-36 mb-10 hover:brightness-125 transition duration-160 ease-in-out shadow-lg'>
             Connect Wallet
         </button>
       </div>
 
       <div className='bg-white'>
-         <p className='text-center mb-16'>Don't forget to connect to your wallet</p>
+         <p className='text-center text-gray-400 mb-16'>don't forget to connect to your wallet</p>
       </div>
 
       <div>

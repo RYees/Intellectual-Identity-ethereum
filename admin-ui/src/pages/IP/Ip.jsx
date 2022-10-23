@@ -51,13 +51,13 @@ const Ip = () => {
   return (
     <>
     <div className='mb-96 mt-20'>
-      <div className='flex justify-between'>
-        <p className='mx-4 py-4 text-3xl cursor-pointer'>Intellectual Properties</p>
-        <button
+    <div className='flex justify-between'>
+      <p className='mx-4 py-4 text-3xl cursor-pointer'>Intellectual Properties</p>  
+       <button
             data-testid="wallet"
             onClick={connectWallet}
-            className='bg-gradient-to-r from-black via-gray-300 to-black transition duration-150 ease-out hover:ease-in
-            p-4 rounded-3xl text-white text-2xl mt-5 mb-10 hover:brightness-105 transition duration-150 ease-in-out shadow-lg'>
+            className='bg-gradient-to-r from-black via-gray-500 to-black transition duration-150 ease-out hover:ease-in
+            p-4 px-6 rounded-full text-white text-xl mr-2 mt-5 mb-10 hover:brightness-125 transition duration-150 ease-in-out shadow-lg'>
             Connect Wallet
         </button>
       </div>

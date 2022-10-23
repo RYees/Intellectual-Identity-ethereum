@@ -2,7 +2,7 @@
     background-color: rgba(231, 226, 226, 0.658);
     margin-bottom: 10rem;
 }
-
+.ipform,
 .bidform {
     box-shadow: 10px 10px solid rgb(19, 16, 16);
     width: 100%;
@@ -10,6 +10,10 @@
 
 .input-box {
     width: 36rem;
+}
+
+.ip-box {
+  width: 32rem;
 }
 
 .fields{

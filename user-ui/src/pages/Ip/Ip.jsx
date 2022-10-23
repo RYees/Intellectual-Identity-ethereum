@@ -1,13 +1,12 @@
 import React, { useState, useContext, useEffect } from "react";
-import { FaHourglass} from "react-icons/fa";
-import Register from '../../components/Ipregister/Ipregister.jsx';
+import { FaHourglass, FaPlus } from "react-icons/fa";
 // import Getips from '../../components/Getips.jsx';
 import { NavLink } from "react-router-dom";
 import '../../css/App.css';
 import { TransactionContext } from '../../context/TransactionContext';
 
 const Ip = () => {
-  const { datas, getAllIps, countAccepted, accept, countRejected, reject, countPend, pend } = useContext(TransactionContext);
+  const { datas, getAllIps, connectWallet, countAccepted, accept, countRejected, reject, countPend, pend } = useContext(TransactionContext);
   const[show, setShow] = useState(true);
   
   useEffect(()=>{
@@ -25,7 +24,7 @@ const Ip = () => {
     let epoch = timestamp;
     let currentTimestamp = epoch;
     let date = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(currentTimestamp)
-    let time =  date.split(' ')[1];
+   // let time =  date.split(' ')[1];
     return date;
    // console.log('timt',time)
   //  const [hour, minute, second] = time.split(':');        
@@ -46,9 +45,14 @@ const Ip = () => {
     <>
     <div className='mb-96 mt-20'>
       <div className='flex justify-between'>
-      <p className='mx-4 py-4 text-3xl cursor-pointer'>Intellectual Properties</p>
-      {/* <button className='mt-8 mx-10 bg-gray-300 py-4 cursor-pointer border-none hover:brightness-105'><FaPlus className='inline'/> Register IPs</button> */}
-      <Register/>
+      <p className='mx-4 py-4 text-3xl cursor-pointer'>Intellectual Properties</p>  
+       <button
+            data-testid="wallet"
+            onClick={connectWallet}
+            className='bg-gradient-to-r from-black via-gray-500 to-black transition duration-150 ease-out hover:ease-in
+            p-4 px-6 rounded-full text-white text-xl mr-2 mt-5 mb-10 hover:brightness-125 transition duration-150 ease-in-out shadow-lg'>
+            Connect Wallet
+        </button>
       </div>
 
      
@@ -66,28 +70,18 @@ const Ip = () => {
         <h3 className="text-sm text-gray-600 flex justify-between text-sm"> Total Rejects <FaHourglass className="text-black text-3xl"/></h3>
          <br></br><span className='text-bold text-black text-4xl'>{reject}</span></div>
       </div>
-
-      {/* <div className='mb-10 mt-20'>
-        <input type="text" placeholder='Search...' className="alinput px-3 py-3 rounded-full"/>
-        <FaSearch size={40}/>
-      </div> */}
     <div>
-      {/* <div>
-      {Object.keys(data).map((key) => {
-         return (
-           <div className="flex" key={key}>
-              <h1 className="flex">{key}</h1>
-              {data[key]['member'].map((dataItem) => {
-                return (
-                 <span key={dataItem.id}>{dataItem}</span>
-                )
-               })}
-           </div>
-         )
-       })}
-     </div>
-    */}
-    {/* <button onClick={getAllIps}>click</button> */}
+     
+    <div>
+    <NavLink to={{ pathname:`/ipregister`}}> 
+       <button 
+       data-testid='button-one'
+       className='flex justify-end float-right mb-3 bg-black transition duration-150 ease-out hover:ease-in
+       px-3 py-2 rounded text-white hover:brightness-105 transition duration-150 ease-in-out shadow-lg'>
+       <FaPlus className='inline text-white mt-1 mr-1'/> Register IPs
+       </button>
+    </NavLink>
+    </div>
     <table className='table table-striped mx-8 mt-24 shadow-lg'>
         <thead>
           <tr className=''>

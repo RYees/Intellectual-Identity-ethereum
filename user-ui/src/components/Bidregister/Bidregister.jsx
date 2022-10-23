@@ -4,16 +4,16 @@ import { TransactionContext } from '../../context/TransactionContext';
 import { useNavigate, useLocation } from "react-router-dom";
 import '../../css/Style.css';
 
-const Input = ({ placeholder, name, type, value, handleChange }) => (
-  <input
-    placeholder={placeholder}
-    type={type}
-    step="0.0001"
-    value={value}
-    onChange={(e) => handleChange(e, name)}
-    className="border w-full p-3"
-  />
-);
+// const Input = ({ placeholder, name, type, value, handleChange }) => (
+//   <input
+//     placeholder={placeholder}
+//     type={type}
+//     step="0.0001"
+//     value={value}
+//     onChange={(e) => handleChange(e, name)}
+//     className="border w-full p-3"
+//   />
+// );
 
 const Bidregister = (props) => {
   const { connectWallet, currentAccount,registerBidder, bidformData, handleChanges } = useContext(TransactionContext);
@@ -26,16 +26,6 @@ const Bidregister = (props) => {
   const ipadd = React.useRef();
   const bidval = React.useRef();
   const bidadd = React.useRef();
-  
-  function changeView() {
-    setShow(true);
-  }
-
-  function closeView(e) {
-    if(e){
-      setShow(!show);
-    }
-  }
 
   let navigate = useNavigate(); 
   const routeChange = () =>{ 
@@ -55,29 +45,19 @@ const Bidregister = (props) => {
 
   return (
     <>
-    {/* <div>
-       <button onClick={changeView} 
-       data-testid='button-one'
-       className='bg-gradient-to-r from-cyan-700 via-gray-300 to-cyan-700 transition
-        duration-150 ease-out hover:ease-in mt-4 mb-8 mx-10
-        text-xl px-5 py-4 rounded shadow-lg cursor-pointer border-none 
-        hover:brightness-105 text-gray-900'>
-       <FaPlus className='inline text-white'/> Register IP Bidders
-       </button>
-    </div> */}
     <div className='text-center'>
             <button
                 data-testid="wallet"
                 onClick={connectWallet}
-                className='bg-gradient-to-r from-black via-gray-300 to-black transition duration-150 ease-out hover:ease-in
-                p-4 rounded-3xl text-white text-2xl mt-36 mb-10 hover:brightness-105 transition duration-150 ease-in-out shadow-lg'>
+                className='bg-gradient-to-r from-black via-gray-500 to-black transition duration-150 ease-out hover:ease-in
+                p-4 px-6 rounded-full text-white text-xl mt-36 mb-10 hover:brightness-125 transition duration-150 ease-in-out shadow-lg'>
                 Connect Wallet
             </button>
         </div>
 
-      <div className='bg-white'>
-         <p className='text-center mb-16'>Don't forget to connect to your wallet</p>
-      </div>
+        <div className='bg-white'>
+          <p className='text-center text-gray-400 mb-16'>don't forget to connect to your wallet</p>
+       </div>
 
       <div>
          <a class="arrow mb-4 bg-gradient-to-r from-black via-gray-300" onClick={routeChange}>Back</a>
@@ -110,7 +90,7 @@ const Bidregister = (props) => {
             </div>
 
             <div className='py-3'>
-              <button onClick={handleSubmit} className='mt-5 w-28 py-3 bg-black rounded text-white text-lg cursor-pointer'>Register</button>
+              <button onClick={handleSubmit} className='mt-5 w-28 py-3 bg-black rounded text-white text-lg cursor-pointer'>Bid</button>
           </div> 
         </div>
        </div>      
