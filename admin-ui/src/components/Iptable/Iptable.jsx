@@ -9,7 +9,7 @@ const Iptable = ({data}) => {
     const [currentItems, setCurrentItems] = useState([]);
     const [pageCount, setPageCount] = useState(0);
     const [itemOffset, setItemOffset] = useState(0);
-    const itemsPerPage = 1;
+    const itemsPerPage = 3;
   
     useEffect(() => {
       const endOffset = itemOffset + itemsPerPage;
@@ -128,7 +128,7 @@ const Iptable = ({data}) => {
         breakLabel="..."
         nextLabel="next >"
         onPageChange={handlePageClick}
-        pageRangeDisplayed={1}
+        pageRangeDisplayed={3}
         pageCount={pageCount}
         previousLabel="< previous"
         renderOnZeroPageCount={null}

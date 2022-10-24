@@ -1,26 +1,33 @@
-import React,{useContext, useEffect} from 'react';
+import React,{useContext, useEffect, useState} from 'react';
 import { TransactionContext } from '../../context/TransactionContext';
 import '../../css/App.css';
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 import '../../css/Style.css';
+import Bidtable from '../../components/Bidtable/Bidtable';
 
 const Bidder = (props) => {
   const { connectWallet, currentAccount, getBidders, bidData, countbidders,countbids} = useContext(TransactionContext);
   const { state } = useLocation();
   const { item } = state || {};
   const { index } = state || {};
-  console.log("para value" + item  + "id" + index);
+  
+  const[query, setQuery] = useState("");
+
+  const keys = ["ownerIPname"]
+
+  const search = (data) => {
+    return data.filter((item) => 
+      keys.some((key) => item[key].toLowerCase().includes(query))
+    );
+  }
+
 
   useEffect(()=>{
     getBidders(item.user);
     countbidders(item.user);
   },[]);
 
-  function vals (valk){
-      const val = parseInt(valk);
-      return val;
-  }
-  
+   
   let navigate = useNavigate(); 
   const routeChange = () =>{ 
     let path = `/`; 
@@ -55,32 +62,15 @@ const Bidder = (props) => {
       </div>
       </div>
 
-      <div className='mx-20 mb-32'>
-      <table className='table table-striped'>
-        <thead>
-          <tr className=''>
-            <th className='text-gray-900'>ID</th>
-            <th className='text-gray-900'> Ip Name </th>
-            <th className='text-gray-900'> Bidder Address </th>
-            <th className='text-gray-900'> value </th>
-            <th className='text-gray-900'> Transfer Ownership</th>
-          </tr>
-        </thead>
-        <tbody className='bg-gray-100'>
-
-        {bidData.map((item,index) => ( 
-            <tr key={index}>
-              <td >{index}</td>
-              <td >{item.ownerIPname}</td>    
-              <td className='text-black'>{item.bidderAddress}</td>             
-              <td>{vals(item.bidValue['_hex'])}wei</td>
-              <td className='text-center'><button className='bg-black text-white py-1 px-6 rounded'>Accept</button></td>
-            </tr>
-         ))
-         }         
-        </tbody>
-      </table> 
+     <div>
+      <input 
+        type="text"
+        placeholder="Search..."
+        className="look border-solid border-1 mb-12 mt-10 border-gray-300 mx-96 py-3 px-4"
+        onChange={(e) => setQuery(e.target.value)}
+      />
      </div>
+      <Bidtable data={search(bidData)}/>
     </>
   )
 }
