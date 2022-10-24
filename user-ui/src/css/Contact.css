@@ -7,3 +7,23 @@
    radial-gradient(at 50% 0%, rgb(255, 255, 255) 0, transparent 50%), 
    radial-gradient(at 100% 0%, rgb(240, 240, 255) 0, transparent 50%);
 }
+
+/* Responsive */
+
+@media (max-width: 1280px) {
+   .container {
+     margin-left: -10rem;
+   }
+ }
+ 
+ @media (max-width: 1024px) {
+   .container {
+     margin-left: -18rem;
+   }
+ }
+   
+ @media (max-width: 768px) {
+   .inp {
+     width: 25rem;
+   }
+}

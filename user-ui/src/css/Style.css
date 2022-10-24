@@ -1,0 +1,177 @@
+.regcont{
+    background-color: rgba(231, 226, 226, 0.658);
+    margin-bottom: 10rem;
+    /* margin-top: -1rem; */
+}
+.ipform,
+.bidform {
+    box-shadow: 10px 10px solid rgb(19, 16, 16);
+    width: 100%;
+}
+
+.input-box {
+    width: 36rem;
+}
+
+.ip-box {
+  width: 32rem;
+}
+
+.fields{
+    background-color: rgba(204, 196, 196, 0.151);
+}
+
+.arrow {
+    cursor: pointer;
+    display: inline-block;  
+    height: 39px;
+    margin-left: 40px;
+    margin-right: 40px;
+    position: relative;
+    line-height: 2.5em;
+    padding-left: 1em;
+    padding-right: 1em;
+    /* background: rgb(82, 80, 80); */
+    color: black;
+  }
+
+  .arrow::before {
+    border-right: 25px solid rgb(2, 2, 2);
+  }
+    
+  .arrow::before {
+    content: "";
+    position: absolute;
+    border-bottom: 20px solid transparent;
+    border-top: 20px solid transparent;
+    height: 0px;
+    width: 0px;
+    margin-right: 66px;
+    right: 0; 
+  }
+  
+  .arrow:hover, .arrow:active {
+    background: rgba(197, 193, 193, 0.671);
+  }
+
+  .pagination {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5rem;
+    font-size: 1.2rem;
+    gap: 5px;
+  }
+
+  .pagination .page-num {
+    padding: 8px 15px;
+    cursor: pointer;
+    border-radius: 3px;
+    font-weight: 400;
+  }
+
+  .pagination .page-num:hover {
+    background-color: rgb(8, 8, 8);
+    color: #fff;
+  }
+
+  .pagination .active {
+    background-color: rgb(197, 193, 193);
+  }
+  
+
+  /* Responsive */
+
+@media (max-width: 1280px) {
+  .contain-1 {
+    margin-left: 1.8rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .contain-1 {
+    margin-left: 7rem;
+  }
+
+  .contain-form {
+    flex-direction: column;
+  }
+
+  .input-box {
+    width: 24rem;
+  }
+
+  .fields {
+    width: 29rem;
+    /* margin-left: 0.5rem; */
+   }
+  .ipform {
+    display: flex;
+    flex-direction: column;
+    margin-left: -0.6rem;
+  }
+
+ .input-box {
+  width: 24rem;
+ }
+
+ .fields {
+  width: 27rem;
+  margin-left: 6rem;
+  padding: 0 10px 0 10px;
+ }
+
+ .ip-box {
+  width: 26rem;
+ }
+
+ .second-box {
+  margin-top: -0.2rem; 
+ }
+}
+
+@media (max-width: 768px) {
+ .contain-1 {
+  margin-left: 1rem;
+ }
+
+ .contain-form {
+  margin-left: -1rem;
+  flex-direction: column;
+ }
+
+ .input-box {
+  width: 24rem;
+ }
+
+ .fields {
+  width: 27rem;
+  margin-left: 0.5rem;
+ }
+
+ .ip-box {
+  width: 26rem;
+ }
+
+ .second-lab {
+  margin-left: -1rem;
+ }
+
+ .second-box {
+  margin-top: -0.5rem; 
+ }
+ 
+ .ipform {
+   display: flex;
+   flex-direction: column;
+   margin-left: -0.6rem;
+ }
+
+ .bidform {
+   margin-left: -0.6rem;
+ } 
+}
+
+@media (max-width: 640px) {        
+}

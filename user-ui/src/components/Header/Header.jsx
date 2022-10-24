@@ -7,21 +7,22 @@ const Header = () => {
   return (
     <header 
     data-testid='header-start'
-    className='header top-0 fixed z-10 flex justify-between bg-cyan-900 opacity-75 w-full py-3 text-white px-8 '>
+    className='header top-0 fixed z-10 flex justify-between bg-gray-100 shadow-xl opacity-75 w-full py-3 text-white px-8'
+    >
       {/* <div className='flex justify-between'> */}
-      <div> <img src={logo} alt="home-image" className='h-14 rounded-full'/></div>
+      <div><Link to="/"><img src={logo} alt="home-image" className='cursor-pointer h-14 rounded-full'/></Link> </div>
       <nav className=''>
         <ul className='flex justify-between gap-16 mt-3 text-xl font-serif'>
           <li className=''>
-            <Link className='hover:text-black' to="/">Home</Link>
+            <Link className='hover:text-black text-gray-800' to="/">Home</Link>
           </li>
 
           <li>
-            <Link className='hover:text-black' to="/ips">Ips</Link>
+            <Link className='hover:text-black text-gray-800' to="/ips">Ips</Link>
           </li>
 
           <li>
-            <Link className='hover:text-black' to="/bidders">Bidders</Link>
+            <Link className='hover:text-black text-gray-800' to="/bidders">Bidders</Link>
           </li>
          {/* 
           <li>

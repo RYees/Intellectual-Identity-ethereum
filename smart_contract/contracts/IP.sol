@@ -206,7 +206,7 @@ contract IP {
             u.country,
             u.addressplace, 
             u.allIpInfoURL
-            );
+        );
     }
 
 

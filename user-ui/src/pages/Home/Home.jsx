@@ -1,5 +1,4 @@
 import React,{useContext} from 'react';
-import banner from "../../assets/pexel.jpg";
 import eth from "../../assets/eth.png";
 import copy from "../../assets/copyright2.png";
 import check from "../../assets/check.png";
@@ -10,6 +9,7 @@ import img3 from "../../assets/guyeth.jpg";
 import img4 from "../../assets/nenad.jpg";
 import Contact from "../../pages/Contact/Contact.jsx";
 import { TransactionContext } from '../../context/TransactionContext';
+import { NavLink } from "react-router-dom";
 import '../../css/App.css';
 
 const Home = () => {
@@ -18,27 +18,27 @@ const Home = () => {
     <>
     <div className=''>
       <div>
-        <img src={banner} alt="home-image" className='banner'/>
+        {/* <img src={banner} alt="home-image" className='banner'/> */}
         <div className='overlay'></div>
       </div>
       
       <div className='homecontain' data-testid='section-one'>
         <div className='first'>
-          <h1>Register your
-            <strong className='italic text-gray-900'> Intellectual Property</strong>    
+          <h1 className='italic text-white'>Register your
+            <strong className='italic text-white'> Intellectual Property</strong>    
           </h1>
-          <p className='mt-4 text-gray-200 m-2'>Prevent others from using yours' invention and decide who is allowed to produce, sell or import your invention. Use NFT tokens of blockchain technology to prove your ownership of any piece of content now!!!</p>
+          <p className='mt-4 text-white m-2'>Prevent others from using yours' invention and decide who is allowed to produce, sell or import your invention. Use NFT tokens of blockchain technology to prove your ownership of any piece of content now!!!</p>
           <button
             onClick={connectWallet}
             data-testid='button-one'
-            className='bg-gray-300 transition duration-150 ease-out hover:ease-in
-            p-4 mt-5 rounded-3xl text-gray-900 text-xl'>
+            className='btn-one bg-gradient-to-r from-black via-gray-500 to-black transition duration-150 ease-out hover:ease-in
+            p-4 px-6 rounded-full text-white text-xl mr-2 mt-5 mb-10 hover:brightness-125 transition duration-150 ease-in-out shadow-lg'>
             Connect Wallet
           </button>
         </div>
-        
+     
         <div className='second'>
-           <img src={eth} alt="ethereum image" className='imagetwo'/>
+           <img src={eth} alt="ethereum" className='imagetwo'/>
         </div>
       </div>   
     <div className='container'>
@@ -53,32 +53,41 @@ const Home = () => {
     </div>
     </div>
     
-    <div className='text-center m-10'>
-      <h1>Intellectual property on the blockchain</h1>
-    </div>
-    
-    <div className='phot flex justify-between mx-36 mb-20 gap-5'>
-      <div className='bg-white w-96 h-60 shadow-lg shadow-gray-500/50'>
-      <img src={img1} alt="" className='cop'/>
+    <div className='sect-one absolute mt-96'>
+      <div className='text-center my-10 mx-64'>
+        <h1 className='text-center  text-5xl font-serif'>Intellectual property management on the blockchain</h1>
       </div>
-      <div className='bg-white w-96 h-60 shadow-xl shadow-gray-500/50'>
-      <img src={img2} alt="" className='cop'/>
+      
+      <div className='phot flex justify-between mx-10 mb-20 gap-5'>
+        <div className='bg-white w-96 h-60 shadow-lg shadow-gray-500/50'>
+        <img src={img1} alt="" className='cop'/>
+        </div>
+        <div className='bg-white w-96 h-60 shadow-xl shadow-gray-500/50'>
+        <img src={img2} alt="" className='cop'/>
+        </div>
+        <div className='bg-white w-96 h-60 shadow-lg shadow-gray-500/50'>
+        <img src={img3} alt="" className='cop'/>
+        </div>
       </div>
-      <div className='bg-white w-96 h-60 shadow-lg shadow-gray-500/50'>
-      <img src={img3} alt="" className='cop'/>
-      </div>
-    </div>
-
-    <div className='mb-20 '>
-      <img src={copy} alt="" className='shadow-sm copy'/>
     </div>
 
-    <div className='text-center content p-20 bg-gray-100'>
+    <div className='mb-20 relative z-10'>
+      <img src={copy} alt="" className='copy'/>
+    </div>
+
+    <div className='text-center content mt-96 p-20 bg-gray-100'>
       <h1 className='text-center text-4xl mb-5'>Register your intellectual property</h1>
-      <p className='text-center text-2xl mb-5 '>Get your IP approval!</p>
+      <p className='text-center text-2xl mb-5'>Get your IP approval!</p>
       <div className='text-center'>
       <img src={check} alt="" className='chec w-36 h-16'/>
-      <button className='btn -ml-12 bg-gray-900 opacity-75 py-4 px-8 mt-5 text-white text-xl'>Register</button>
+      <NavLink to={{ pathname:`/ipregister`}}> 
+       <button 
+        data-testid='button-one'
+        className='mb-3 mt-5 -ml-12 bg-black transition duration-150 ease-out hover:ease-in
+        py-4 px-8 rounded text-white text-xl hover:brightness-105 transition duration-150 ease-in-out shadow-lg'>
+        Register
+      </button>
+      </NavLink>
       </div>
     </div>
 

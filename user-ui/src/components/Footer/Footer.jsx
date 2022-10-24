@@ -1,11 +1,12 @@
 import React from 'react'
 import { FaEnvelope, FaPhone, FaFacebook, FaYoutube, FaTwitter } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
+import '../../css/App.css';
 
 const Footer = () => {
   return (
-    <div className='bg-gray-900 h-48 w-full'>
-    <div className='text-gray-700 flex justify-around'>
+    <div className='bg-black h-full w-full'>
+    <div className='foot text-gray-700 flex justify-around'>
       <div className="py-5 text-white">
         <p 
           data-testid='footer-one'
@@ -64,13 +65,13 @@ const Footer = () => {
         </p>
         <p className="text-lg my-2">
           <FaPhone data-testid='icon1'
-          className="inline-block"/> 
+          className="inline-block mr-2"/> 
           302-103-133
         </p>
         <p 
           className="text-lg my-2">
           <FaEnvelope data-testid='icon2'
-          className="inline-block"/>
+          className="inline-block mr-2"/>
           ips@gov.com
         </p>
       </div>

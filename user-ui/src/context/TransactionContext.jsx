@@ -84,10 +84,10 @@ export const TransactionsProvider = ({ children }) => {
     }
   };
 
-  const registerIP= async () => {
+  const registerIP= async (user, IPname, fullname, country, addressplace, symbol) => {
     try {  
       if (ethereum) {
-        const { user, IPname, fullname, country, addressplace, symbol } = formData;
+        //const { user, IPname, fullname, country, addressplace, symbol } = formData;
         const transactionsContract = createEthereumContract();
     
         const transactionHash = await transactionsContract.setIP(user, IPname, fullname, country, addressplace, symbol);
@@ -112,11 +112,11 @@ export const TransactionsProvider = ({ children }) => {
     }
   };
 
-  const registerBidder= async () => {
+  const registerBidder= async (address, ownerIPname, bidvalue, bidderaddress) => {
     console.log('success')
     try {  
       if (ethereum) {
-        const { address, ownerIPname, bidvalue, bidderaddress } = bidformData;
+        //const { address, ownerIPname, bidvalue, bidderaddress } = bidformData;
         const transactionsContract = createEthereumContract();
         
         const transactionHash = await transactionsContract.setIPbidder1(address, ownerIPname, bidvalue, bidderaddress);

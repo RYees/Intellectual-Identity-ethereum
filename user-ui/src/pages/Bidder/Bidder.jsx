@@ -1,69 +1,72 @@
-import React,{useContext, useEffect} from 'react';
+import React,{useContext, useEffect, useState} from 'react';
 import { TransactionContext } from '../../context/TransactionContext';
-import Bidregister from '../../components/Bidregister/Bidregister.jsx';
-import '../../css/App.css'
+import '../../css/App.css';
+import { useNavigate } from "react-router-dom";
+import '../../css/Style.css';
+import Bidtable from '../../components/Bidtable/Bidtable';
 
 const Bidder = () => {
   const { connectWallet, currentAccount, getBidders, bidData, countbidders,countbids} = useContext(TransactionContext);
-  // useEffect(()=>{
-  //   getBidders(currentAccount);
-  //   countbidders(currentAccount);
-  // },[]);
+  
+  const[query, setQuery] = useState("");
 
-  function vals (valk){
-      const val = parseInt(valk);
-      return val;
+  const keys = ["ownerIPname"]
+
+  const search = (data) => {
+    return data.filter((item) => 
+      keys.some((key) => item[key].toLowerCase().includes(query))
+    );
+  }
+
+  useEffect(()=>{
+    getBidders(currentAccount);
+    countbidders(currentAccount);
+  },[]);
+
+  let navigate = useNavigate(); 
+  const routeChange = () =>{ 
+    let path = `/ips`; 
+    navigate(path);
+    navigate(0);
   }
 
   return (
-    <div className='mb-96 mt-20'>
-      <div className='text-center py-10'>
+    <>
+     <div className='text-center'>
         <button
-        onClick={connectWallet}
-        className='bg-gradient-to-r from-cyan-700 via-gray-300 to-cyan-700 transition duration-150 ease-out hover:ease-in
-        p-8 rounded-3xl text-gray-900 text-2xl'>
-        Connect Wallet</button>
+            data-testid="wallet"
+            onClick={connectWallet}
+            className='bg-gradient-to-r from-black via-gray-500 to-black transition duration-150 ease-out hover:ease-in
+            p-4 px-6 rounded-full text-white text-xl mt-36 mb-10 hover:brightness-125 transition duration-150 ease-in-out shadow-lg'>
+            Connect Wallet
+        </button>
       </div>
 
-      <div className='bg-white mb-20'>
-         <p className='text-center py-20'>Connect to your wallet, to see your IP bidders'</p>
+      <div className='bg-white'>
+         <p className='text-center text-gray-400 mb-16'>connect to your wallet, to see your IP bidders'</p>
       </div>
 
-      <div className='flex justify-between'>
-      <p className='mx-4 py-4 text-3xl cursor-pointer'>Register bid</p>
+      <div>
+         <a class="arrow mb-4 bg-gradient-to-r from-black via-gray-300" onClick={routeChange}>Back</a>
+      </div>
+
+      <div className='flex justify-around'>
+      <p className='mx-4 py-4 text-4xl cursor-pointer'>Bids</p>
       <div>
         <p>Total bids:{countbids}</p>
       </div>
-      <Bidregister/>
       </div>
-
-      <div className='mx-20'>
-      <table className='table table-striped'>
-        <thead>
-          <tr className='text-black'>
-            <th className='text-black'>ID</th>
-            <th className='text-black'> Ip Name </th>
-            <th className='text-black'> Bidder Address </th>
-            <th className='text-black'> value </th>
-            <th className='text-black'> Transfer Ownership</th>
-          </tr>
-        </thead>
-        <tbody className='bg-gray-100'>
-
-        {bidData.map((item,index) => ( 
-            <tr key={index}>
-              <td >{index}</td>
-              <td >{item.ownerIPname}</td>    
-              <td className='text-black'>{item.bidderAddress}</td>             
-              <td>{vals(item.bidValue['_hex'])}wei</td>
-              <td className='text-center'><button className='bg-green-400 py-3 px-6 rounded'>Accept</button></td>
-            </tr>
-         ))
-         }         
-        </tbody>
-      </table> 
+      
+      <div>
+      <input 
+        type="text"
+        placeholder="Search..."
+        className="look border-solid border-1 mb-12 mt-10 border-gray-300 mx-96 py-3 px-4"
+        onChange={(e) => setQuery(e.target.value)}
+      />
      </div>
-    </div>
+      <Bidtable data={search(bidData)}/>
+    </>
   )
 }
 

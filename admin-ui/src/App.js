@@ -1,26 +1,56 @@
-import React from "react";
-import { Route, Routes} from 'react-router-dom';
-//import Home from './pages/Home.jsx';
+import React, {useEffect, useState} from "react";
+import { Route, Routes, useLocation} from 'react-router-dom';
 import Ip from './pages/IP/Ip.jsx';
 import Bidder from './pages/Bidder/Bidder.jsx';
-// import Contact from './pages/Contact.jsx';
 import Header from './components/Header/Header.jsx';
 import Footer from './components/Footer/Footer.jsx';
+import Mint from "./components/Mint/Mint.jsx";
+import Status from "./components/Status/Status.jsx";
+//import { AnimatedSwitch } from 'react-router-transition';
+//import { TransitionGroup, CSSTransition } from 'react-transition-group'
+import './css/App.css';
 // import Tablen from './components/Tablen.jsx';
 // import ReactTable from './components/ReactTable.jsx';
 
 function App() {
+  const location = useLocation();
+  const [displayLocation, setDisplayLocation] = useState(location);
+  const [transitionStage, setTransistionStage] = useState("fadeIn");
+
+  useEffect(() => {
+    if (location !== displayLocation) setTransistionStage("fadeOut");
+  }, [location, displayLocation]);
+
   return (
     <div className="App">
       <>
         <Header className=''/>
-        <Routes>
-            {/* <Route path='/home' element={<Home />} /> */}
+        {/* <TransitionGroup>
+        <CSSTransition
+          timeout={300}
+          classNames='fade'
+          key={location.key}
+        > */}
+         <div
+      className={`${transitionStage}`}
+      onAnimationEnd={() => {
+        if (transitionStage === "fadeOut") {
+          setTransistionStage("fadeIn");
+          setDisplayLocation(location);
+        }
+      }}
+    >
+        <Routes location={displayLocation}>        
             <Route path='/' element={<Ip />} />
-            <Route path='/bidders' element={<Bidder />} />
+            <Route path='/status/:id/:address' element={<Status />} />
+            <Route path='/bidders/:id/:address' element={<Bidder />} />
+            <Route path='/mint/:id/:address' element={<Mint />} />
             {/* <Route path='/table' element={<Tablen/>} />
-            <Route path='/tab' element={<ReactTable/>} /> */}
+            <Route path='/tab' element={<ReactTable/>} /> */}        
         </Routes>
+      </div>
+        {/* </CSSTransition>
+        </TransitionGroup> */}
         <Footer/>
       </>
     </div>

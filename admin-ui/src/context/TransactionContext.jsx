@@ -20,6 +20,7 @@ export const TransactionsProvider = ({ children }) => {
   const [formData, setformData] = useState({ user:"", IPname: "", fullname: "", country: "", addressplace: "", symbol: "" });
   const [bidformData, setbidformData] = useState({ address:"", ownerIPname: "", bidvalue: "", bidderaddress: ""});
   const [statusformData, setstatusformData] = useState({ id:"", val: ""});
+  const [mintformData, setmintformData] = useState({ id:"", address: "", url: ""});
   const [currentAccount, setCurrentAccount] = useState("");
   const [datas, getMembers] = useState([]);
   const [bidData, getbidders] = useState([]);
@@ -39,6 +40,10 @@ export const TransactionsProvider = ({ children }) => {
 
   const statusChange = (e, name) => {
     setstatusformData((prevState) => ({ ...prevState, [name]: e.target.value }));
+  };
+
+  const mintChange = (e, name) => {
+    setmintformData((prevState) => ({ ...prevState, [name]: e.target.value }));
   };
 
   const checkIfWalletIsConnect = async () => {
@@ -147,7 +152,7 @@ export const TransactionsProvider = ({ children }) => {
     // console.log('success')
     try {  
       if (ethereum) {
-        // const { id, val } = statusformData;
+        //const { id, val } = statusformData;
         const transactionsContract = createEthereumContract();        
         const transactionHash = await transactionsContract.changeStatus(id,val);
         setIsLoading(true);
@@ -164,6 +169,30 @@ export const TransactionsProvider = ({ children }) => {
     } catch (error) {
       console.log(error);
       throw new Error("No ethereum object");
+    }
+  };
+  
+  const mintNft = async (id,address,url) => {
+    // console.log('success')
+    try {  
+      if (ethereum) {
+        //const { id,address,url } = mintformData;
+        const transactionsContract = createEthereumContract();        
+        const transactionHash = await transactionsContract.mintnft(id,address,url);
+        setIsLoading(true);
+        console.log(`Loading - ${transactionHash.hash}`);
+        await transactionHash.wait();
+        console.log(`Success - ${transactionHash.hash}`);
+        setIsLoading(false);
+
+        window.location.reload();
+        console.log('success')
+      } else {
+        console.log("No ethereum object now");
+      }
+    } catch (error) {
+      console.log(error);
+      throw new Error("The intellectual property is not accepted");
     }
   };
 
@@ -281,7 +310,10 @@ export const TransactionsProvider = ({ children }) => {
         countbids,
         changeStatus,
         statusformData,
-        statusChange
+        statusChange,
+        mintNft,
+        mintformData,
+        mintChange
         }}
       >
       {children}
