@@ -1,5 +1,4 @@
 import React,{useContext} from 'react';
-import banner from "../../assets/pexel.jpg";
 import eth from "../../assets/eth.png";
 import copy from "../../assets/copyright2.png";
 import check from "../../assets/check.png";
@@ -25,21 +24,21 @@ const Home = () => {
       
       <div className='homecontain' data-testid='section-one'>
         <div className='first'>
-          <h1 className='italic text-black'>Register your
-            <strong className='italic text-black'> Intellectual Property</strong>    
+          <h1 className='italic text-white'>Register your
+            <strong className='italic text-white'> Intellectual Property</strong>    
           </h1>
           <p className='mt-4 text-white m-2'>Prevent others from using yours' invention and decide who is allowed to produce, sell or import your invention. Use NFT tokens of blockchain technology to prove your ownership of any piece of content now!!!</p>
           <button
             onClick={connectWallet}
             data-testid='button-one'
-            className='bg-gradient-to-r from-black via-gray-500 to-black transition duration-150 ease-out hover:ease-in
+            className='btn-one bg-gradient-to-r from-black via-gray-500 to-black transition duration-150 ease-out hover:ease-in
             p-4 px-6 rounded-full text-white text-xl mr-2 mt-5 mb-10 hover:brightness-125 transition duration-150 ease-in-out shadow-lg'>
             Connect Wallet
           </button>
         </div>
-        
+     
         <div className='second'>
-           <img src={eth} alt="ethereum image" className='imagetwo'/>
+           <img src={eth} alt="ethereum" className='imagetwo'/>
         </div>
       </div>   
     <div className='container'>
@@ -72,13 +71,13 @@ const Home = () => {
       </div>
     </div>
 
-    <div className='mb-20'>
+    <div className='mb-20 relative z-10'>
       <img src={copy} alt="" className='copy'/>
     </div>
 
     <div className='text-center content mt-96 p-20 bg-gray-100'>
       <h1 className='text-center text-4xl mb-5'>Register your intellectual property</h1>
-      <p className='text-center text-2xl mb-5 '>Get your IP approval!</p>
+      <p className='text-center text-2xl mb-5'>Get your IP approval!</p>
       <div className='text-center'>
       <img src={check} alt="" className='chec w-36 h-16'/>
       <NavLink to={{ pathname:`/ipregister`}}> 

@@ -115,7 +115,18 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(71, 70, 68, 0.397);
+  background-color: rgb(0, 0, 0);
+}
+
+.overlay::after {
+  content: "";
+  position: absolute;
+  background-color: #ffffff;
+  height: 35vh; 
+  width: 50%;
+  margin-top: 100vh;
+  border-radius: 100%;
+  transform: rotate(35deg);
 }
 
 .homecontain {
@@ -353,6 +364,11 @@ table th {
 
   .foot {
     flex-direction: column;
+  }
+
+  .btn-one {
+    margin-top: -0.8rem;
+    margin-left: -4.5rem;
   }
 
  }

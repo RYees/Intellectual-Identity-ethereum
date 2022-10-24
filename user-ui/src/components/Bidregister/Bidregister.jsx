@@ -60,11 +60,11 @@ const Bidregister = (props) => {
        </div>
 
       <div>
-         <a class="arrow mb-4 bg-gradient-to-r from-black via-gray-300" onClick={routeChange}>Back</a>
+         <a class="arrow mb-6 bg-gradient-to-r from-black via-gray-300" onClick={routeChange}>Back</a>
       </div>
 
   <div data-testid='show'
-    className='container contain-1 text-gray-600 font-serif flex justify-between'>
+    className='regcont contain-1 text-gray-600 font-serif flex justify-between'>
       <form className='bidform px-5 mx-20 mt-28 bg-white flex justify-center'>
        <div className='fields px-10'>
         <div className='mb-6 py-3 text-center text-sm text-black'><h1>Register IP Bidders'</h1></div>

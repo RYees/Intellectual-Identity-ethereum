@@ -1,45 +1,28 @@
 import React, { useState, useContext, useEffect } from "react";
-import { FaHourglass, FaPlus } from "react-icons/fa";
+import { FaHourglass } from "react-icons/fa";
 // import Getips from '../../components/Getips.jsx';
-import { NavLink } from "react-router-dom";
 import '../../css/App.css';
 import { TransactionContext } from '../../context/TransactionContext';
+import Iptable from "../../components/Iptable/Iptable";
 
 const Ip = () => {
   const { datas, getAllIps, connectWallet, countAccepted, accept, countRejected, reject, countPend, pend } = useContext(TransactionContext);
-  const[show, setShow] = useState(true);
-  
+  const[query, setQuery] = useState("");
+
+  const keys = ["IPname", "fullname", "country", "addressplace"]
+
+  const search = (data) => {
+    return data.filter((item) => 
+      keys.some((key) => item[key].toLowerCase().includes(query))
+    );
+  }
+
   useEffect(()=>{
     getAllIps();
     countAccepted();
     countRejected();
     countPend();
   },[]);
-  function vals (valk){
-    const val = parseInt(valk);
-    let result = epochTohumanReadble(val)
-    return result;
-  }
-  const epochTohumanReadble = (timestamp) => {        
-    let epoch = timestamp;
-    let currentTimestamp = epoch;
-    let date = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(currentTimestamp)
-   // let time =  date.split(' ')[1];
-    return date;
-   // console.log('timt',time)
-  //  const [hour, minute, second] = time.split(':');        
-  }
-
-  function status (statusNumber) {
-    if(statusNumber === 0){
-     return <div className="font-semibold">Pending</div>;
-    } else if (statusNumber === 1){
-      //setShow(true);
-      return <div className="text-green-800 font-semibold">Accepted</div>;
-    } else if (statusNumber === 2){
-     return <div className="text-red-800 font-semibold">Rejected</div>;
-    }
-  }
 
   return (
     <>
@@ -70,66 +53,17 @@ const Ip = () => {
         <h3 className="text-sm text-gray-600 flex justify-between text-sm"> Total Rejects <FaHourglass className="text-black text-3xl"/></h3>
          <br></br><span className='text-bold text-black text-4xl'>{reject}</span></div>
       </div>
+    
     <div>
-     
-    <div>
-    <NavLink to={{ pathname:`/ipregister`}}> 
-       <button 
-       data-testid='button-one'
-       className='flex justify-end float-right mb-3 bg-black transition duration-150 ease-out hover:ease-in
-       px-3 py-2 rounded text-white hover:brightness-105 transition duration-150 ease-in-out shadow-lg'>
-       <FaPlus className='inline text-white mt-1 mr-1'/> Register IPs
-       </button>
-    </NavLink>
-    </div>
-    <table className='table table-striped mx-8 mt-24 shadow-lg'>
-        <thead>
-          <tr className=''>
-            <th className='text-gray-900'>ID</th>
-            <th className='text-gray-900'> Ip Name </th>
-            <th className='text-gray-900'> Full Name</th>
-            <th className='text-gray-900'> Country Name</th>
-            <th className='text-gray-900'> Address</th>
-            <th className='text-gray-900'> Status</th>
-            <th className='text-gray-900'> Date</th>
-            <th className='text-gray-900'></th>
-          </tr>
-        </thead>
-        <tbody className='bg-gray-100'>
-
-        {datas.map((item,index) => ( 
-            <tr key={index}>
-              <td >{index}</td>
-              <td >{item.IPname}</td>    
-              <td className='text-black'>{item.fullname}</td>  
-              <td className='text-black'>{item.country}</td>  
-              <td className='text-black'>{item.addressplace}</td>  
-              <td className='text-black'>{status(item.status[item.status.length-1])}</td>   
-              <td>{vals(item.timestamp['_hex'])}</td>
-             {show ? ( <NavLink to={{ pathname:`/bidregister/${item.IPname}/${item.user}`}}  state={{item}}> 
-                <button
-                  className='ml-2 my-2 bg-black text-gray-100 transition duration-150 ease-out hover:ease-in
-                  py-1 px-6 mt-5 rounded text-gray-900'>
-                  Bid
-                </button>
-              </NavLink>):( null)}
-              </tr>
-         ))
-         }         
-        </tbody>
-      </table> 
-    </div>
+      <input 
+        type="text"
+        placeholder="Search..."
+        className="search"
+        onChange={(e) => setQuery(e.target.value)}
+      />
+     </div>
+    <Iptable data={search(datas)}/>
     <div className='flex'>    
-      {/* <div className='bg-cyan-900 opacity-75 text-white shadow-lg w-48 h-60 px-2'>
-      <h2 className='text-2xl'>Search By</h2>
-        <ul className='my-5'>
-          <li><FaCheck className='inline'/> IP-name</li>
-          <li><FaCheck className='inline'/> Location</li>
-          <li><FaCheck className='inline'/> Year</li>
-          <li></li>
-        </ul>
-      </div>
-      */}
         {/* <Getips/> */}
     </div>
   </div>

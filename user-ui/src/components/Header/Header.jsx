@@ -10,7 +10,7 @@ const Header = () => {
     className='header top-0 fixed z-10 flex justify-between bg-gray-100 shadow-xl opacity-75 w-full py-3 text-white px-8'
     >
       {/* <div className='flex justify-between'> */}
-      <div> <img src={logo} alt="home-image" className='h-14 rounded-full'/></div>
+      <div><Link to="/"><img src={logo} alt="home-image" className='cursor-pointer h-14 rounded-full'/></Link> </div>
       <nav className=''>
         <ul className='flex justify-between gap-16 mt-3 text-xl font-serif'>
           <li className=''>
