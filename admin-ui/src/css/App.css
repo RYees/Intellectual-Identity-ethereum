@@ -179,7 +179,15 @@
    radial-gradient(at 100% 0%, rgb(240, 240, 255) 0, transparent 50%);
 }
 
-.scrolltunnel {
+.look {
+  border: saddlebrown;
+  border-radius: 23px;
+  background-color: #0d0e0d;
+  width: 30rem;
+  /* background-image: url("../assets/I.png");
+  background-size: cover;
+  background-repeat: none; */
+  color: white;
 }
 /* spacing */
 
@@ -235,6 +243,7 @@
 table {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
+  margin-bottom: 2rem;
   width: 95%;
 }
 

@@ -49,26 +49,32 @@ const Iptable = ({data}) => {
     }
   }
 
-  function Show(item) {
+  function Mint(item, index) {
     const c = status(item.status[item.status.length-1]);
     if(c.props.children === "Accepted"){
       return(
-        <NavLink to={{ pathname:`/bidregister/${item.IPname}/${item.user}`}}  state={{item}}> 
-        <button
-          className='ml-2 my-2 bg-black text-white transition duration-150 ease-out hover:ease-in
-          py-1 px-6 mt-5 rounded'>
-          Bid
-        </button>
+        <NavLink to={{ pathname:`/mint/${index}/${item.user}`}}  state={{item,index}}> 
+          <button
+            className='bg-black text-white transition duration-150 ease-out hover:ease-in
+            py-1 px-6 mt-5 rounded text-gray-900'>
+            Mint
+          </button>
       </NavLink>
       )  
     }
   }
 
-  function Url(item) {
+  function Bid(item, index) {
     const c = status(item.status[item.status.length-1]);
     if(c.props.children === "Accepted"){
       return(
-        item.allIpInfoURL
+        <NavLink to={{ pathname:`/bidders/${index}/${item.user}`}}  state={{item}}> 
+          <button
+            className='bg-black text-white transition duration-150 ease-out hover:ease-in
+            py-1 px-6 mt-5 rounded text-gray-900'>
+            Bidders
+          </button>
+        </NavLink>
       )  
     }
   }
@@ -76,28 +82,17 @@ const Iptable = ({data}) => {
 
   return (
     <div className=''>
-    <div>
-    <NavLink to={{ pathname:`/ipregister`}}> 
-       <button 
-       data-testid='button-one'
-       className='flex justify-end float-right mb-3 bg-black transition duration-150 ease-out hover:ease-in
-       px-3 py-2 rounded text-white hover:brightness-105 transition duration-150 ease-in-out shadow-lg'>
-       <FaPlus className='inline text-white mt-1 mr-1'/> Register IPs
-       </button>
-    </NavLink>
-    </div>
     <table className='table table-striped mx-8 mt-24 shadow-lg'>
-         <thead>
+        <thead>
           <tr className=''>
             <th className='text-gray-900'>ID</th>
             <th className='text-gray-900'> Ip Name </th>
             <th className='text-gray-900'> Full Name</th>
             <th className='text-gray-900'> Country Name</th>
             <th className='text-gray-900'> Address</th>
+            <th className='text-gray-900'> Metadata</th>
             <th className='text-gray-900'> Status</th>
-            <th className='text-gray-900'> Url</th>
             <th className='text-gray-900'> Date</th>
-            <th className='text-gray-900'></th>
           </tr>
         </thead>
         <tbody className='bg-gray-100'>
@@ -109,10 +104,21 @@ const Iptable = ({data}) => {
               <td className='text-black'>{item.fullname}</td>  
               <td className='text-black'>{item.country}</td>  
               <td className='text-black'>{item.addressplace}</td>  
-              <td className='text-black'>{status(item.status[item.status.length-1])}</td> 
-              <td>{Url(item)}</td>   
+              <td className='text-black'>{item.allIpInfoURL}</td>  
+              <td className='text-black'>{status(item.status[item.status.length-1])}</td>
               <td>{vals(item.timestamp['_hex'])}</td>
-              <td>{Show(item)}</td>            
+              <td className='text-center'>
+              <NavLink to={{ pathname:`/status/${index}/${item.user}`}}  state={{item,index}}> 
+                <button
+                  className='bg-black text-white transition duration-150 ease-out hover:ease-in
+                  py-1 px-6 mt-5 rounded text-gray-900'>
+                  Status
+                </button>
+              </NavLink>
+              </td>
+   
+              <td>{Mint(item, index)}</td>
+              <td>{Bid(item, index)}</td>            
               </tr>
          ))
          }         

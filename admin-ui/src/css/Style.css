@@ -49,6 +49,32 @@
     background: rgba(197, 193, 193, 0.671);
   }
 
+  .pagination {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5rem;
+    font-size: 1.2rem;
+    gap: 5px;
+  }
+
+  .pagination .page-num {
+    padding: 8px 15px;
+    cursor: pointer;
+    border-radius: 3px;
+    font-weight: 400;
+  }
+
+  .pagination .page-num:hover {
+    background-color: rgb(8, 8, 8);
+    color: #fff;
+  }
+
+  .pagination .active {
+    background-color: rgb(197, 193, 193);
+  }
+  
   /* Responsive */
 
 @media (max-width: 1280px) {
