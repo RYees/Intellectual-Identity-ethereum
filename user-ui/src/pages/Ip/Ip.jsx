@@ -58,7 +58,7 @@ const Ip = () => {
       <input 
         type="text"
         placeholder="Search..."
-        className="search"
+        className="look border-solid border-1 mb-12 mt-10 border-gray-300 mx-96 py-3 px-4"
         onChange={(e) => setQuery(e.target.value)}
       />
      </div>

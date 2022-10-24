@@ -1,8 +1,26 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import { NavLink } from "react-router-dom";
 import { FaPlus } from "react-icons/fa";
+import ReactPaginate from 'react-paginate';
+import '../../css/Style.css';
 
 const Iptable = ({data}) => {
+
+    const [currentItems, setCurrentItems] = useState([]);
+    const [pageCount, setPageCount] = useState(0);
+    const [itemOffset, setItemOffset] = useState(0);
+    const itemsPerPage = 1;
+  
+    useEffect(() => {
+      const endOffset = itemOffset + itemsPerPage;
+      setCurrentItems(data.slice(itemOffset, endOffset));
+      setPageCount(Math.ceil(data.length / itemsPerPage));
+    }, [itemOffset, itemsPerPage, data]);
+  
+    const handlePageClick = (event) => {
+      const newOffset = (event.selected * itemsPerPage) % data.length;
+      setItemOffset(newOffset);
+    };
   
   function vals (valk){
     const val = parseInt(valk);
@@ -37,8 +55,8 @@ const Iptable = ({data}) => {
       return(
         <NavLink to={{ pathname:`/bidregister/${item.IPname}/${item.user}`}}  state={{item}}> 
         <button
-          className='ml-2 my-2 bg-black text-gray-100 transition duration-150 ease-out hover:ease-in
-          py-1 px-6 mt-5 rounded text-gray-900'>
+          className='ml-2 my-2 bg-black text-white transition duration-150 ease-out hover:ease-in
+          py-1 px-6 mt-5 rounded ]'>
           Bid
         </button>
       </NavLink>
@@ -57,7 +75,7 @@ const Iptable = ({data}) => {
  
 
   return (
-    <div>
+    <div className=''>
     <div>
     <NavLink to={{ pathname:`/ipregister`}}> 
        <button 
@@ -84,7 +102,7 @@ const Iptable = ({data}) => {
         </thead>
         <tbody className='bg-gray-100'>
           
-        {data.map((item,index) => ( 
+        {currentItems.map((item,index) => ( 
             <tr key={index}>
               <td >{index}</td>
               <td >{item.IPname}</td>    
@@ -100,6 +118,20 @@ const Iptable = ({data}) => {
          }         
         </tbody>
       </table> 
+      <ReactPaginate
+        breakLabel="..."
+        nextLabel="next >"
+        onPageChange={handlePageClick}
+        pageRangeDisplayed={1}
+        pageCount={pageCount}
+        previousLabel="< previous"
+        renderOnZeroPageCount={null}
+        containerClassName="pagination"
+        pageLinkClassName="page-num"
+        previousLinkClassName="page-num"
+        nextLinkClassName="page-num"
+        activeLinkClassName="active"
+      />
     </div>
   )
 }

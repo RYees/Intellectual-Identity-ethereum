@@ -129,6 +129,17 @@
   transform: rotate(35deg);
 }
 
+.look {
+  border: saddlebrown;
+  border-radius: 23px;
+  background-color: #0d0e0d;
+  width: 30rem;
+  /* background-image: url("../assets/I.png");
+  background-size: cover;
+  background-repeat: none; */
+  color: white;
+}
+
 .homecontain {
   position: absolute;
   color: white;
@@ -258,6 +269,7 @@ table {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
   width: 95%;
+  margin-bottom: 2rem;
 }
 
 table td, table th {

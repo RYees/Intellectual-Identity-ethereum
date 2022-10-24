@@ -4,7 +4,7 @@ import { FaHourglass} from "react-icons/fa";
 import { useNavigate, NavLink } from "react-router-dom";
 import '../../css/App.css';
 import { TransactionContext } from '../../context/TransactionContext';
-import Status from '../../components/Status/Status.jsx';
+
 
 const Ip = () => {
   const { connectWallet, datas, getAllIps,changeStatus, countAccepted, accept, countRejected, reject, countPend, pend } = useContext(TransactionContext);
