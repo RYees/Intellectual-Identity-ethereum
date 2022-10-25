@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { FaPlus } from "react-icons/fa";
 import ReactPaginate from 'react-paginate';
 import '../../css/Style.css';
-
+import '../../css/App.css';
 const Iptable = ({data}) => {
 
     const [currentItems, setCurrentItems] = useState([]);
@@ -28,24 +28,24 @@ const Iptable = ({data}) => {
     return result;
   }
   
-  const epochTohumanReadble = (timestamp) => {        
-    let epoch = timestamp;
+  const epochTohumanReadble = (timestamp) => { 
+    let epoch = timestamp * 1000;
     let currentTimestamp = epoch;
     let date = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(currentTimestamp)
-   // let time =  date.split(' ')[1];
+    //let time =  date.split(' ')[1];
     return date;
    // console.log('timt',time)
-  //  const [hour, minute, second] = time.split(':');        
+   //  const [hour, minute, second] = time.split(':');        
   }
 
   function status (statusNumber) {
     if(statusNumber === 0){
-     return <div className="font-semibold">Pending</div>;
+     return <div className="font-semibold text-gray-500">Pending</div>;
     } else if (statusNumber === 1){
       //Show();
-      return <div className="text-green-800 font-semibold">Accepted</div>;
+      return <div className="text-black font-semibold">Accepted</div>;
     } else if (statusNumber === 2){
-     return <div className="text-red-800 font-semibold">Rejected</div>;
+     return <div className="text-gray-700 font-semibold">Rejected</div>;
     }
   }
 
@@ -81,7 +81,7 @@ const Iptable = ({data}) => {
  
 
   return (
-    <div className=''>
+    <div className='fadeIn'>
     <table className='table table-striped mx-8 mt-24 shadow-lg'>
         <thead>
           <tr className=''>

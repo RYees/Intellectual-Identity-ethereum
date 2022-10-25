@@ -40,12 +40,12 @@ const Iptable = ({data}) => {
 
   function status (statusNumber) {
     if(statusNumber === 0){
-     return <div className="font-semibold">Pending</div>;
+     return <div className="font-semibold text-gray-500">Pending</div>;
     } else if (statusNumber === 1){
       //Show();
-      return <div className="text-green-800 font-semibold">Accepted</div>;
+      return <div className="text-black font-semibold">Accepted</div>;
     } else if (statusNumber === 2){
-     return <div className="text-red-800 font-semibold">Rejected</div>;
+     return <div className="text-gray-700 font-semibold">Rejected</div>;
     }
   }
 
