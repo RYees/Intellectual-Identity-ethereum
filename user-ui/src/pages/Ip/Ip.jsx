@@ -4,10 +4,13 @@ import { FaHourglass } from "react-icons/fa";
 import '../../css/App.css';
 import { TransactionContext } from '../../context/TransactionContext';
 import Iptable from "../../components/Iptable/Iptable";
+import Loader from "../../components/Loader/Loader";
+import gif from "../../assets/7plX.gif";
 
 const Ip = () => {
-  const { datas, getAllIps, connectWallet, countAccepted, accept, countRejected, reject, countPend, pend } = useContext(TransactionContext);
+  const { isLoading, datas, getAllIps, connectWallet, countAccepted, accept, countRejected, reject, countPend, pend } = useContext(TransactionContext);
   const[query, setQuery] = useState("");
+  //const [isLoading, setLoading] = useState(false);
 
   const keys = ["IPname", "fullname", "country", "addressplace"]
 
@@ -18,7 +21,9 @@ const Ip = () => {
   }
 
   useEffect(()=>{
+    // setLoading(true);
     getAllIps();
+    // setLoading(false);
     countAccepted();
     countRejected();
     countPend();
@@ -62,7 +67,8 @@ const Ip = () => {
         onChange={(e) => setQuery(e.target.value)}
       />
      </div>
-    <Iptable data={search(datas)}/>
+
+     {isLoading ? <Loader/> : <Iptable className="fades" data={search(datas)}/>}
     <div className='flex'>    
         {/* <Getips/> */}
     </div>

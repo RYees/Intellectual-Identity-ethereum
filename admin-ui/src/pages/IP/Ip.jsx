@@ -4,9 +4,10 @@ import { FaHourglass } from "react-icons/fa";
 import '../../css/App.css';
 import { TransactionContext } from '../../context/TransactionContext';
 import Iptable from "../../components/Iptable/Iptable";
+import Loader from "../../components/Loader";
 
 const Ip = () => {
-  const { datas, getAllIps, connectWallet, countAccepted, accept, countRejected, reject, countPend, pend } = useContext(TransactionContext);
+  const { isLoading, datas, getAllIps, connectWallet, countAccepted, accept, countRejected, reject, countPend, pend } = useContext(TransactionContext);
   const[query, setQuery] = useState("");
 
   const keys = ["IPname", "fullname", "country", "addressplace"]
@@ -58,11 +59,11 @@ const Ip = () => {
       <input 
         type="text"
         placeholder="Search..."
-        className="look border-solid border-1 mb-12 mt-10 border-gray-300 mx-96 py-3 px-4"
+        className="look border-solid border-1 mt-24 border-gray-300 mx-96 py-3 px-4"
         onChange={(e) => setQuery(e.target.value)}
       />
      </div>
-    <Iptable data={search(datas)}/>
+     {isLoading ? <Loader/>:<Iptable className="fades" data={search(datas)}/>}
     <div className='flex'>    
         {/* <Getips/> */}
     </div>

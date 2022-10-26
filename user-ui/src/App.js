@@ -1,5 +1,5 @@
-// import { useState } from 'react';
-import { Route, Routes} from 'react-router-dom';
+import React, {useEffect, useState} from "react";
+import { Route, Routes, useLocation} from 'react-router-dom';
 import Home from './pages/Home/Home.jsx';
 import Ip from './pages/Ip/Ip.jsx';
 import Bidder from './pages/Bidder/Bidder.jsx';
@@ -12,10 +12,26 @@ import Tablen from './components/Tablen.jsx';
 import ReactTable from './components/ReactTable.jsx';
 
 function App() {
+  const location = useLocation();
+  const [displayLocation, setDisplayLocation] = useState(location);
+  const [transitionStage, setTransistionStage] = useState("fadeIn");
+
+  useEffect(() => {
+    if (location !== displayLocation) setTransistionStage("fadeOut");
+  }, [location, displayLocation]);
   return (
     <div className="App">
       <>
         <Header className=''/>
+        <div
+          className={`${transitionStage}`}
+          onAnimationEnd={() => {
+            if (transitionStage === "fadeOut") {
+              setTransistionStage("fadeIn");
+              setDisplayLocation(location);
+            }
+          }}
+        >
         <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/ips' element={<Ip />} />
@@ -25,6 +41,7 @@ function App() {
             <Route path='/table' element={<Tablen/>} />
             <Route path='/tab' element={<ReactTable/>} />
         </Routes>
+      </div>
         <Footer/>
       </>
     </div>

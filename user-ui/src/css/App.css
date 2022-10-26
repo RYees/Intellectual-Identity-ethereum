@@ -1,6 +1,51 @@
-.container {
-  margin-top: 33rem;
+.fades {
+  animation: 0.5s fades forwards;
 }
+
+@keyframes fades {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+.fadeIn {
+  animation: 0.5s fadeIn forwards;
+}
+
+.fadeOut {
+  animation: 0.5s fadeOut forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-20px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0px, 0px);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translate(0px, 0px);
+  }
+  to {
+    transform: translate(-20px, 0);
+    opacity: 0;
+  }
+}
+
+/* .container {
+  margin-top: 33rem;
+} */
 
 .ball1{
   position: absolute;
@@ -149,7 +194,7 @@
   grid-auto-rows: minmax(100px, auto);
   margin: 4rem;
   height: 100vh;
-  margin-top: -34rem;
+  /* margin-top: -54rem; */
 }
 
 .first {
@@ -161,7 +206,8 @@
 }
 
 .content {
-  margin-top: 35rem;
+  margin-top: 55rem;
+  margin-bottom: 10rem;
 }
 .second {
   margin-top: -6rem;

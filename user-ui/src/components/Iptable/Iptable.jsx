@@ -75,7 +75,7 @@ const Iptable = ({data}) => {
  
 
   return (
-    <div className=''>
+    <div className='fades'>
     <div>
     <NavLink to={{ pathname:`/ipregister`}}> 
        <button 

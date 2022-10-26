@@ -37,9 +37,9 @@ const Home = () => {
           </button>
         </div>
      
-        <div className='second'>
+        {/* <div className='second'>
            <img src={eth} alt="ethereum" className='imagetwo'/>
-        </div>
+        </div> */}
       </div>   
     <div className='container'>
       <div className='ball1'></div> 
@@ -53,12 +53,12 @@ const Home = () => {
     </div>
     </div>
     
-    <div className='sect-one absolute mt-96'>
-      <div className='text-center my-10 mx-64'>
+    <div className='sect-one absolute '>
+      <div className='text-center my-64 mx-64'>
         <h1 className='text-center  text-5xl font-serif'>Intellectual property management on the blockchain</h1>
       </div>
       
-      <div className='phot flex justify-between mx-10 mb-20 gap-5'>
+      <div className='phot flex justify-between -my-44 mx-10 mb-20 gap-5'>
         <div className='bg-white w-96 h-60 shadow-lg shadow-gray-500/50'>
         <img src={img1} alt="" className='cop'/>
         </div>
@@ -71,11 +71,11 @@ const Home = () => {
       </div>
     </div>
 
-    <div className='mb-20 relative z-10'>
+    <div className=''>
       <img src={copy} alt="" className='copy'/>
     </div>
 
-    <div className='text-center content mt-96 p-20 bg-gray-100'>
+    <div className='text-center content p-20 bg-gray-100'>
       <h1 className='text-center text-4xl mb-5'>Register your intellectual property</h1>
       <p className='text-center text-2xl mb-5'>Get your IP approval!</p>
       <div className='text-center'>
@@ -96,6 +96,10 @@ const Home = () => {
        <img src={img2} alt="" className='secimg h-96 w-96 ml-2 mt-7 phot2 border rounded-lg shadow-xl shadow-gray-500/50'/>
        <img src={img4} alt="" className='thirimg h-96 w-96 ml-2 border rounded-lg shadow-lg shadow-gray-500/50'/>
       {/* <div className='absolute bg-gray-900 w-full opacity-25 h-96 w-96'></div> */}
+    </div>
+
+    <div className='mb-24'>
+      <img src={copy} alt="" className='copy'/>
     </div>
     
     <div  className='bg-gray-100'>
