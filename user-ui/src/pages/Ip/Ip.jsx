@@ -4,7 +4,7 @@ import { FaHourglass } from "react-icons/fa";
 import '../../css/App.css';
 import { TransactionContext } from '../../context/TransactionContext';
 import Iptable from "../../components/Iptable/Iptable";
-import Loader from "../../components/Loader";
+import Loader from "../../components/Loader/Loader";
 import gif from "../../assets/7plX.gif";
 
 const Ip = () => {
