@@ -81,7 +81,7 @@ const Iptable = ({data}) => {
  
 
   return (
-    <div className='fadeIn'>
+    <div className='fades'>
     <table className='table table-striped mx-8 mt-24 shadow-lg'>
         <thead>
           <tr className=''>

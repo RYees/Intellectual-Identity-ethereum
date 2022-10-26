@@ -6,8 +6,6 @@ import Header from './components/Header/Header.jsx';
 import Footer from './components/Footer/Footer.jsx';
 import Mint from "./components/Mint/Mint.jsx";
 import Status from "./components/Status/Status.jsx";
-//import { AnimatedSwitch } from 'react-router-transition';
-//import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import './css/App.css';
 // import Tablen from './components/Tablen.jsx';
 // import ReactTable from './components/ReactTable.jsx';
@@ -25,21 +23,15 @@ function App() {
     <div className="App">
       <>
         <Header className=''/>
-        {/* <TransitionGroup>
-        <CSSTransition
-          timeout={300}
-          classNames='fade'
-          key={location.key}
-        > */}
-         <div
-      className={`${transitionStage}`}
-      onAnimationEnd={() => {
-        if (transitionStage === "fadeOut") {
-          setTransistionStage("fadeIn");
-          setDisplayLocation(location);
-        }
-      }}
-    >
+        <div
+          className={`${transitionStage}`}
+          onAnimationEnd={() => {
+            if (transitionStage === "fadeOut") {
+              setTransistionStage("fadeIn");
+              setDisplayLocation(location);
+            }
+          }}
+        >
         <Routes location={displayLocation}>        
             <Route path='/' element={<Ip />} />
             <Route path='/status/:id/:address' element={<Status />} />
@@ -49,9 +41,7 @@ function App() {
             <Route path='/tab' element={<ReactTable/>} /> */}        
         </Routes>
       </div>
-        {/* </CSSTransition>
-        </TransitionGroup> */}
-        <Footer/>
+      <Footer/>
       </>
     </div>
   )

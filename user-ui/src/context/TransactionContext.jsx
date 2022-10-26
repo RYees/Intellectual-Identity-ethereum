@@ -142,14 +142,12 @@ export const TransactionsProvider = ({ children }) => {
   const getAllIps = async () => {
     try {
       if (ethereum) {
+        setIsLoading(true);
         const transactionsContract = createEthereumContract();
 
         const availableIps = await transactionsContract.AllIps();
-
-        // const structuredMembers = availableIps.map((member) => ({
-        //   member
-        // }));
-        console.log('ALl members info', availableIps[0].status.length);
+        setIsLoading(false);        
+        //console.log('ALl members info', availableIps[0].status.length);
         getMembers(availableIps);
       } else {
         console.log("Ethereum is not present");
@@ -250,7 +248,8 @@ export const TransactionsProvider = ({ children }) => {
         getBidders,
         bidData,
         countbidders,
-        countbids
+        countbids,
+        isLoading
         }}
       >
       {children}
