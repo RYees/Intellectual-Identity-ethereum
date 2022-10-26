@@ -153,7 +153,7 @@ export const TransactionsProvider = ({ children }) => {
         console.log("Ethereum is not present");
       }
     } catch (error) {
-      console.log('ok',error);
+      // console.log('ok',error);
       return alert('Connect to your metamask account!');
     }
   };
