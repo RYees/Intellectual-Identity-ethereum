@@ -5,6 +5,7 @@ import '../../css/App.css';
 import { TransactionContext } from '../../context/TransactionContext';
 import Iptable from "../../components/Iptable/Iptable";
 import Loader from "../../components/Loader";
+import gif from "../../assets/7plX.gif";
 
 const Ip = () => {
   const { isLoading, datas, getAllIps, connectWallet, countAccepted, accept, countRejected, reject, countPend, pend } = useContext(TransactionContext);
@@ -66,7 +67,8 @@ const Ip = () => {
         onChange={(e) => setQuery(e.target.value)}
       />
      </div>
-     {isLoading ? <Loader/>:<Iptable className="fades" data={search(datas)}/>}
+
+     {isLoading ? <Loader/> : <Iptable className="fades" data={search(datas)}/>}
     <div className='flex'>    
         {/* <Getips/> */}
     </div>
