@@ -34,6 +34,7 @@ const Bidtable = ({data}) => {
             <th className='text-gray-900'> Bidder Address </th>
             <th className='text-gray-900'> value </th>
             <th className='text-gray-900'> Transfer Ownership</th>
+            <th className='text-gray-900'> Bid Date</th>
           </tr>
         </thead>
         <tbody className='bg-gray-100'>
@@ -45,6 +46,7 @@ const Bidtable = ({data}) => {
               <td className='text-black'>{item.bidderAddress}</td>             
               <td>{vals(item.bidValue['_hex'])}wei</td>
               <td className='text-center'><button className='bg-black text-white py-1 px-6 rounded'>Accept</button></td>
+              <td></td>
             </tr>
          ))
          }         
