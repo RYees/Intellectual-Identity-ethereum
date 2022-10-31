@@ -30,7 +30,7 @@ const Iptable = ({data}) => {
   
   const epochTohumanReadble = (timestamp) => {        
     let epoch = timestamp;
-    let currentTimestamp = epoch;
+    let currentTimestamp = epoch * 1000;
     let date = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(currentTimestamp)
    // let time =  date.split(' ')[1];
     return date;

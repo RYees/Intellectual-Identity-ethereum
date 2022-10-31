@@ -27,7 +27,8 @@ const Ipregister = () => {
     //const { user, IPname, fullname, country, addressplace, symbol } = formData;    
     e.preventDefault();
     //if (!user || !IPname || !fullname || !country || !addressplace || !symbol ) return;
-    registerIP(address, ipname, fullname, country, street, url);
+    //registerIP(address, ipname, fullname, country, street, url);
+    registerIP('0x955cEab3AFCEb0F7dCABC5A58C8cEd14052B79dC', 'BAB', 'Abebe Ali', 'Ethiopia', 'Akaki', 'ipfs/QmVjPjkwX2kppy3HC5N8sPVqduzSQyX8HBsusmnMQhCPoy');
   };
   
   let navigate = useNavigate(); 
@@ -89,7 +90,7 @@ const Ipregister = () => {
             </div>
 
             <div className='mb-4 second-lab'>
-                <label className='text-xl'>Logo link</label><br></br>
+                <label className='text-xl'>Details Ipfs link</label><br></br>
                 <input className='ip-box text-gray-700 border py-2 px-2 rounded' ref={url} type="text" name="symbol" placeholder='your ipfs logo link'/>
             </div>
 

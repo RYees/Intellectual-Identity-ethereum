@@ -269,11 +269,12 @@ contract IP {
         string ownerIPname; 
         uint bidValue;
         address bidderAddress;
+        uint256 timestamp;
     }
     mapping(address => IPowner[]) public ipowner;
 
     function setIPbidder1(address _address, string memory _ownerIPname, uint _bidvalue, address _bidderaddress) public {             
-        ipowner[_address].push(IPowner(_ownerIPname, _bidvalue, _bidderaddress));
+        ipowner[_address].push(IPowner(_ownerIPname, _bidvalue, _bidderaddress, block.timestamp));
         bidCount++;
     }
      
