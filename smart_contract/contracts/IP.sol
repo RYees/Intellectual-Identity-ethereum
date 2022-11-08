@@ -238,10 +238,18 @@ contract IP {
 
     // // ********* Nft functions ********** // //
 
+    struct Output {
+        uint token;
+    }
+    
+    mapping (uint => Output) tokens;
+
     function mintnft(uint index, address owneradd, string memory tokenURI) external returns(uint256) {
         bool val = conv.addressExistAccept(index, acceptedIps);
         require((keccak256(abi.encodePacked(val)) == keccak256(abi.encodePacked(true))), 'Intellectual property not accepted');
-        return nft.mintIpItem(owneradd, tokenURI);
+        uint toke = nft.mintIpItem(owneradd, tokenURI);
+        tokens[index].token = toke;
+        return toke;
     }
     
     function nameOfnft() view public returns (string memory){
