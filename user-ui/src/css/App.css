@@ -431,6 +431,18 @@ table th {
 
  }
 
+ @media (max-width: 1280px) {
+  .container {
+    margin-left: -10rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .container {
+    margin-left: -18rem;
+  }
+}
+
 @media (max-width: 640px) {        
 
   /* .scroll {

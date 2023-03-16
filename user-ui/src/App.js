@@ -7,9 +7,11 @@ import {
   Bidregister,
   Ipregister,
   Tablen,
-  ReactTable}
+  ReactTable,
+  Mint, Status
+}
 from "./components/index";
-
+//require('dotenv').config();
 function App() {
   const location = useLocation();
   const [displayLocation, setDisplayLocation] = useState(location);
@@ -21,7 +23,7 @@ function App() {
   return (
     <div className="App">
       <>
-        <Header className=''/>
+      <Header className=''/>
         <div
           className={`${transitionStage}`}
           onAnimationEnd={() => {
@@ -39,6 +41,10 @@ function App() {
             <Route path='/ipregister' element={<Ipregister />} />
             <Route path='/table' element={<Tablen/>} />
             <Route path='/tab' element={<ReactTable/>} />
+            {/* admin routes */}
+            <Route path='/status/:id/:address' element={<Status />} />
+            <Route path='/bidders/:id/:address' element={<Bidder />} />
+            <Route path='/mint/:id/:address' element={<Mint />} />
         </Routes>
       </div>
         <Footer/>
