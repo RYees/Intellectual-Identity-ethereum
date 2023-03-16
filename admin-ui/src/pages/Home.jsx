@@ -9,6 +9,10 @@ import img2 from "../assets/miladfak.jpg";
 import img3 from "../assets/guyeth.jpg";
 import img4 from "../assets/nenad.jpg";
 
+// import 
+// {pexel, eth, copyright2, check, guerlia, regular, miladfak, guyeth, nenad} 
+// from "../assets/index";
+
 import '../css/App.css';
 
 const Home = () => {

@@ -1,16 +1,18 @@
 import React,{useContext} from 'react';
-import eth from "../../assets/eth.png";
-import copy from "../../assets/copyright2.png";
-import check from "../../assets/check.png";
-import guerlia from "../../assets/guerlia.jpg";
-import img1 from "../../assets/regular.jpg";
-import img2 from "../../assets/miladfak.jpg";
-import img3 from "../../assets/guyeth.jpg";
-import img4 from "../../assets/nenad.jpg";
-import Contact from "../../pages/Contact/Contact.jsx";
 import { TransactionContext } from '../../context/TransactionContext';
 import { NavLink } from "react-router-dom";
 import '../../css/App.css';
+import {Contact} from "../index"
+import {
+  eth,
+  copyright2,
+  check,
+  guerlia,
+  regular,
+  miladfak,
+  guyeth,
+  nenad} 
+from "../../assets/index";
 
 const Home = () => {
   const { connectWallet } = useContext(TransactionContext);
@@ -60,19 +62,19 @@ const Home = () => {
       
       <div className='phot flex justify-between -my-44 mx-10 mb-20 gap-5'>
         <div className='bg-white w-96 h-60 shadow-lg shadow-gray-500/50'>
-        <img src={img1} alt="" className='cop'/>
+        <img src={regular} alt="" className='cop'/>
         </div>
         <div className='bg-white w-96 h-60 shadow-xl shadow-gray-500/50'>
-        <img src={img2} alt="" className='cop'/>
+        <img src={miladfak} alt="" className='cop'/>
         </div>
         <div className='bg-white w-96 h-60 shadow-lg shadow-gray-500/50'>
-        <img src={img3} alt="" className='cop'/>
+        <img src={guyeth} alt="" className='cop'/>
         </div>
       </div>
     </div>
 
     <div className=''>
-      <img src={copy} alt="" className='copy'/>
+      <img src={copyright2} alt="" className='copy'/>
     </div>
 
     <div className='text-center content p-20 bg-gray-100'>
@@ -93,13 +95,13 @@ const Home = () => {
 
     <div className='flex flex-wrap justify-center my-28'>
        <img src={guerlia} alt="" className='h-96 w-96 border rounded-lg shadow-lg shadow-gray-500/50'/>
-       <img src={img2} alt="" className='secimg h-96 w-96 ml-2 mt-7 phot2 border rounded-lg shadow-xl shadow-gray-500/50'/>
-       <img src={img4} alt="" className='thirimg h-96 w-96 ml-2 border rounded-lg shadow-lg shadow-gray-500/50'/>
+       <img src={miladfak} alt="" className='secimg h-96 w-96 ml-2 mt-7 phot2 border rounded-lg shadow-xl shadow-gray-500/50'/>
+       <img src={nenad} alt="" className='thirimg h-96 w-96 ml-2 border rounded-lg shadow-lg shadow-gray-500/50'/>
       {/* <div className='absolute bg-gray-900 w-full opacity-25 h-96 w-96'></div> */}
     </div>
 
     <div className='mb-24'>
-      <img src={copy} alt="" className='copy'/>
+      <img src={copyright2} alt="" className='copy'/>
     </div>
     
     <div  className='bg-gray-100'>

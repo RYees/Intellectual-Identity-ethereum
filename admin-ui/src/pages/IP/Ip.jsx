@@ -4,7 +4,7 @@ import { FaHourglass } from "react-icons/fa";
 import '../../css/App.css';
 import { TransactionContext } from '../../context/TransactionContext';
 import Iptable from "../../components/Iptable/Iptable";
-import Loader from "../../components/Loader";
+import Loader from "../../components/Loader/Loader";
 
 const Ip = () => {
   const { isLoading, datas, getAllIps, connectWallet, countAccepted, accept, countRejected, reject, countPend, pend } = useContext(TransactionContext);

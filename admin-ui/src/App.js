@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from "react";
-import { Route, Routes, useLocation} from 'react-router-dom';
-import Ip from './pages/IP/Ip.jsx';
-import Bidder from './pages/Bidder/Bidder.jsx';
-import Header from './components/Header/Header.jsx';
-import Footer from './components/Footer/Footer.jsx';
-import Mint from "./components/Mint/Mint.jsx";
-import Status from "./components/Status/Status.jsx";
+import {Route, Routes, useLocation} from 'react-router-dom';
+// import Ip from './pages/IP/Ip.jsx';
+// import Bidder from './pages/Bidder/Bidder.jsx';
+// import Header from './components/Header/Header.jsx';
+// import Footer from './components/Footer/Footer.jsx';
+// import Mint from "./components/Mint/Mint.jsx";
+// import Status from "./components/Status/Status.jsx";
 import './css/App.css';
-// import Tablen from './components/Tablen.jsx';
-// import ReactTable from './components/ReactTable.jsx';
+import {Ip, Bidder} from "./pages/index";
+import {Header, Footer, Mint, Status} from "./components/index";
 
 function App() {
   const location = useLocation();

@@ -3,7 +3,7 @@ import { TransactionContext } from '../../context/TransactionContext';
 import '../../css/App.css';
 import { useNavigate } from "react-router-dom";
 import '../../css/Style.css';
-import Bidtable from '../../components/Bidtable/Bidtable';
+import {Bidtable} from '../../components/index';
 
 const Bidder = () => {
   const { connectWallet, currentAccount, getBidders, bidData, countbidders,countbids} = useContext(TransactionContext);
