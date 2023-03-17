@@ -69,7 +69,7 @@ const Mint = (props) => {
 
     <div data-testid='show'
       className='container contain-1 text-gray-600 font-serif flex justify-between'>
-      <form className='mint mint-form text-black px-5 mx-20 my-16 bg-white'>
+      <form className='form-status status-form text-black px-5 mx-20 my-16 bg-white'>
        <div className='text-center fields mx-28'>
         <div className='mb-6 py-3 text-xl'><h1>Mint Nft'</h1></div>
           <div className=''>    

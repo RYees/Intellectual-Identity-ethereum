@@ -2,8 +2,8 @@ import React,{useState, useContext} from 'react';
 import { FaPlus, FaTimes } from "react-icons/fa";
 import { TransactionContext } from '../../context/TransactionContext';
 import { useNavigate, useParams, useLocation } from "react-router-dom";
-// import '../../css/Style.css';
-import '../../css/Styles.css';
+import '../../css/Style.css';
+
 const Input = ({ placeholder, name, type, value, handleChange }) => (
     <input
       placeholder={placeholder}
@@ -81,9 +81,9 @@ const Status = (props) => {
          <a class="arrow mb-4 bg-gradient-to-r from-black via-gray-300" onClick={routeChange}>Back</a>
       </div>
 
-    <div data-testid='show' className='container contain-1 text-gray-600 font-serif flex justify-between'>
-        <form className='form-status status-form text-black shadow-2xl px-5 mx-20 my-20 bg-white flex justify-around'>
-        <div className='my-36 text-2xl'>
+    <div data-testid='show' className='container contain-1 text-gray-600 font-serif flex '>
+        <form className='form-status status-form text-black shadow-2xl px-5 mx-20 my-20 bg-white flex'>
+        <div className='textbox my-36 text-2xl'>
         <p className='mb-5 text-2xl'>Status number value options:</p>
             <ul>
                 <li className='mb-5 text-xl'>Pending: <strong>0</strong></li>
@@ -92,7 +92,7 @@ const Status = (props) => {
             </ul>
         </div>
         <div className='fields px-10'>
-            <div className='mb-10 py-3 text-xl text-black'><h1>Change IP Status</h1></div>
+            <div className='mb-10 py-3 text-xl text-black'><h1 className='tit'>Change IP Status</h1></div>
             <div className=''>    
                 <div className="mb-6">
                 <label className='text-xl'>IP ID </label><br></br>

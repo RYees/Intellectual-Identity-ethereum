@@ -11,7 +11,6 @@ import {
   Mint, Status
 }
 from "./components/index";
-//require('dotenv').config();
 function App() {
   const location = useLocation();
   const [displayLocation, setDisplayLocation] = useState(location);
