@@ -26,15 +26,15 @@ const Home = () => {
       
       <div className='homecontain' data-testid='section-one'>
         <div className='first'>
-          <h1 className='italic text-white'>Register your
-            <strong className='italic text-white'> Intellectual Property</strong>    
+          <h1 className='italic text-white'>
+            <strong className='italic text-white'>Mark your business name and logo for life</strong>    
           </h1>
-          <p className='mt-4 text-white m-2'>Prevent others from using yours' invention and decide who is allowed to produce, sell or import your invention. Use NFT tokens of blockchain technology to prove your ownership of any piece of content now!!!</p>
+          <p className='mt-4 text-white m-2'>Prevent others from using yours' invention and decide who is allowed to produce, sell or import your invention.</p>
           <button
             onClick={connectWallet}
             data-testid='button-one'
             className='btn-one bg-gradient-to-r from-black via-gray-500 to-black transition duration-150 ease-out hover:ease-in
-            p-4 px-6 rounded-full text-white text-xl mr-2 mt-5 mb-10 hover:brightness-125 transition duration-150 ease-in-out shadow-lg'>
+            p-4 px-6 rounded-full cursor-pointer text-white text-xl mr-2 mt-2 cursor-pointer mb-10 hover:brightness-125 transition duration-150 ease-in-out shadow-lg'>
             Connect Wallet
           </button>
         </div>

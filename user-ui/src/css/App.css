@@ -186,15 +186,15 @@
 }
 
 .homecontain {
-  position: absolute;
-  color: white;
+  /* position: absolute; */
+  /* color: white;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 40px;
   grid-auto-rows: minmax(100px, auto);
   margin: 4rem;
-  height: 100vh;
-  /* margin-top: -54rem; */
+  height: 100vh; */
+  margin-top: 154rem;
 }
 
 .first {
@@ -378,14 +378,14 @@ table th {
   }
 
   .homecontain {
+    /* display: flex;
     position: absolute;
-    display: flex;
-    flex-direction: column;
+    flex-direction: column; */
   }
   
   .first {
-    position: relative;
-    z-index: 10;
+    /* position: relative;
+    z-index: 10; */
   }
 
   .second {
