@@ -1,15 +1,6 @@
-//https://eth-goerli.g.alchemy.com/v2/GcrVjbu5A8Me4tmHm8rJStfcvJvOG_en
+require("@nomicfoundation/hardhat-toolbox");
 
-require('@nomiclabs/hardhat-waffle');
-require('dotenv').config();
-
+/** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
-  solidity: '0.8.1',
-  networks: {
-    goerli: {
-      url: 'https://eth-goerli.g.alchemy.com/v2/GcrVjbu5A8Me4tmHm8rJStfcvJvOG_en',
-      accounts: [process.env.PRIVATE_KEY],
-      allowUnlimitedContractSize: true
-    },
-  },
+  solidity: "0.8.1",
 };

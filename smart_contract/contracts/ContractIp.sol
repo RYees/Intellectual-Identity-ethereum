@@ -1,5 +1,5 @@
 //SPDX-License-Identifier: Unlicense
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.1;
 
 import "hardhat/console.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
@@ -17,7 +17,7 @@ contract ContractIp is ERC721URIStorage {
     //owner is the contract address that created the smart contract
     address payable owner;
     //The fee charged by the marketplace to be allowed to list an NFT
-    uint256 listPrice = 0.01 ether;
+    uint256 listPrice = 1000 wei;
 
     convert conv = new convert();
     //The structure to store info about a listed token
@@ -65,32 +65,7 @@ contract ContractIp is ERC721URIStorage {
     event LogReturnedFunds(address recipient, uint amount);
    
 
-    constructor() ERC721("NFTMarketplace", "NFTM") {
-        owner = payable(msg.sender);
-    }
-
-    function updateListPrice(uint256 _listPrice) public payable {
-        require(owner == msg.sender, "Only owner can update listing price");
-        listPrice = _listPrice;
-    }
-
-    function getListPrice() public view returns (uint256) {
-        return listPrice;
-    }
-
-    function getLatestIdToListedToken() public view returns (RequestedNfts memory) {
-        uint256 currentTokenId = _tokenIds.current();
-        return idToListedToken[currentTokenId];
-    }
-
-    function getListedTokenForId(uint256 tokenId) public view returns (RequestedNfts memory) {
-        return idToListedToken[tokenId];
-    }
-
-    function getCurrentToken() public view returns (uint256) {
-        return _tokenIds.current();
-    }
-
+    constructor() ERC721("NFTMarketplace", "NFTM") { owner = payable(msg.sender);     }
     //The first time a token is created, it is listed here
     function createToken(string memory tokenURI) public payable returns (uint) {
         //Increment the tokenId counter, which is keeping track of the number of minted NFTs
@@ -344,5 +319,4 @@ contract ContractIp is ERC721URIStorage {
         //if(!msg.sender.send(amountToWithdraw)) revert();
         return true;
     }
-
 }
