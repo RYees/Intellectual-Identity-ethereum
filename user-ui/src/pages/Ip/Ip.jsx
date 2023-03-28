@@ -9,10 +9,11 @@ import {
 from "../../components/index";
 
 const Ip = () => {
-  const { isLoading, datas, getAllIps, connectWallet, countAccepted, accept, countRejected, reject, countPend, pend } = useContext(TransactionContext);
+  const { isLoading, datas, nfts, getAllIps, connectWallet, countAccepted, accept, countRejected, reject, countPend, pend } = useContext(TransactionContext);
   const[query, setQuery] = useState("");
   //const [isLoading, setLoading] = useState(false);
   const keys = ["IPname", "fullname", "country", "addressplace"]
+  console.log("mydad",nfts)
 
   const search = (data) => {
     return data.filter((item) => 
@@ -68,7 +69,8 @@ const Ip = () => {
       />
      </div>
 
-     {isLoading ? <Loader/> : <Iptable className="fades" data={search(datas)}/>}
+     {/* <Iptable className="fades" data={nfts}/> */}
+     {isLoading ? <Loader/> : <Iptable className="fades" data={nfts}/>}
     <div className='flex'>    
         {/* <Getips/> */}
     </div>

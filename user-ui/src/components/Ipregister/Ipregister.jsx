@@ -77,7 +77,7 @@ const Ipregister = () => {
     className='regcont contain-1 text-gray-600 font-serif flex justify-between'>
       <form className='ipform px-5 mx-20 my-16 bg-white flex'>
        <div className='fields'>
-        <div className='mb-6 py-3 text-black'><h1>Register IP</h1>{fileURL}</div>
+        <div className='mb-6 py-3 text-black'><h1>Register IP</h1></div>
           <div className=''>    
             <div className="mb-4">
             <label className='text-xl'>IP Name </label><br></br>

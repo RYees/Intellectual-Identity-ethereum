@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { ethers } from "ethers";
-
+import axios from "axios";
 import { contractABI, contractAddress } from "../utils/constants";
 import { uploadFileToIPFS, uploadJSONToIPFS } from "../pinata";
 export const TransactionContext = React.createContext();
@@ -177,6 +177,87 @@ async function listNFT(fileURL) {
       alert( "Upload error"+e )
   }
 }
+const sampleData = [
+  {
+      "name": "NFT#1",
+      "description": "Alchemy's First NFT",
+      "website":"http://axieinfinity.io",
+      "image":"https://gateway.pinata.cloud/ipfs/QmTsRJX7r5gyubjkdmzFrKQhHv74p5wT9LdeF1m3RTqrE5",
+      "price":"0.03ETH",
+      "currentlySelling":"True",
+      "address":"0xe81Bf5A757CB4f7F82a2F23b1e59bE45c33c5b13",
+  },
+  {
+      "name": "NFT#2",
+      "description": "Alchemy's Second NFT",
+      "website":"http://axieinfinity.io",
+      "image":"https://gateway.pinata.cloud/ipfs/QmdhoL9K8my2vi3fej97foiqGmJ389SMs55oC5EdkrxF2M",
+      "price":"0.03ETH",
+      "currentlySelling":"True",
+      "address":"0xe81Bf5A757C4f7F82a2F23b1e59bE45c33c5b13",
+  },
+  {
+      "name": "NFT#3",
+      "description": "Alchemy's Third NFT",
+      "website":"http://axieinfinity.io",
+      "image":"https://gateway.pinata.cloud/ipfs/QmTsRJX7r5gyubjkdmzFrKQhHv74p5wT9LdeF1m3RTqrE5",
+      "price":"0.03ETH",
+      "currentlySelling":"True",
+      "address":"0xe81Bf5A757C4f7F82a2F23b1e59bE45c33c5b13",
+  },
+];
+const [nfts, updateData] = useState(sampleData);
+const [dataFetched, updateFetched] = useState(false);
+
+const epochTohumanReadble = (timestamp) => {        
+  let date = new Intl.DateTimeFormat('en-US', 
+  { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: 
+  '2-digit', second: '2-digit' }).format(timestamp)
+  return date;       
+}
+
+async function getAllNFTs() {
+  try {
+    if(ethereum){
+    //Pull the deployed contract instance
+    const transactionsContract = createEthereumContract();
+    //create an NFT Token
+    let transaction = await transactionsContract.getAllNFTs()
+
+    //Fetch all the details of every NFT from the contract and display
+    const items = await Promise.all(transaction.map(async i => {
+        const tokenURI = await transactionsContract.tokenURI(i.tokenId);
+        let meta = await axios.get(tokenURI);
+        meta = meta.data;
+        // IPname, description, fullname, country, street
+        let item = {
+            tokenId: i.tokenId.toNumber(),
+            Nftowner: i.Nftowner,
+            owner: i.owner,
+            timestamp: epochTohumanReadble(parseInt(i.timestamp['_hex'])),
+            status: i.status,
+            image: meta.image,
+            IPname: meta.IPname,
+            description: meta.description,
+            fullname: meta.fullname,
+            country: meta.country,
+            street: meta.street
+        }
+        return item;
+    }))
+    console.log("fecthcing data", items)
+    updateFetched(true);
+    updateData(items);
+    setIsLoading(false);
+    } else { console.log("No ethereum object now"); }
+  }
+  catch(e) {
+      alert( "Upload error"+e )
+  }
+}
+
+if(!dataFetched){
+    getAllNFTs();}
   // ///////////////////////////////////////////////////////////
 
   const registerBidder= async (address, ownerIPname, bidvalue, bidderaddress) => {
@@ -261,7 +342,7 @@ async function listNFT(fileURL) {
     const rejectCount = await transactionsContract.countRejectedIPs();
     let bal = rejectCount['_hex'];
     let val = parseInt(bal)
-    console.log('accepted count info',val);
+    console.log('rejected count info',val);
     rejectCounts(val);
   };
 
@@ -270,7 +351,7 @@ async function listNFT(fileURL) {
     const pendCount = await transactionsContract.countPendingIPs();
     let bal = pendCount['_hex'];
     let val = parseInt(bal)
-    console.log('accepted count info',val);
+    console.log('pending count info',val);
     pendCounts(val);
   };
 
@@ -300,7 +381,7 @@ async function listNFT(fileURL) {
         currentAccount,
         handleChange, 
         registerIP,
-       // uploadMetadataToIPFS,
+        nfts,
         listNFT,
         message,
         formParams,
