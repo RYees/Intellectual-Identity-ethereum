@@ -17,7 +17,7 @@ contract ContractIp is ERC721URIStorage {
     //owner is the contract address that created the smart contract
     address payable owner;
     //The fee charged by the marketplace to be allowed to list an NFT
-    uint256 listPrice = 1000 wei;
+    uint256 listPrice = 0.01 ether;
 
     convert conv = new convert();
     //The structure to store info about a listed token
@@ -65,7 +65,8 @@ contract ContractIp is ERC721URIStorage {
     event LogReturnedFunds(address recipient, uint amount);
    
 
-    constructor() ERC721("NFTMarketplace", "NFTM") { owner = payable(msg.sender);     }
+    constructor() ERC721("NFTMarketplace", "NFTM") { owner = payable(msg.sender); }
+    function getListPrice() public view returns (uint256) { return listPrice; }
     //The first time a token is created, it is listed here
     function createToken(string memory tokenURI) public payable returns (uint) {
         //Increment the tokenId counter, which is keeping track of the number of minted NFTs

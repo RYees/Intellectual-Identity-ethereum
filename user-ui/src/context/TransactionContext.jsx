@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { ethers } from "ethers";
 
 import { contractABI, contractAddress } from "../utils/constants";
-
+import { uploadFileToIPFS, uploadJSONToIPFS } from "../pinata";
 export const TransactionContext = React.createContext();
 
 const { ethereum } = window;
@@ -17,6 +17,9 @@ const createEthereumContract = () => {
 };
 
 export const TransactionsProvider = ({ children }) => {
+  const [formParams, updateFormParams] = useState({ IPname: '', description: '', fullname:'', country:'', street:''});
+  //const [fileURL, setFileURL] = useState(null);
+  const [message, updateMessage] = useState('');
   const [formData, setformData] = useState({ user:"", IPname: "", fullname: "", country: "", addressplace: "", symbol: "" });
   const [bidformData, setbidformData] = useState({ address:"", ownerIPname: "", bidvalue: "", bidderaddress: ""});
   const [currentAccount, setCurrentAccount] = useState("");
@@ -111,6 +114,70 @@ export const TransactionsProvider = ({ children }) => {
       throw new Error("No ethereum object");
     }
   };
+
+  // ///////////////////////////////////////////////////////////
+  //This function uploads the metadata to IPFS
+async function uploadMetadataToIPFS(fileURL) {
+  const {IPname, description, fullname, country, street} = formParams;
+  // console.log("get",IPname);
+  // console.log("this",fileURL);
+  //Make sure that none of the fields are empty
+  if( !IPname || !description || !fullname || !country || !street || !fileURL)
+      return;
+
+  const nftJSON = {
+      IPname, description, fullname, country, street, image: fileURL
+  }
+
+  try {
+      //upload the metadata JSON to IPFS
+      const response = await uploadJSONToIPFS(nftJSON);
+      if(response.success === true){
+          console.log("Uploaded JSON to Pinata: ", response)
+          return response.pinataURL;
+      }
+  }
+  catch(e) {
+      console.log("error uploading JSON metadata:", e)
+  }
+}
+
+async function listNFT(fileURL) {
+  //e.preventDefault();
+  const {IPname, description, fullname, country, street} = formParams;
+  console.log("spooon",formParams);
+  console.log("forrk",fileURL);  uploadMetadataToIPFS(fileURL)
+  //Upload data to IPFS
+  try {
+    if(ethereum){
+      const metadataURL = await uploadMetadataToIPFS(fileURL);
+      const transactionsContract = createEthereumContract();
+    
+      // //After adding your Hardhat network to your metamask, this code will get providers and signers
+      // const provider = new ethers.providers.Web3Provider(window.ethereum);
+      // const signer = provider.getSigner();
+      updateMessage("Please wait.. uploading (upto 5 mins)")
+     
+      //massage the params to be sent to the create NFT request
+      //const price = ethers.utils.parseUnits(formParams.price, 'ether')
+      let listingPrice = await transactionsContract.getListPrice()
+      listingPrice = listingPrice.toString()
+
+      //actually create the NFT
+      let transaction = await transactionsContract.createToken(metadataURL, { value: listingPrice })
+      await transaction.wait()
+
+      alert("Successfully listed your NFT!");
+      updateMessage("successfully added nft");
+      //updateFormParams({ name: '', description: '', price: ''});
+      window.location.replace("/ips")
+    } else { console.log("No ethereum object now"); }
+  }
+  catch(e) {
+      alert( "Upload error"+e )
+  }
+}
+  // ///////////////////////////////////////////////////////////
 
   const registerBidder= async (address, ownerIPname, bidvalue, bidderaddress) => {
     console.log('success')
@@ -233,6 +300,11 @@ export const TransactionsProvider = ({ children }) => {
         currentAccount,
         handleChange, 
         registerIP,
+       // uploadMetadataToIPFS,
+        listNFT,
+        message,
+        formParams,
+        updateFormParams,
         formData,
         datas,
         getAllIps,
