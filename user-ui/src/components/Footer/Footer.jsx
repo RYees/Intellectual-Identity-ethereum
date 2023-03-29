@@ -37,18 +37,18 @@ const Footer = () => {
         <ul className="text-lg my-2 leading-8">
         <NavLink 
           className="navbar-item"
-          activeClassName="is-active"
+          activeclassname="is-active"
           to="/"
-          exact
+      
         >
         	<li data-testid='footer-link-one' className='cursor-pointer'>Ip registration</li>
         </NavLink>
 
         <NavLink 
           className="navbar-item"
-          activeClassName="is-active"
+          activeclassname="is-active"
           to="/bidders"
-          exact
+      
         >
         	<li data-testid='footer-link-two'>Bidders</li>
         </NavLink>
