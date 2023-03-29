@@ -49,11 +49,7 @@ const Iptable = ({data}) => {
     // );
     const {currentAccount} = useContext(TransactionContext);
     const adminAddress = process.env.REACT_APP_ADMIN_ADDRESS;
-    console.log("admin address", adminAddress == currentAccount)
-    console.log("my address", currentAccount)
-    console.log("admin add", adminAddress)
-    console.log("admin address", "0x57614b7DFcBdb14907C9573f712461Ed3c983a56" == 0x57614b7DFcBdb14907C9573f712461Ed3c983a56)
-    console.log("admin", adminAddress == currentAccount)
+    console.log("admin game", adminAddress === currentAccount)
     const [currentItems, setCurrentItems] = useState([]);
     const [pageCount, setPageCount] = useState(0);
     const [itemOffset, setItemOffset] = useState(0);

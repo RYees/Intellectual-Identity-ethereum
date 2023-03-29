@@ -41,7 +41,7 @@ function App() {
             <Route path='/table' element={<Tablen/>} />
             <Route path='/tab' element={<ReactTable/>} />
             {/* admin routes */}
-            <Route path='/status/:id/:address' element={<Status />} />
+            <Route path='/status/:id' element={<Status />} />
             <Route path='/bidders/:id/:address' element={<Bidder />} />
             <Route path='/mint/:id/:address' element={<Mint />} />
         </Routes>

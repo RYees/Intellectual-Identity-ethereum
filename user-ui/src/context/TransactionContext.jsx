@@ -61,6 +61,7 @@ export const TransactionsProvider = ({ children }) => {
     try {
       if (ethereum) {
         const transactionsContract = createEthereumContract();
+        alert('Connect to your sepolia metamask account!');
         //const currentTransactionCount = await transactionsContract.countEmployees();
         //setTransactionCount(currentTransactionCount);
         //window.localStorage.setItem("transactionCount", currentTransactionCount);
@@ -77,8 +78,9 @@ export const TransactionsProvider = ({ children }) => {
       if (!ethereum) return alert("Please install MetaMask.");
 
       const accounts = await ethereum.request({ method: "eth_requestAccounts", });
-
+      // alert('Connect to your sepolia metamask account!');
       setCurrentAccount(accounts[0]);
+      alert('You are Connected!');
       window.location.reload();
     } catch (error) {
       console.log(error);
@@ -216,48 +218,113 @@ const epochTohumanReadble = (timestamp) => {
   return date;       
 }
 
-async function getAllNFTs() {
-  try {
-    if(ethereum){
-    //Pull the deployed contract instance
-    const transactionsContract = createEthereumContract();
-    //create an NFT Token
-    let transaction = await transactionsContract.getAllNFTs()
+    async function getAllNFTs() {
+      try {
+        if(ethereum){
+        //Pull the deployed contract instance
+        const transactionsContract = createEthereumContract();
+        //create an NFT Token
+        let transaction = await transactionsContract.getAllNFTs()
 
-    //Fetch all the details of every NFT from the contract and display
-    const items = await Promise.all(transaction.map(async i => {
-        const tokenURI = await transactionsContract.tokenURI(i.tokenId);
-        let meta = await axios.get(tokenURI);
-        meta = meta.data;
-        // IPname, description, fullname, country, street
-        let item = {
-            tokenId: i.tokenId.toNumber(),
-            Nftowner: i.Nftowner,
-            owner: i.owner,
-            timestamp: epochTohumanReadble(parseInt(i.timestamp['_hex'])),
-            status: i.status,
-            image: meta.image,
-            IPname: meta.IPname,
-            description: meta.description,
-            fullname: meta.fullname,
-            country: meta.country,
-            street: meta.street
+        //Fetch all the details of every NFT from the contract and display
+        const items = await Promise.all(transaction.map(async i => {
+            const tokenURI = await transactionsContract.tokenURI(i.tokenId);
+            let meta = await axios.get(tokenURI);
+            meta = meta.data;
+            // IPname, description, fullname, country, street
+            let item = {
+                tokenId: i.tokenId.toNumber(),
+                Nftowner: i.Nftowner,
+                owner: i.owner,
+                timestamp: epochTohumanReadble(parseInt(i.timestamp['_hex'])),
+                status: i.status,
+                image: meta.image,
+                IPname: meta.IPname,
+                description: meta.description,
+                fullname: meta.fullname,
+                country: meta.country,
+                street: meta.street
+            }
+            return item;
+        }))
+        console.log("fecthcing data", items)
+        updateFetched(true);
+        updateData(items);
+        setIsLoading(false);
+        } else { console.log("No ethereum object now"); }
+      }
+      catch(e) {
+          alert( "Upload error"+e )
+      }
+    }
+
+    if(!dataFetched){ getAllNFTs(); }
+
+    async function getNFTData(tokenId) {
+      try {
+        if(ethereum){
+          let sumPrice = 0;
+          const transactionsContract = createEthereumContract();
+          //Pull the deployed contract instance
+          let transaction = await transactionsContract.getMyNFTs()
+          const items = await Promise.all(transaction.map(async i => {
+              const tokenURI = await transactionsContract.tokenURI(i.tokenId);
+              let meta = await axios.get(tokenURI);
+              meta = meta.data;
+              //let price = ethers.utils.formatUnits(i.price.toString(), 'ether');
+              let item = {
+                tokenId: i.tokenId.toNumber(),
+                Nftowner: i.Nftowner,
+                owner: i.owner,
+                timestamp: epochTohumanReadble(parseInt(i.timestamp['_hex'])),
+                status: i.status,
+                image: meta.image,
+                IPname: meta.IPname,
+                description: meta.description,
+                fullname: meta.fullname,
+                country: meta.country,
+                street: meta.street
+              }
+              console.log("support to her", item);
+              return item;
+              
+          }))
+        } else { console.log("No ethereum object now"); }
+      }
+      catch(e) {
+          alert( "Upload error"+e )
+      }
+
+        // updateData(items);
+        // updateFetched(true);
+        // updateAddress(addr);
+        // updateTotalPrice(sumPrice.toPrecision(3));
+    }
+
+    const changeStatus = async (id,val) => {
+      // console.log('success',id,val)
+      try {  
+        if (ethereum) {
+          //const { id, val } = statusformData;
+          const transactionsContract = createEthereumContract();        
+          const transactionHash = await transactionsContract.changeStatus(id,val);
+          setIsLoading(true);
+          console.log(`Loading - ${transactionHash.hash}`);
+          await transactionHash.wait();
+          console.log(`Success - ${transactionHash.hash}`);
+          setIsLoading(false);
+  
+          //  window.location.reload();
+           updateMessage("Nft status changed successfully");
+          console.log('success')
+        } else {
+          console.log("No ethereum object now");
         }
-        return item;
-    }))
-    console.log("fecthcing data", items)
-    updateFetched(true);
-    updateData(items);
-    setIsLoading(false);
-    } else { console.log("No ethereum object now"); }
-  }
-  catch(e) {
-      alert( "Upload error"+e )
-  }
-}
-
-if(!dataFetched){
-    getAllNFTs();}
+      } catch (error) {
+        console.log(error);
+        throw new Error("No ethereum object");
+      }
+    };
   // ///////////////////////////////////////////////////////////
 
   const registerBidder= async (address, ownerIPname, bidvalue, bidderaddress) => {
@@ -370,7 +437,7 @@ if(!dataFetched){
   useEffect(() => {
     checkIfWalletIsConnect();
     checkIfTransactionsExists();
-    //getAllIps();
+    getNFTData(1);
     // handleWalletBalance()
   }, []);
 
@@ -384,6 +451,7 @@ if(!dataFetched){
         nfts,
         listNFT,
         message,
+        changeStatus,
         formParams,
         updateFormParams,
         formData,

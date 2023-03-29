@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
+import {CgProfile} from 'react-icons/cg';
 // import '../css/Header.css';
 import {logo} from "../../assets/index";
 
@@ -24,10 +25,10 @@ const Header = () => {
           <li>
             <Link className='hover:text-black text-gray-800' to="/bidders">Bidders</Link>
           </li>
-         {/* 
+         
           <li>
-            <Link className='hover:text-black' to="/contact">Contact Us</Link>
-          </li> */}
+            <Link className='hover:text-black' to="/profile"><CgProfile size={37} className="text-black hover:text-gray-600 transition duration-5"/></Link>
+          </li>
 
         </ul>
       </nav>
