@@ -8,9 +8,12 @@ import {
   Ipregister,
   Tablen,
   ReactTable,
-  Mint, Status
+  Mint, 
+  Status, 
+  Profile
 }
 from "./components/index";
+
 function App() {
   const location = useLocation();
   const [displayLocation, setDisplayLocation] = useState(location);
@@ -44,6 +47,7 @@ function App() {
             <Route path='/status/:id' element={<Status />} />
             <Route path='/bidders/:id/:address' element={<Bidder />} />
             <Route path='/mint/:id/:address' element={<Mint />} />
+            <Route path='/mynfts' element={<Profile/>}/>
         </Routes>
       </div>
         <Footer/>

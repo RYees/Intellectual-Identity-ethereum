@@ -1,105 +1,80 @@
-import React from 'react'
-
-const Profile = () => {
-  return (
-    <div>Profile</div>
-  )
-}
-
-export default Profileimport Navbar from "./Navbar";
-import { useLocation, useParams } from 'react-router-dom';
-import MarketplaceJSON from "../Marketplace.json";
-import axios from "axios";
-import { useState } from "react";
-import NFTTile from "./NFTTile";
+import { useLocation, useParams, useNavigate } from 'react-router-dom';
+import React,{useState, useContext, useEffect} from 'react';
+import { TransactionContext } from '../../context/TransactionContext';
+import { NftDetails, ShortenAddress } from "../index";
 
 export default function Profile () {
-    const [data, updateData] = useState([]);
-    const [dataFetched, updateFetched] = useState(false);
-    const [address, updateAddress] = useState("0x");
-    const [totalPrice, updateTotalPrice] = useState("0");
-
-    async function getNFTData(tokenId) {
-        const ethers = require("ethers");
-        let sumPrice = 0;
-        //After adding your Hardhat network to your metamask, this code will get providers and signers
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        const signer = provider.getSigner();
-        const addr = await signer.getAddress();
-
-        //Pull the deployed contract instance
-        let contract = new ethers.Contract(MarketplaceJSON.address, MarketplaceJSON.abi, signer)
-
-        //create an NFT Token
-        let transaction = await contract.getMyNFTs()
-
-        /*
-        * Below function takes the metadata from tokenURI and the data returned by getMyNFTs() contract function
-        * and creates an object of information that is to be displayed
-        */
-        
-        const items = await Promise.all(transaction.map(async i => {
-            const tokenURI = await contract.tokenURI(i.tokenId);
-            let meta = await axios.get(tokenURI);
-            meta = meta.data;
-
-            let price = ethers.utils.formatUnits(i.price.toString(), 'ether');
-            let item = {
-                price,
-                tokenId: i.tokenId.toNumber(),
-                seller: i.seller,
-                owner: i.owner,
-                image: meta.image,
-                name: meta.name,
-                description: meta.description,
-            }
-            sumPrice += Number(price);
-            return item;
-        }))
-
-        updateData(items);
-        updateFetched(true);
-        updateAddress(addr);
-        updateTotalPrice(sumPrice.toPrecision(3));
+    const {connectWallet, mydata, currentAccount, getNFTData, message } = useContext(TransactionContext);
+    console.log("plans with a friend", mydata)
+    
+    let navigate = useNavigate(); 
+    const routeChange = () =>{ 
+        let path = `/ips`; 
+        navigate(path);
+        navigate(0);
     }
 
     const params = useParams();
     const tokenId = params.tokenId;
-    if(!dataFetched)
+    useEffect(()=>{
+       getNFTData(tokenId); 
+    });
+    
+    const NFTData= () => {
         getNFTData(tokenId);
+      };
+    
 
     return (
-        <div className="profileClass" style={{"min-height":"100vh"}}>
-            <Navbar></Navbar>
-            <div className="profileClass">
-            <div className="flex text-center flex-col mt-11 md:text-2xl text-white">
-                <div className="mb-5">
-                    <h2 className="font-bold">Wallet Address</h2>  
-                    {address}
+        <>
+        <div className='flex justify-between mt-24 mb-10'>
+            <div>
+                {/* <div> */}
+                    <a class="arrow mb-4 bg-gradient-to-r from-black via-gray-300" 
+                        onClick={routeChange}>
+                        Back
+                    </a>
+                {/* </div> */}
+            </div>
+            <div>
+                <button
+                    data-testid="wallet"
+                    onClick={connectWallet}
+                    className='bg-gradient-to-r from-black via-gray-500 to-black transition duration-150 ease-out hover:ease-in
+                    p-4 px-6 rounded-full text-white text-xl hover:brightness-125 transition duration-150 ease-in-out shadow-lg'>
+                    Connect Wallet
+                </button>
+
+                <div className='bg-white'>
+                    <p className='mr-10 text-gray-400' onClick={NFTData}>
+                    don't forget to connect to your wallet</p>
+                    <small>{ShortenAddress(currentAccount)}</small>
                 </div>
             </div>
-            <div className="flex flex-row text-center justify-center mt-10 md:text-2xl text-white">
-                    <div>
-                        <h2 className="font-bold">No. of NFTs</h2>
-                        {data.length}
-                    </div>
-                    <div className="ml-20">
-                        <h2 className="font-bold">Total Value</h2>
-                        {totalPrice} ETH
-                    </div>
+        </div>       
+
+        <div className="profileClass" style={{"min-height":"100vh"}}>
+            <div className="profileClass">
+            <div className="flex flex-row justify-left ml-2 -mt-8 md:text-2xl text-black">
+                    <div className='flex'>
+                        <h2 className="text-gray-400 text-sm mr-1">No. of NFTs</h2>
+                        <p>{mydata.length}</p> 
+                    </div>            
             </div>
+            
             <div className="flex flex-col text-center items-center mt-11 text-white">
                 <h2 className="font-bold">Your NFTs</h2>
                 <div className="flex justify-center flex-wrap max-w-screen-xl">
-                    {data.map((value, index) => {
-                    return <NFTTile data={value} key={index}></NFTTile>;
+                    {mydata.map((value, index) => {
+                    return <NftDetails data={value} key={index}></NftDetails>;
                     })}
                 </div>
                 <div className="mt-10 text-xl">
-                    {data.length == 0 ? "Oops, No NFT data to display (Are you logged in?)":""}
+                    {mydata.length == 0 ? "Oops, No NFT data to display (Are you logged in?)":""}
                 </div>
             </div>
             </div>
         </div>
+     </>
     )
 };

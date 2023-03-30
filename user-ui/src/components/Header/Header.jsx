@@ -27,7 +27,7 @@ const Header = () => {
           </li>
          
           <li>
-            <Link className='hover:text-black' to="/profile"><CgProfile size={37} className="text-black hover:text-gray-600 transition duration-5"/></Link>
+            <Link className='hover:text-black' to="/mynfts"><CgProfile size={37} className="text-black hover:text-gray-600 transition duration-5"/></Link>
           </li>
 
         </ul>

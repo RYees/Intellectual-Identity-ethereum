@@ -46,16 +46,6 @@ const Status = () => {
 
     return (
         <>
-        {/* <div>
-            <button
-             data-testid='status-check'
-             onClick={changeView} 
-             className='bg-black text-white transition duration-150 ease-out hover:ease-in
-             p-2 py-2 mt-5 rounded text-gray-900'>
-             status
-            </button>
-        </div> */}
-
         <div className='text-center'>
             <button
                 data-testid="wallet"

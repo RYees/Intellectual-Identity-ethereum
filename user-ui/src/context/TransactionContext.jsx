@@ -18,7 +18,7 @@ const createEthereumContract = () => {
 
 export const TransactionsProvider = ({ children }) => {
   const [formParams, updateFormParams] = useState({ IPname: '', description: '', fullname:'', country:'', street:''});
-  //const [fileURL, setFileURL] = useState(null);
+  const [mydata, updatemyData] = useState([]);
   const [message, updateMessage] = useState('');
   const [formData, setformData] = useState({ user:"", IPname: "", fullname: "", country: "", addressplace: "", symbol: "" });
   const [bidformData, setbidformData] = useState({ address:"", ownerIPname: "", bidvalue: "", bidderaddress: ""});
@@ -285,20 +285,16 @@ const epochTohumanReadble = (timestamp) => {
                 country: meta.country,
                 street: meta.street
               }
-              console.log("support to her", item);
+              //console.log("support to her", item);
               return item;
               
           }))
+          updatemyData(items);
         } else { console.log("No ethereum object now"); }
       }
       catch(e) {
           alert( "Upload error"+e )
       }
-
-        // updateData(items);
-        // updateFetched(true);
-        // updateAddress(addr);
-        // updateTotalPrice(sumPrice.toPrecision(3));
     }
 
     const changeStatus = async (id,val) => {
@@ -437,7 +433,7 @@ const epochTohumanReadble = (timestamp) => {
   useEffect(() => {
     checkIfWalletIsConnect();
     checkIfTransactionsExists();
-    getNFTData(1);
+    // getNFTData(1);
     // handleWalletBalance()
   }, []);
 
@@ -452,6 +448,8 @@ const epochTohumanReadble = (timestamp) => {
         listNFT,
         message,
         changeStatus,
+        getNFTData,
+        mydata,
         formParams,
         updateFormParams,
         formData,

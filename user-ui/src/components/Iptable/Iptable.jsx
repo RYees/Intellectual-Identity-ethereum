@@ -8,8 +8,7 @@ import '../../css/Style.css';
 import '../../css/App.css';
 
 const Iptable = ({data}) => {
-    console.log("mymom",data)
-    // const [currItems, setCurrItems] = useState([]);
+   // const [currItems, setCurrItems] = useState([]);
     // useEffect(() => {
     //   //const endOffset = itemOffset + itemsPerPage;
     //   setCurrItems(data);
@@ -49,14 +48,13 @@ const Iptable = ({data}) => {
     // );
     const {currentAccount} = useContext(TransactionContext);
     const adminAddress = process.env.REACT_APP_ADMIN_ADDRESS;
-    console.log("admin game", adminAddress === currentAccount)
+    // console.log("admin game", adminAddress === currentAccount)
     const [currentItems, setCurrentItems] = useState([]);
     const [pageCount, setPageCount] = useState(0);
     const [itemOffset, setItemOffset] = useState(0);
     const itemsPerPage = 3;
   
     useEffect(() => {
-      // const adminAddress = process.env.REACT_APP_ADMIN_ADDRESS;
       const endOffset = itemOffset + itemsPerPage;
       setCurrentItems(data.slice(itemOffset, endOffset));
       setPageCount(Math.ceil(data.length / itemsPerPage));
