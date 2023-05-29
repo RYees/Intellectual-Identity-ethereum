@@ -9,7 +9,7 @@ import {
 from "../../components/index";
 
 const Ip = () => {
-  const { isLoading, datas, nfts, getAllIps, connectWallet, countAccepted, accept, countRejected, reject, countPend, pend } = useContext(TransactionContext);
+  const { isLoading,textmessage, datas, nfts, getAllIps, connectWallet, countAccepted, accept, countRejected, reject, countPend, pend } = useContext(TransactionContext);
   const[query, setQuery] = useState("");
   //const [isLoading, setLoading] = useState(false);
   const keys = ["IPname", "fullname", "country", "addressplace"]
@@ -22,9 +22,7 @@ const Ip = () => {
   }
 
   useEffect(()=>{
-    // setLoading(true);
     getAllIps();
-    // setLoading(false);
     countAccepted();
     countRejected();
     countPend();
@@ -33,6 +31,13 @@ const Ip = () => {
   return (
     <>
     <div className='mb-96 mt-20'>
+      {textmessage?
+      <div className="bg-gray-800 static z-10 float-right px-10 py-3">
+        <div>
+          <p className="text-gray-100">{textmessage}</p>
+        </div>
+      </div>:null}
+
       <div className='flex justify-between'>
       <p className='mx-4 py-4 text-3xl cursor-pointer'>Intellectual Properties</p>  
        <button
@@ -70,9 +75,10 @@ const Ip = () => {
      </div>
 
      {/* <Iptable className="fades" data={nfts}/> */}
-     {isLoading ? <Loader/> : <Iptable className="fades" data={nfts}/>}
+     {isLoading ? <Loader/> : <Iptable className="fades"/>}
     <div className='flex'>    
         {/* <Getips/> */}
+        {/* <Iptable className="fades"/> */}
     </div>
   </div>
   </>

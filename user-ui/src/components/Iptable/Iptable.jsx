@@ -1,4 +1,4 @@
-//require('dotenv').config();
+ //require('dotenv').config();
 import React, {useEffect, useState, useContext} from 'react'
 import { NavLink } from "react-router-dom";
 import { FaPlus } from "react-icons/fa";
@@ -7,48 +7,13 @@ import { TransactionContext } from '../../context/TransactionContext';
 import '../../css/Style.css';
 import '../../css/App.css';
 
-const Iptable = ({data}) => {
-   // const [currItems, setCurrItems] = useState([]);
-    // useEffect(() => {
-    //   //const endOffset = itemOffset + itemsPerPage;
-    //   setCurrItems(data);
-    //   //setPageCount(Math.ceil(data.length / itemsPerPage));
-    // }); 
-    // return (
-    //   <>
-    //   <div>
-    //   <table className='table table-striped mx-8 mt-24 shadow-lg'>
-    //      <thead>
-    //        <tr className=''>
-    //          <th className='text-gray-900'>ID</th>
-    //          <th className='text-gray-900'> Ip Name </th>
-    //          <th className='text-gray-900'> Full Name</th>
-    //          {/* <th className='text-gray-900'> Country Name</th> */}
-    //        </tr>
-    //      </thead>
-    //     <tbody className='bg-gray-100'>
-    //   {currItems.map((item,index) => ( 
-    //          <tr key={index}>
-    //           <td >{index}</td>
-    //           <td >{item.IPname}</td> 
-    //           <td className='text-black'>{item.fullname}</td> 
-    //             </tr>
-    //           ))
-    //           }  
-    //     </tbody>
-    //     </table> 
-    //      {currentItems.map((item, index) => {
-    //              <div>{index}
-    //             {item.IPname}
-    //             </div>
-    //       })}
-    //     <p>no choice</p>
-    //   </div>
-    //   </>
-    // );
+const Iptable = () => {
+  const { nfts} = useContext(TransactionContext);
+  console.log("classof", nfts);
+
     const {currentAccount} = useContext(TransactionContext);
     const adminAddress = process.env.REACT_APP_ADMIN_ADDRESS;
-    // console.log("admin game", adminAddress === currentAccount)
+    console.log("admin game", adminAddress === currentAccount)
     const [currentItems, setCurrentItems] = useState([]);
     const [pageCount, setPageCount] = useState(0);
     const [itemOffset, setItemOffset] = useState(0);
@@ -56,12 +21,12 @@ const Iptable = ({data}) => {
   
     useEffect(() => {
       const endOffset = itemOffset + itemsPerPage;
-      setCurrentItems(data.slice(itemOffset, endOffset));
-      setPageCount(Math.ceil(data.length / itemsPerPage));
-    }, [itemOffset, itemsPerPage, data]);
+      setCurrentItems(nfts.slice(itemOffset, endOffset));
+      setPageCount(Math.ceil(nfts.length / itemsPerPage));
+    }, [itemOffset, itemsPerPage, nfts]);
   
     const handlePageClick = (event) => {
-      const newOffset = (event.selected * itemsPerPage) % data.length;
+      const newOffset = (event.selected * itemsPerPage) % nfts.length;
       setItemOffset(newOffset);
     };
   
@@ -104,8 +69,7 @@ const Iptable = ({data}) => {
         </NavLink>
       )  
     }
-  }
- 
+  } 
 
   return (
     <div className='fades'>
@@ -134,12 +98,7 @@ const Iptable = ({data}) => {
             <th className='text-gray-900'></th>
             {/* { currentAccount == adminAddress ?
             <th className='text-gray-900'></th>: null }
-            { currentAccount == adminAddress ?
-            <th className='text-gray-900'></th>: null }
-            { currentAccount == adminAddress ?
-            <th className='text-gray-900'></th>: null }
-            { currentAccount == adminAddress ?
-            <th className='text-gray-900'></th>: null } */}
+            */}
           </tr>
         </thead>
         <tbody className='bg-gray-100'>

@@ -6,7 +6,7 @@ import '../../css/Style.css';
 import {Bidtable} from '../../components/index';
 
 const Bidder = () => {
-  const { connectWallet, currentAccount, getBidders, bidData, countbidders,countbids} = useContext(TransactionContext);
+  const { connectWallet, currentAccount, getBidders, bidData, countbids} = useContext(TransactionContext);
   
   const[query, setQuery] = useState("");
 
@@ -20,7 +20,7 @@ const Bidder = () => {
 
   useEffect(()=>{
     getBidders(currentAccount);
-    countbidders(currentAccount);
+    //countbidders(currentAccount);
   },[]);
 
   let navigate = useNavigate(); 
@@ -47,13 +47,13 @@ const Bidder = () => {
       </div>
 
       <div>
-         <a class="arrow mb-4 bg-gradient-to-r from-black via-gray-300" onClick={routeChange}>Back</a>
+         <a className="arrow mb-4 bg-gradient-to-r from-black via-gray-300" onClick={routeChange}>Back</a>
       </div>
 
       <div className='flex justify-around'>
       <p className='mx-4 py-4 text-4xl cursor-pointer'>Bids</p>
       <div>
-        <p>Total bids:{countbids}</p>
+        <p>Total bids:</p>
       </div>
       </div>
       

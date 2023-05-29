@@ -36,13 +36,8 @@ const Status = () => {
     const handleSubmit = (e) => {
         //const { id, val } = statusformData;        
         e.preventDefault();
-        // if (!id || !val) return;    
-        //console.log("input values" + id.current.value, status.current.value);
         changeStatus(id.current.value, status.current.value);
-        // let path = `/ips`; 
-        // navigate(path);
-        // navigate(0);
-    };
+       };
 
     return (
         <>

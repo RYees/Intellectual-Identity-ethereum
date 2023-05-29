@@ -20,6 +20,8 @@ export const TransactionsProvider = ({ children }) => {
   const [formParams, updateFormParams] = useState({ IPname: '', description: '', fullname:'', country:'', street:''});
   const [mydata, updatemyData] = useState([]);
   const [message, updateMessage] = useState('');
+  const [textmessage, setupMessage] = useState('');
+  const [nfts, updateData] = useState('');
   const [formData, setformData] = useState({ user:"", IPname: "", fullname: "", country: "", addressplace: "", symbol: "" });
   const [bidformData, setbidformData] = useState({ address:"", ownerIPname: "", bidvalue: "", bidderaddress: ""});
   const [currentAccount, setCurrentAccount] = useState("");
@@ -41,7 +43,7 @@ export const TransactionsProvider = ({ children }) => {
 
   const checkIfWalletIsConnect = async () => {
     try {
-      if (!ethereum) return alert("Please install MetaMask.");
+      if (!ethereum) return setupMessage("Please install MetaMask.");
       const accounts = await ethereum.request({ method: "eth_accounts" });
       //window.location.reload();
       console.log(accounts);
@@ -61,7 +63,7 @@ export const TransactionsProvider = ({ children }) => {
     try {
       if (ethereum) {
         const transactionsContract = createEthereumContract();
-        alert('Connect to your sepolia metamask account!');
+        console.log('Connect to your sepolia metamask account!');
         //const currentTransactionCount = await transactionsContract.countEmployees();
         //setTransactionCount(currentTransactionCount);
         //window.localStorage.setItem("transactionCount", currentTransactionCount);
@@ -75,12 +77,11 @@ export const TransactionsProvider = ({ children }) => {
 
   const connectWallet = async () => {
     try {
-      if (!ethereum) return alert("Please install MetaMask.");
+      if (!ethereum) return setupMessage("Please install MetaMask.");
 
       const accounts = await ethereum.request({ method: "eth_requestAccounts", });
-      // alert('Connect to your sepolia metamask account!');
       setCurrentAccount(accounts[0]);
-      alert('You are Connected!');
+      setupMessage('You are Connected!');
       window.location.reload();
     } catch (error) {
       console.log(error);
@@ -89,33 +90,33 @@ export const TransactionsProvider = ({ children }) => {
     }
   };
 
-  const registerIP= async (user, IPname, fullname, country, addressplace, symbol) => {
-    try {  
-      if (ethereum) {
-        //const { user, IPname, fullname, country, addressplace, symbol } = formData;
-        const transactionsContract = createEthereumContract();
+  // const registerIP= async (user, IPname, fullname, country, addressplace, symbol) => {
+  //   try {  
+  //     if (ethereum) {
+  //       //const { user, IPname, fullname, country, addressplace, symbol } = formData;
+  //       const transactionsContract = createEthereumContract();
     
-        const transactionHash = await transactionsContract.setIP(user, IPname, fullname, country, addressplace, symbol);
+  //       const transactionHash = await transactionsContract.setIP(user, IPname, fullname, country, addressplace, symbol);
 
-        setIsLoading(true);
-        console.log(`Loading - ${transactionHash.hash}`);
-        await transactionHash.wait();
-        console.log(`Success - ${transactionHash.hash}`);
-        setIsLoading(false);
+  //       setIsLoading(true);
+  //       console.log(`Loading - ${transactionHash.hash}`);
+  //       await transactionHash.wait();
+  //       console.log(`Success - ${transactionHash.hash}`);
+  //       setIsLoading(false);
 
-        //const transactionsCount = await transactionsContract.countEmployees();
+  //       //const transactionsCount = await transactionsContract.countEmployees();
 
-        //setTransactionCount(transactionsCount.toNumber());
-        window.location.reload();
-        console.log('success')
-      } else {
-        console.log("No ethereum object now");
-      }
-    } catch (error) {
-      console.log(error);
-      throw new Error("No ethereum object");
-    }
-  };
+  //       //setTransactionCount(transactionsCount.toNumber());
+  //       window.location.reload();
+  //       console.log('success')
+  //     } else {
+  //       console.log("No ethereum object now");
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //     throw new Error("No ethereum object");
+  //   }
+  // };
 
   // ///////////////////////////////////////////////////////////
   //This function uploads the metadata to IPFS
@@ -140,6 +141,7 @@ async function uploadMetadataToIPFS(fileURL) {
       }
   }
   catch(e) {
+      setupMessage("Error with loading");
       console.log("error uploading JSON metadata:", e)
   }
 }
@@ -169,46 +171,17 @@ async function listNFT(fileURL) {
       let transaction = await transactionsContract.createToken(metadataURL, { value: listingPrice })
       await transaction.wait()
 
-      alert("Successfully listed your NFT!");
+      setupMessage("Successfully listed your NFT!");
       updateMessage("successfully added nft");
       //updateFormParams({ name: '', description: '', price: ''});
       window.location.replace("/ips")
     } else { console.log("No ethereum object now"); }
   }
   catch(e) {
-      alert( "Upload error"+e )
+      console.log( "Upload error"+e );
+      setupMessage("Error with loading");
   }
 }
-const sampleData = [
-  {
-      "name": "NFT#1",
-      "description": "Alchemy's First NFT",
-      "website":"http://axieinfinity.io",
-      "image":"https://gateway.pinata.cloud/ipfs/QmTsRJX7r5gyubjkdmzFrKQhHv74p5wT9LdeF1m3RTqrE5",
-      "price":"0.03ETH",
-      "currentlySelling":"True",
-      "address":"0xe81Bf5A757CB4f7F82a2F23b1e59bE45c33c5b13",
-  },
-  {
-      "name": "NFT#2",
-      "description": "Alchemy's Second NFT",
-      "website":"http://axieinfinity.io",
-      "image":"https://gateway.pinata.cloud/ipfs/QmdhoL9K8my2vi3fej97foiqGmJ389SMs55oC5EdkrxF2M",
-      "price":"0.03ETH",
-      "currentlySelling":"True",
-      "address":"0xe81Bf5A757C4f7F82a2F23b1e59bE45c33c5b13",
-  },
-  {
-      "name": "NFT#3",
-      "description": "Alchemy's Third NFT",
-      "website":"http://axieinfinity.io",
-      "image":"https://gateway.pinata.cloud/ipfs/QmTsRJX7r5gyubjkdmzFrKQhHv74p5wT9LdeF1m3RTqrE5",
-      "price":"0.03ETH",
-      "currentlySelling":"True",
-      "address":"0xe81Bf5A757C4f7F82a2F23b1e59bE45c33c5b13",
-  },
-];
-const [nfts, updateData] = useState(sampleData);
 const [dataFetched, updateFetched] = useState(false);
 
 const epochTohumanReadble = (timestamp) => {        
@@ -247,14 +220,19 @@ const epochTohumanReadble = (timestamp) => {
             }
             return item;
         }))
-        console.log("fecthcing data", items)
+        console.log("fetching data", items)
         updateFetched(true);
         updateData(items);
+        //if(items) {setupMessage("");}
         setIsLoading(false);
-        } else { console.log("No ethereum object now"); }
+        } else { 
+          console.log("Error with loading");
+          setupMessage("Error with loading"); 
+        }
       }
       catch(e) {
-          alert( "Upload error"+e )
+          console.log( "Upload error"+e );
+          setupMessage("Error with loading");
       }
     }
 
@@ -293,7 +271,8 @@ const epochTohumanReadble = (timestamp) => {
         } else { console.log("No ethereum object now"); }
       }
       catch(e) {
-          alert( "Upload error"+e )
+          console.log( "Upload error"+e )
+          setupMessage("Error with loading")
       }
     }
 
@@ -364,8 +343,8 @@ const epochTohumanReadble = (timestamp) => {
         console.log("Ethereum is not present");
       }
     } catch (error) {
-      // console.log('ok',error);
-      return alert('Connect to your metamask account!');
+      console.log(error);
+      //setupMessage('Connect to your metamask account!');
     }
   };
 
@@ -418,16 +397,14 @@ const epochTohumanReadble = (timestamp) => {
     pendCounts(val);
   };
 
-  const countbidders = async (address) => {
-    const transactionsContract = createEthereumContract();
-    const acceptCount = await transactionsContract.countBids(address);
-    let bal = acceptCount['_hex'];
-    let val = parseInt(bal)
-    console.log('accepted count info',val);
-    bidsCounts(val);
-  };
-
-
+  // const countbidders = async (address) => {
+  //   const transactionsContract = createEthereumContract();
+  //   const acceptCount = await transactionsContract.countBids(address);
+  //   let bal = acceptCount['_hex'];
+  //   let val = parseInt(bal)
+  //   console.log('accepted count info',val);
+  //   bidsCounts(val);
+  // };
 
 
   useEffect(() => {
@@ -443,7 +420,7 @@ const epochTohumanReadble = (timestamp) => {
         connectWallet,
         currentAccount,
         handleChange, 
-        registerIP,
+        //registerIP,
         nfts,
         listNFT,
         message,
@@ -466,9 +443,11 @@ const epochTohumanReadble = (timestamp) => {
         registerBidder,
         getBidders,
         bidData,
-        countbidders,
+        //countbidders,
         countbids,
-        isLoading
+        isLoading,
+        textmessage, 
+        setupMessage
         }}
       >
       {children}

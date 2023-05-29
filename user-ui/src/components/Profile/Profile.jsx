@@ -1,11 +1,11 @@
 import { useLocation, useParams, useNavigate } from 'react-router-dom';
 import React,{useState, useContext, useEffect} from 'react';
 import { TransactionContext } from '../../context/TransactionContext';
-import { NftDetails, ShortenAddress } from "../index";
+import { MyNft, ShortenAddress } from "../index";
 
 export default function Profile () {
     const {connectWallet, mydata, currentAccount, getNFTData, message } = useContext(TransactionContext);
-    console.log("plans with a friend", mydata)
+    // console.log("plans with a friend", mydata)
     
     let navigate = useNavigate(); 
     const routeChange = () =>{ 
@@ -14,23 +14,18 @@ export default function Profile () {
         navigate(0);
     }
 
-    const params = useParams();
-    const tokenId = params.tokenId;
+    const {tokenId} = useParams();
+    // const tokenId = params.tokenId;
     useEffect(()=>{
        getNFTData(tokenId); 
-    });
-    
-    const NFTData= () => {
-        getNFTData(tokenId);
-      };
-    
+    }); 
 
     return (
         <>
         <div className='flex justify-between mt-24 mb-10'>
             <div>
                 {/* <div> */}
-                    <a class="arrow mb-4 bg-gradient-to-r from-black via-gray-300" 
+                    <a className="arrow mb-4 bg-gradient-to-r from-black via-gray-300" 
                         onClick={routeChange}>
                         Back
                     </a>
@@ -46,7 +41,7 @@ export default function Profile () {
                 </button>
 
                 <div className='bg-white'>
-                    <p className='mr-10 text-gray-400' onClick={NFTData}>
+                    <p className='mr-10 text-gray-400'>
                     don't forget to connect to your wallet</p>
                     <small>{ShortenAddress(currentAccount)}</small>
                 </div>
@@ -66,7 +61,7 @@ export default function Profile () {
                 <h2 className="font-bold">Your NFTs</h2>
                 <div className="flex justify-center flex-wrap max-w-screen-xl">
                     {mydata.map((value, index) => {
-                    return <NftDetails data={value} key={index}></NftDetails>;
+                    return <MyNft data={value} key={index}></MyNft>;
                     })}
                 </div>
                 <div className="mt-10 text-xl">

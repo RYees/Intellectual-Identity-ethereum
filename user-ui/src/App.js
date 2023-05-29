@@ -10,7 +10,8 @@ import {
   ReactTable,
   Mint, 
   Status, 
-  Profile
+  Profile,
+  NftDetails
 }
 from "./components/index";
 
@@ -48,6 +49,7 @@ function App() {
             <Route path='/bidders/:id/:address' element={<Bidder />} />
             <Route path='/mint/:id/:address' element={<Mint />} />
             <Route path='/mynfts' element={<Profile/>}/>
+            <Route path='/mynftdetail/:tokenId' element={<NftDetails/>}/>
         </Routes>
       </div>
         <Footer/>

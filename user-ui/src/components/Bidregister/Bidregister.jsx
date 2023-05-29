@@ -60,7 +60,7 @@ const Bidregister = (props) => {
        </div>
 
       <div>
-         <a class="arrow mb-6 bg-gradient-to-r from-black via-gray-300" onClick={routeChange}>Back</a>
+         <a className="arrow mb-6 bg-gradient-to-r from-black via-gray-300" onClick={routeChange}>Back</a>
       </div>
 
   <div data-testid='show'
@@ -71,12 +71,12 @@ const Bidregister = (props) => {
           <div className=''>    
             <div className="mb-4">
             <label className='text-xl'>IP owner public address </label><br></br>
-                <input className='input-box text-gray-700 border py-2 px-2 rounded' ref={ipname} type="text" name="address" value={item.user} placeholder="ip owner public address"/>
+                <input className='input-box text-gray-700 border py-2 px-2 rounded' ref={ipname} type="text" name="address" placeholder="ip owner public address"/>
             </div>
 
             <div className='mb-4'>
             <label className='text-xl'>Owners' IP Name</label><br></br>
-                <input className='input-box text-gray-700 border py-2 px-2 rounded' ref={ipadd} type="text" name="ownerIPname" value={item.IPname} placeholder='owner intellectual property name'/>
+                <input className='input-box text-gray-700 border py-2 px-2 rounded' ref={ipadd} type="text" name="ownerIPname" placeholder='owner intellectual property name'/>
             </div>
 
             <div className='mb-4'>
