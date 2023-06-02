@@ -8,12 +8,12 @@ import '../../css/Style.css';
 import '../../css/App.css';
 
 const Iptable = () => {
-  const { nfts} = useContext(TransactionContext);
-  console.log("classof", nfts);
+    const { nfts, currentAccount} = useContext(TransactionContext);  
 
-    const {currentAccount} = useContext(TransactionContext);
-    const adminAddress = process.env.REACT_APP_ADMIN_ADDRESS;
-    console.log("admin game", adminAddress === currentAccount)
+    //const adminAddress = process.env.REACT_APP_ADMIN_ADDRESS;
+    const adminAddress = 0x169f965ce47119BB4c80d7c435fdE950256CF7c8;
+    // console.log("admin game", currentAccount == adminAddress);
+    // console.log("classof", adminAddress);
     const [currentItems, setCurrentItems] = useState([]);
     const [pageCount, setPageCount] = useState(0);
     const [itemOffset, setItemOffset] = useState(0);

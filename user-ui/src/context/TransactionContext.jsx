@@ -223,7 +223,7 @@ const epochTohumanReadble = (timestamp) => {
         console.log("fetching data", items)
         updateFetched(true);
         updateData(items);
-        //if(items) {setupMessage("");}
+        if(items) {setupMessage('');}
         setIsLoading(false);
         } else { 
           console.log("Error with loading");

@@ -1,5 +1,5 @@
 //SPDX-License-Identifier: Unlicense
-pragma solidity ^0.8.1;
+pragma solidity ^0.8.0;
 
 import "hardhat/console.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
@@ -7,8 +7,16 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import {convert} from "./Convert.sol";
 
-contract ContractIp is ERC721URIStorage {
+interface Ipbidder {
+   function bid(uint256 val, address bidderAdd) external view returns(uint);
+   function isBidder(address bidderAdd) external view returns(bool);
+   function valueChange(uint256 tokenId, address bidAdd, uint256 value) external;
+   function bidderDeposit(uint256 tokenId) payable external returns(bool); 
+}
 
+contract ContractIp is ERC721URIStorage {
+    address bidcontract = 0x6CFb2c03d7C594a50f6f2053148BEbBadD0F7302;
+    
     using Counters for Counters.Counter;
     //_tokenIds variable has the most recent minted tokenId
     Counters.Counter private _tokenIds;
@@ -17,13 +25,14 @@ contract ContractIp is ERC721URIStorage {
     //owner is the contract address that created the smart contract
     address payable owner;
     //The fee charged by the marketplace to be allowed to list an NFT
-    uint256 listPrice = 0.01 ether;
+    uint256 public commissionPrice;
 
     convert conv = new convert();
+
     //The structure to store info about a listed token
     struct RequestedNfts {
         uint256 tokenId;
-        address payable owner;
+       // address payable owner;
         address payable Nftowner;
         uint256 timestamp;        
         string status; 
@@ -33,7 +42,7 @@ contract ContractIp is ERC721URIStorage {
     //the event emitted when a token is successfully listed
     event TokenAcceptedNft (
         uint256 indexed tokenId,
-        address owner,
+       // address owner,
         address Nftowner,
         uint256 timestamp,       
         string status,
@@ -53,20 +62,16 @@ contract ContractIp is ERC721URIStorage {
 
     uint public receivedWei;
     uint public returnedWei;
-    struct Bidders {
-        uint received;
-        uint returned;
-        uint clientListPointer;
-    }
-    mapping(address => Bidders) public biddersList;
-    mapping(uint256 => Bidders) public bids;
-    address[] public bidderList;
-    event LogReceivedFunds(address sender, uint amount);
-    event LogReturnedFunds(address recipient, uint amount);
-   
 
-    constructor() ERC721("NFTMarketplace", "NFTM") { owner = payable(msg.sender); }
-    function getListPrice() public view returns (uint256) { return listPrice; }
+    constructor() ERC721("NFTMarketplace", "NFTM") { 
+        owner = payable(msg.sender);
+    }
+    
+    // setup royality fee that is going to be paid to artist the creator
+    function setupCommissionFee(uint256 _cp) external onlyOwner  {
+        commissionPrice = _cp; // 0.04 percent
+    }
+
     //The first time a token is created, it is listed here
     function createToken(string memory tokenURI) public payable returns (uint) {
         //Increment the tokenId counter, which is keeping track of the number of minted NFTs
@@ -81,38 +86,21 @@ contract ContractIp is ERC721URIStorage {
         
         string memory currentstatus = "Pending" ;
         //Helper function to update Global variables and emit an event
-        createListedToken(newTokenId, currentstatus);
- 
-        return newTokenId;
-    }
-
-    function createListedToken(uint256 tokenId, string memory status) private {
-        //Make sure the sender sent enough ETH to pay for listing
-       // require(msg.value == listPrice, "Hopefully sending the correct price");
-        //Just sanity check
-       // require(price > 0, "Make sure the price isn't negative");
-
-        //Update the mapping of tokenId's to Token details, useful for retrieval functions
-        idToListedToken[tokenId] = RequestedNfts(
-            tokenId,
-            payable(address(this)),
+        //createListedToken(newTokenId, currentstatus);
+          idToListedToken[newTokenId] = RequestedNfts(
+            newTokenId,
+         //   payable(address(this)),
             payable(msg.sender),
             block.timestamp,
-            status,
+            currentstatus,
             true
         );
-          pendingIps.push(tokenId);  
-               
-        _transfer(msg.sender, address(this), tokenId);
+         pendingIps.push(newTokenId);  
+
         //Emit the event for successful transfer. The frontend parses this message and updates the end user
-        emit TokenAcceptedNft(
-            tokenId,
-            address(this),
-            msg.sender,
-            block.timestamp,
-            status,
-            true
-        );
+        emit TokenAcceptedNft( newTokenId, msg.sender, block.timestamp, currentstatus, true);
+ 
+        return newTokenId;
     }
 
     // Admin function
@@ -245,7 +233,7 @@ contract ContractIp is ERC721URIStorage {
         //Important to get a count of all the NFTs that belong to the user before we can make an array for them
         for(uint i=0; i < totalItemCount; i++)
         {
-            if(idToListedToken[i+1].owner == msg.sender || idToListedToken[i+1].Nftowner == msg.sender){
+            if(idToListedToken[i+1].Nftowner == msg.sender){
                 itemCount += 1;
             }
         }
@@ -253,7 +241,7 @@ contract ContractIp is ERC721URIStorage {
         //Once you have the count of relevant NFTs, create an array then store all the NFTs in it
         RequestedNfts[] memory items = new RequestedNfts[](itemCount);
         for(uint i=0; i < totalItemCount; i++) {
-            if(idToListedToken[i+1].owner == msg.sender || idToListedToken[i+1].Nftowner == msg.sender) {
+            if(idToListedToken[i+1].Nftowner == msg.sender) {
                 currentId = i+1;
                 RequestedNfts storage currentItem = idToListedToken[currentId];
                 items[currentIndex] = currentItem;
@@ -263,61 +251,35 @@ contract ContractIp is ERC721URIStorage {
         return items;
     }
 
-    function executeSale(uint256 tokenId, address bidderAddress) public payable {
-        uint256 bidValue = biddersList[bidderAddress].received;
-        //uint price = idToListedToken[tokenId].price;
-        address seller = idToListedToken[tokenId].Nftowner;
-        //require(msg.value == price, "Please submit the asking price in order to complete the purchase");
-        idToListedToken[tokenId].isRegistered = true;
-        idToListedToken[tokenId].Nftowner = payable(msg.sender);
-        _itemsSold.increment();
-        _transfer(address(this), msg.sender, tokenId);
-        approve(address(this), tokenId);
-        payable(owner).transfer(listPrice);
-        payable(seller).transfer(bidValue);
+    function bidVal(uint256 tokenId, address bidderAddress) public view returns(uint) {
+        return Ipbidder(bidcontract).bid(tokenId,bidderAddress); 
     }
 
-    function getBidderCount() public view returns(uint bidderCount) {    return bidderList.length;  }
-
-    function isBidder (address bidder) public view returns(bool isIndeed) {
-        if(bidderList.length==0) return false;
-        return bidderList[biddersList[bidder].clientListPointer] == bidder;
+    function check(address bidderAddress) public view returns(bool){
+        return Ipbidder(bidcontract).isBidder(bidderAddress);
     }
-    function bidderDeposit(uint256 tokenId) payable public returns(bool success) {
-        require(keccak256(abi.encodePacked(idToListedToken[tokenId].status)) == keccak256(abi.encodePacked('Accepted')), "Nft token has to be approved to make a bid.");
-        // push new client, update existing
-        if(!isBidder(msg.sender)) {
-            bidderList.push(msg.sender);
-            uint count = bidderList.length-1;
-            // bids[tokenId].push(Bidders(msg.value,0,count));
-            bids[tokenId] = Bidders(msg.value,0,count);
-            biddersList[msg.sender].clientListPointer = bidderList.length-1;
+
+    function executeSale(uint256 tokenId, address bidderAddress) public payable{
+            uint256 bidValue = Ipbidder(bidcontract).bid(tokenId,bidderAddress); 
+            console.log("nobody is threatning me");
+            require(msg.sender == ownerOf(tokenId), "You are not the owner of the IP nft");
+            require(msg.value == bidValue, "Please submit the asking price in order to complete the purchase");
+            require(check(bidderAddress), "This address did not bid on this IP");
+            require(ownerOf(tokenId) == msg.sender, "Your are not the owner of this token NFT");
+            require(owner.balance > 0, "Not enough funds" );
+           
+            address seller = idToListedToken[tokenId].Nftowner;            
+            idToListedToken[tokenId].isRegistered = true;
+            idToListedToken[tokenId].Nftowner = payable(msg.sender);
+            _itemsSold.increment();
+          
+            _transfer(msg.sender, bidderAddress, tokenId);           
+            uint256 comPrice = bidValue * commissionPrice;
+            uint256 bidPrice = bidValue - commissionPrice;
+
+            payable(owner).transfer(comPrice);
+            payable(seller).transfer(bidPrice);
+            Ipbidder(bidcontract).valueChange(tokenId, bidderAddress, 0);
+       
         }
-        // track cumulative receipts per client
-        biddersList[msg.sender].received += msg.value;
-        receivedWei += msg.value;
-        emit LogReceivedFunds(msg.sender, msg.value);
-        return true;
-    }
-
-    function refundDeposit(uint amountToWithdraw) public returns(bool success) {
-        // if not a bidder, then throw;
-        if(!isBidder(msg.sender)) revert();
-        // owed = moneyReceived - moneyAlreadyReturned;
-        uint netOwed = biddersList[msg.sender].received - biddersList[msg.sender].returned;
-        // cannot ask for more than is owed
-        if(amountToWithdraw > netOwed) revert();
-        // keep track of money returned
-        // to this client (user)
-        biddersList[msg.sender].returned += amountToWithdraw;
-        // and overall (contract)
-        returnedWei += amountToWithdraw;
-        emit LogReturnedFunds(msg.sender, amountToWithdraw);
-        if (amountToWithdraw > netOwed) {
-            //pendingReturns[msg.sender] = 0;
-            payable(msg.sender).transfer(amountToWithdraw);
-        }
-        //if(!msg.sender.send(amountToWithdraw)) revert();
-        return true;
-    }
 }

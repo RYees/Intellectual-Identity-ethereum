@@ -57,7 +57,7 @@ const Status = () => {
       </div>
 
       <div>
-         <a class="arrow mb-4 bg-gradient-to-r from-black via-gray-300" onClick={routeChange}>Back</a>
+         <a className="arrow mb-4 bg-gradient-to-r from-black via-gray-300" onClick={routeChange}>Back</a>
       </div>
 
     <div data-testid='show' className='container contain-1 text-gray-600 font-serif flex '>
