@@ -5,7 +5,7 @@ import { uploadFileToIPFS } from "../../pinata";
 import '../../css/Style.css';
 
 const Ipregister = () => {
-  const { connectWallet, currentAccount,updateFormParams, formParams,
+  const { connectWallet, currentAccount, updateCommission, updateFormParams, formParams,
     formData, registerIP, message, listNFT, uploadMetadataToIPFS } = useContext(TransactionContext);
   // const [formParams, updateFormParams] = useState({ IPname: '', description: '', fullname:'', country:'', street:''});
   const [fileURL, setFileURL] = useState(null);
@@ -52,7 +52,7 @@ const Ipregister = () => {
       navigate(path);
       navigate(0);
   }
-  
+
   return (
     <>
    <div className='text-center'>

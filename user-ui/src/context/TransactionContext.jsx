@@ -118,6 +118,12 @@ export const TransactionsProvider = ({ children }) => {
   //   }
   // };
 
+  const updateCommission = async (value) => {
+    let price = value.toString()
+    const transactionsContract = createEthereumContract();
+    const acceptCount = await transactionsContract.updateCommissionFee(price);
+  };
+
   // ///////////////////////////////////////////////////////////
   //This function uploads the metadata to IPFS
 async function uploadMetadataToIPFS(fileURL) {
@@ -164,11 +170,13 @@ async function listNFT(fileURL) {
      
       //massage the params to be sent to the create NFT request
       //const price = ethers.utils.parseUnits(formParams.price, 'ether')
-      let listingPrice = await transactionsContract.getListPrice()
-      listingPrice = listingPrice.toString()
+      
+      //let listingPrice = await transactionsContract.getListPrice()
+      //listingPrice = listingPrice.toString()
 
       //actually create the NFT
-      let transaction = await transactionsContract.createToken(metadataURL, { value: listingPrice })
+      //let transaction = await transactionsContract.createToken(metadataURL, { value: listingPrice })
+      let transaction = await transactionsContract.createToken(metadataURL)
       await transaction.wait()
 
       setupMessage("Successfully listed your NFT!");
@@ -238,7 +246,7 @@ const epochTohumanReadble = (timestamp) => {
 
     if(!dataFetched){ getAllNFTs(); }
 
-    async function getNFTData(tokenId) {
+    async function getNFTData() {
       try {
         if(ethereum){
           let sumPrice = 0;
@@ -299,75 +307,6 @@ const epochTohumanReadble = (timestamp) => {
         console.log(error);
         throw new Error("No ethereum object");
       }
-    };
-  // ///////////////////////////////////////////////////////////
-
-  const registerBidder= async (address, ownerIPname, bidvalue, bidderaddress) => {
-    console.log('success')
-    try {  
-      if (ethereum) {
-        //const { address, ownerIPname, bidvalue, bidderaddress } = bidformData;
-        const transactionsContract = createEthereumContract();
-        
-        const transactionHash = await transactionsContract.setIPbidder1(address, ownerIPname, bidvalue, bidderaddress);
-
-        setIsLoading(true);
-        console.log(`Loading - ${transactionHash.hash}`);
-        await transactionHash.wait();
-        console.log(`Success - ${transactionHash.hash}`);
-        setIsLoading(false);
-
-         window.location.reload();
-        console.log('success')
-      } else {
-        console.log("No ethereum object now");
-      }
-    } catch (error) {
-      console.log(error);
-      throw new Error("No ethereum object");
-    }
-  };
-
-
-  const getAllIps = async () => {
-    try {
-      if (ethereum) {
-        setIsLoading(true);
-        const transactionsContract = createEthereumContract();
-
-        const availableIps = await transactionsContract.AllIps();
-        setIsLoading(false);        
-        //console.log('ALl members info', availableIps[0].status.length);
-        getMembers(availableIps);
-      } else {
-        console.log("Ethereum is not present");
-      }
-    } catch (error) {
-      console.log(error);
-      //setupMessage('Connect to your metamask account!');
-    }
-  };
-
-  const getBidders = async (addres) => {
-    try {
-      if (ethereum) {
-        const transactionsContract = createEthereumContract();
-
-        const availableBidders = await transactionsContract.getbidderinfo(addres);
-        // const structuredMembers = availableBidders.map((member) => ({
-        //   member
-        // }));
-        console.log('bidderss info', availableBidders[0]);
-        console.log('bidderss info', availableBidders[0]['ownerIPname'] );
-        console.log('bidderss info', availableBidders[0]['bidderAddress'] );
-        console.log('bidderss info', availableBidders[0]['bidValue']['_hex']);
-        getbidders(availableBidders);
-      } else { 
-        console.log("Ethereum is not present");
-      }
-    } catch (error) {
-      console.log(error);
-    }  
   };
 
   const countAccepted = async () => {
@@ -420,6 +359,7 @@ const epochTohumanReadble = (timestamp) => {
         connectWallet,
         currentAccount,
         handleChange, 
+        updateCommission,
         //registerIP,
         nfts,
         listNFT,
@@ -430,8 +370,7 @@ const epochTohumanReadble = (timestamp) => {
         formParams,
         updateFormParams,
         formData,
-        datas,
-        getAllIps,
+        datas,       
         countAccepted,
         accept,
         countRejected,
@@ -440,10 +379,7 @@ const epochTohumanReadble = (timestamp) => {
         pend,
         handleChanges,
         bidformData,
-        registerBidder,
-        getBidders,
         bidData,
-        //countbidders,
         countbids,
         isLoading,
         textmessage, 
