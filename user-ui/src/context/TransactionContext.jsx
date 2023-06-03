@@ -12,7 +12,7 @@ const createEthereumContract = () => {
   const signer = provider.getSigner();
   const transactionsContract = new ethers.Contract(contractAddress, contractABI, signer);
   
-  console.log('types',transactionsContract);
+  console.log('ipcontract',transactionsContract);
   return transactionsContract;
 };
 

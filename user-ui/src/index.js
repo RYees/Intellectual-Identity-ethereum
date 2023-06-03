@@ -1,4 +1,6 @@
 import { TransactionsProvider } from "./context/TransactionContext";
+import { BidderProvider } from "./context/BidderContext";
+
 import "./css/index.css";
 
 import { createRoot } from "react-dom/client";
@@ -12,7 +14,9 @@ const root = createRoot(rootElement);
 root.render(
   <BrowserRouter>
     <TransactionsProvider>
-      <App />
+      <BidderProvider>
+        <App />
+      </BidderProvider>
     </TransactionsProvider>
   </BrowserRouter>
 );

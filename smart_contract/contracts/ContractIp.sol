@@ -15,7 +15,7 @@ interface Ipbidder {
 }
 
 contract ContractIp is ERC721URIStorage {
-    address bidcontract = 0x6CFb2c03d7C594a50f6f2053148BEbBadD0F7302;
+    address bidcontract = 0xf24cb2fdfD344E748871d0747c67473B7D0B71F0;
     
     using Counters for Counters.Counter;
     //_tokenIds variable has the most recent minted tokenId
@@ -25,7 +25,7 @@ contract ContractIp is ERC721URIStorage {
     //owner is the contract address that created the smart contract
     address payable owner;
     //The fee charged by the marketplace to be allowed to list an NFT
-    uint256 public commissionPrice;
+    uint256 public commissionPrice = 0.005 ether;
 
     convert conv = new convert();
 
@@ -68,8 +68,9 @@ contract ContractIp is ERC721URIStorage {
     }
     
     // setup royality fee that is going to be paid to artist the creator
-    function setupCommissionFee(uint256 _cp) external onlyOwner  {
-        commissionPrice = _cp; // 0.04 percent
+    function updateCommissionFee(uint256 _cp) external payable onlyOwner  {
+        commissionPrice = _cp; // 15 basis points = 0.15 percent
+        
     }
 
     //The first time a token is created, it is listed here
@@ -274,10 +275,10 @@ contract ContractIp is ERC721URIStorage {
             _itemsSold.increment();
           
             _transfer(msg.sender, bidderAddress, tokenId);           
-            uint256 comPrice = bidValue * commissionPrice;
+            //uint256 comPrice = bidValue * commissionPrice;
             uint256 bidPrice = bidValue - commissionPrice;
-
-            payable(owner).transfer(comPrice);
+            bidValue = commissionPrice;
+            payable(owner).transfer(bidValue);
             payable(seller).transfer(bidPrice);
             Ipbidder(bidcontract).valueChange(tokenId, bidderAddress, 0);
        

@@ -1,9 +1,8 @@
 // import abi from './IP.json';
 import abi from './ContractIp.json';
-import abi from './Ipbidder.json';
 
 export const contractABI = abi.abi;
-export const contractAddress = '0x959bA23B59d8d5fdfF6A522a38F8B705f6a7421b';
+export const contractAddress = '0x7892fBCDd8F536199a595f5c8D34A64Ccc0D264c';
 //  0x068737c6c3cc9cf481ba6ed3b0a48716dA160D9f
 // export const contractAddress = '0x5FC8d32690cc91D4c39d9d3abcBD16989F875707';
 // export const contractAddress = '0x8A1009576a53A1cc10Cb1F6501C055d41418fC63';

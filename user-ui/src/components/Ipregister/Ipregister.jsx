@@ -85,7 +85,7 @@ const Ipregister = () => {
             </div>
             <div className='mb-4'>
             <label className='text-xl'>Description</label><br></br>
-                <input className='ip-box text-gray-700 border py-2 px-2 rounded'  type="text" name="IPname" placeholder='your material description' onChange={e => updateFormParams({...formParams, description: e.target.value})} value={formParams.description}/>
+                <input type="textarea" className='ip-box text-gray-700 border py-2 px-2 rounded'  name="IPname" placeholder='your material description' onChange={e => updateFormParams({...formParams, description: e.target.value})} value={formParams.description}/>
             </div>
             <div className='mb-4'>
             <label className='text-xl'>Full Name</label><br></br>
