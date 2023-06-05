@@ -40,7 +40,7 @@ function App() {
             <Route path='/' element={<Home />} />
             <Route path='/ips' element={<Ip />} />
             <Route path='/bidders' element={<Bidder />} />
-            <Route path='/bidregister/:ipname/:address' element={<Bidregister />} />
+            <Route path='/bidregister/:tokenId/:ipname/:address' element={<Bidregister />} />
             <Route path='/ipregister' element={<Ipregister />} />
             <Route path='/table' element={<Tablen/>} />
             <Route path='/tab' element={<ReactTable/>} />

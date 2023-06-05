@@ -1,27 +1,19 @@
 import React,{useState, useContext} from 'react';
 import { FaPlus, FaTimes } from "react-icons/fa";
+import { BidderContext } from '../../context/BidderContext';
 import { TransactionContext } from '../../context/TransactionContext';
 import { useNavigate, useLocation } from "react-router-dom";
 import '../../css/Style.css';
 
-// const Input = ({ placeholder, name, type, value, handleChange }) => (
-//   <input
-//     placeholder={placeholder}
-//     type={type}
-//     step="0.0001"
-//     value={value}
-//     onChange={(e) => handleChange(e, name)}
-//     className="border w-full p-3"
-//   />
-// );
-
 const Bidregister = (props) => {
-  const { connectWallet, currentAccount,registerBidder, bidformData, handleChanges } = useContext(TransactionContext);
+  const { depositBid, refundBid } = useContext(BidderContext);
+  const { connectWallet, currentAccount} = useContext(TransactionContext); 
+
   const[show, setShow] = useState(false);
 
   const { state } = useLocation();
   const { item } = state || {};
-  
+ 
   const ipname = React.useRef();
   const ipadd = React.useRef();
   const bidval = React.useRef();
@@ -37,10 +29,8 @@ const Bidregister = (props) => {
   const handleSubmit = (e) => {
     //const { address, ownerIPname, bidvalue, bidderaddress } = bidformData;    
     e.preventDefault();
-    // 0x5B38Da6a701c568545dCfcB03FcB875f56beddC4
-    // 0x8F449854A5d6aD8958D43E0266a9399E208A2cc5
     //if (!address || !ownerIPname || !bidvalue || !bidderaddress ) return;
-    registerBidder(ipname.current.value, ipadd.current.value,bidval.current.value, bidadd.current.value);
+    depositBid(item.tokenId, ipadd.current.value, ipname.current.value, bidval.current.value);
   };
 
   return (
@@ -70,23 +60,18 @@ const Bidregister = (props) => {
         <div className='mb-6 py-3 text-center text-sm text-black'><h1>Register IP Bidders'</h1></div>
           <div className=''>    
             <div className="mb-4">
-            <label className='text-xl'>IP owner public address </label><br></br>
-                <input className='input-box text-gray-700 border py-2 px-2 rounded' ref={ipname} type="text" name="address" placeholder="ip owner public address"/>
+            <label className='text-xl'>Owners' IP Name</label><br></br>
+                <input className='input-box text-gray-700 border py-2 px-2 rounded' ref={ipadd} value={item.Nftowner} type="text" name="address" placeholder="ip owner public address"/>
             </div>
 
             <div className='mb-4'>
-            <label className='text-xl'>Owners' IP Name</label><br></br>
-                <input className='input-box text-gray-700 border py-2 px-2 rounded' ref={ipadd} type="text" name="ownerIPname" placeholder='owner intellectual property name'/>
+            <label className='text-xl'>IP owner public address</label><br></br>
+                <input className='input-box text-gray-700 border py-2 px-2 rounded' ref={ipname} value={item.IPname} type="text" name="ownerIPname" placeholder='owner intellectual property name'/>
             </div>
 
             <div className='mb-4'>
             <label className='text-xl'>Bidding Value</label><br></br>
-                <input className='input-box text-gray-700 border py-2 px-2 rounded' ref={bidval} type="text" name="bidvalue" placeholder='bid value'/>
-            </div>
-
-            <div className='mb-4'>
-            <label className='text-xl'>Bidders' Address</label><br></br>
-            <input className='input-box text-gray-700 border py-2 px-2 rounded' ref={bidadd} type="text" name="bidderaddress" placeholder='your public address'/>
+                <input className='input-box text-gray-700 border py-2 px-2 rounded' ref={bidval} type="number" step='0.001' name="bidvalue" placeholder='bid value'/>
             </div>
 
             <div className='py-3'>

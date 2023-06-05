@@ -1,8 +1,12 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useContext} from 'react'
 import ReactPaginate from 'react-paginate';
 import '../../css/Style.css';
+import { TransactionContext } from '../../context/TransactionContext';
+import { BidderContext } from '../../context/BidderContext';
 
 const Bidtable = ({data}) => {
+  const { depositBid, refundBid, bidData} = useContext(BidderContext);
+  const { connectWallet, currentAccount, AcceptBid} = useContext(TransactionContext);  
   const [currentItems, setCurrentItems] = useState([]);
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
@@ -44,8 +48,8 @@ const Bidtable = ({data}) => {
               <td >{index}</td>
               <td >{item.ownerIPname}</td>    
               <td className='text-black'>{item.bidderAddress}</td>             
-              <td>{vals(item.bidValue['_hex'])}wei</td>
-              <td className='text-center'><button className='bg-black text-white py-1 px-6 rounded'>Accept</button></td>
+              <td>{vals(item.bidValue)} ether</td>
+              <td className='text-center'><button className='bg-black text-white py-1 px-6 rounded' onClick={AcceptBid(item.tokenId, item.bidderAddress, item.bidValue)}>Accept</button></td>
               <td></td>
             </tr>
          ))

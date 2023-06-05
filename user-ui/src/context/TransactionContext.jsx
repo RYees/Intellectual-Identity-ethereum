@@ -199,7 +199,7 @@ const epochTohumanReadble = (timestamp) => {
   return date;       
 }
 
-    async function getAllNFTs() {
+  async function getAllNFTs() {
       try {
         if(ethereum){
         //Pull the deployed contract instance
@@ -309,6 +309,32 @@ const epochTohumanReadble = (timestamp) => {
       }
   };
 
+    const AcceptBid = async (tokenId, bidderAddress, amount) => {
+      console.log('success',tokenId, bidderAddress, amount)
+      try {  
+        if (ethereum) {
+          //const { id, val } = statusformData;
+          const transactionsContract = createEthereumContract();        
+          const transactionHash = await transactionsContract.executeSale(tokenId, bidderAddress, { value: ethers.utils.parseEther(amount)});
+          setIsLoading(true);
+          console.log(`Loading - ${transactionHash.hash}`);
+          await transactionHash.wait();
+          console.log(`Success - ${transactionHash.hash}`);
+          setIsLoading(false);
+
+          //  window.location.reload();
+          updateMessage("success");
+          console.log('success')
+        } else {
+          console.log("No ethereum object now");
+        }
+      } catch (error) {
+        console.log(error);
+        throw new Error("No ethereum object");
+      }
+  };
+
+
   const countAccepted = async () => {
     const transactionsContract = createEthereumContract();
     const acceptCount = await transactionsContract.countAcceptedIPs();
@@ -345,7 +371,7 @@ const epochTohumanReadble = (timestamp) => {
   //   bidsCounts(val);
   // };
 
-
+ 
   useEffect(() => {
     checkIfWalletIsConnect();
     checkIfTransactionsExists();
@@ -360,7 +386,8 @@ const epochTohumanReadble = (timestamp) => {
         currentAccount,
         handleChange, 
         updateCommission,
-        //registerIP,
+        getAllNFTs,
+        AcceptBid,
         nfts,
         listNFT,
         message,

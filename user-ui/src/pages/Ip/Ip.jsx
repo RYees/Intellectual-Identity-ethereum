@@ -2,6 +2,8 @@ import React, { useState, useContext, useEffect } from "react";
 import { FaHourglass } from "react-icons/fa";
 import '../../css/App.css';
 import { TransactionContext } from '../../context/TransactionContext';
+import { NavLink } from "react-router-dom";
+import { FaPlus } from "react-icons/fa";
 import {
   Iptable,
   Loader,
@@ -9,11 +11,12 @@ import {
 from "../../components/index";
 
 const Ip = () => {
-  const { isLoading,textmessage, datas, nfts, getAllIps, connectWallet, countAccepted, accept, countRejected, reject, countPend, pend } = useContext(TransactionContext);
+  const { isLoading,textmessage, datas, getAllIps, getAllNFTs, nfts, connectWallet, countAccepted, accept, countRejected, reject, countPend, pend } = useContext(TransactionContext);
   const[query, setQuery] = useState("");
   //const [isLoading, setLoading] = useState(false);
   const keys = ["IPname", "fullname", "country", "addressplace"]
   console.log("mydad",nfts)
+
 
   const search = (data) => {
     return data.filter((item) => 
@@ -22,7 +25,7 @@ const Ip = () => {
   }
 
   useEffect(()=>{
-    getAllIps();
+    getAllNFTs();
     countAccepted();
     countRejected();
     countPend();
@@ -73,9 +76,21 @@ const Ip = () => {
         onChange={(e) => setQuery(e.target.value)}
       />
      </div>
+     
+    <div>
+      <NavLink to={{ pathname:`/ipregister`}}> 
+        <button 
+        data-testid='button-one'
+        className='flex justify-end float-right mb-3 bg-black transition duration-150 ease-out hover:ease-in
+        px-3 py-2 rounded text-white hover:brightness-105 transition duration-150 ease-in-out shadow-lg'>
+        <FaPlus className='inline text-white mt-1 mr-1'/> Register IPs
+        </button>
+      </NavLink>
+    </div>
 
      {/* <Iptable className="fades" data={nfts}/> */}
-     {isLoading ? <Loader/> : <Iptable className="fades"/>}
+     
+     {nfts.length !=0 ? <Iptable className="fades"/> : <Loader/> }
     <div className='flex'>    
         {/* <Getips/> */}
         {/* <Iptable className="fades"/> */}

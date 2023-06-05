@@ -45,7 +45,7 @@ const Iptable = () => {
     const c = status(item.status);
     if(c.props.children === "Accepted"){
       return(
-        <NavLink to={{ pathname:`/bidregister/${item.IPname}/${item.user}`}}  state={{item}}> 
+        <NavLink to={{ pathname:`/bidregister/${item.tokenId}/${item.IPname}/${item.Nftowner}`}}  state={{item}}> 
         <button
           className='ml-2 my-2 bg-black text-white transition duration-150 ease-out hover:ease-in
           py-1 px-6 mt-5 rounded'>
@@ -73,16 +73,7 @@ const Iptable = () => {
 
   return (
     <div className='fades'>
-    <div>
-    <NavLink to={{ pathname:`/ipregister`}}> 
-       <button 
-       data-testid='button-one'
-       className='flex justify-end float-right mb-3 bg-black transition duration-150 ease-out hover:ease-in
-       px-3 py-2 rounded text-white hover:brightness-105 transition duration-150 ease-in-out shadow-lg'>
-       <FaPlus className='inline text-white mt-1 mr-1'/> Register IPs
-       </button>
-    </NavLink>
-    </div>
+ 
     <table className='table table-striped mx-8 mt-24 shadow-lg'>
          <thead>
           <tr className=''>

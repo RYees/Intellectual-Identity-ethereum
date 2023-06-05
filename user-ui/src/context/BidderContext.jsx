@@ -67,7 +67,6 @@ export const BidderProvider = ({ children }) => {
   };
 
   const refundBid= async (amount, tokenId) => {
-    console.log('success')
     try {  
       if (ethereum) {
         //const { address, ownerIPname, bidvalue, bidderaddress } = bidformData;
@@ -100,7 +99,7 @@ export const BidderProvider = ({ children }) => {
         const availableBidders = await bidderContract.getMyBidders();        
         const items = await Promise.all(availableBidders.map(async i => {
           let item = {
-            tokenID: i.tokenId.toNumber(),
+            tokenID: i.tokenID.toNumber(),
             owneraddress: i.owneraddress,
             ownerIPname: i.ownerIPname,
             bidValue: i.bidValue.toNumber(),
@@ -109,6 +108,7 @@ export const BidderProvider = ({ children }) => {
           console.log("support to bid", item);
           return item;          
       }))
+      console.log('successvid', items);
         getbidders(items);
       } else { 
         console.log("Ethereum is not present");

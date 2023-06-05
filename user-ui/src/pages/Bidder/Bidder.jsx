@@ -1,13 +1,15 @@
 import React,{useContext, useEffect, useState} from 'react';
 import { TransactionContext } from '../../context/TransactionContext';
+import { BidderContext } from '../../context/BidderContext';
 import '../../css/App.css';
 import { useNavigate } from "react-router-dom";
 import '../../css/Style.css';
-import {Bidtable} from '../../components/index';
+import {Bidtable, Loader} from '../../components/index';
 
 const Bidder = () => {
-  const { connectWallet, currentAccount, getBidders, bidData, countbids} = useContext(TransactionContext);
-  
+  const { connectWallet, currentAccount, countbids} = useContext(TransactionContext);
+  const { getBidders, bidData } = useContext(BidderContext);
+
   const[query, setQuery] = useState("");
 
   const keys = ["ownerIPname"]
@@ -19,7 +21,7 @@ const Bidder = () => {
   }
 
   useEffect(()=>{
-    getBidders(currentAccount);
+    getBidders();
     //countbidders(currentAccount);
   },[]);
 
@@ -65,7 +67,7 @@ const Bidder = () => {
         onChange={(e) => setQuery(e.target.value)}
       />
      </div>
-      <Bidtable data={search(bidData)}/>
+      {bidData.length != 0 ? <Bidtable data={search(bidData)}/> : <Loader/>}
     </>
   )
 }

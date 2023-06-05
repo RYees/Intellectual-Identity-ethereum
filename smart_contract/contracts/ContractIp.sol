@@ -32,7 +32,6 @@ contract ContractIp is ERC721URIStorage {
     //The structure to store info about a listed token
     struct RequestedNfts {
         uint256 tokenId;
-       // address payable owner;
         address payable Nftowner;
         uint256 timestamp;        
         string status; 
@@ -42,7 +41,6 @@ contract ContractIp is ERC721URIStorage {
     //the event emitted when a token is successfully listed
     event TokenAcceptedNft (
         uint256 indexed tokenId,
-       // address owner,
         address Nftowner,
         uint256 timestamp,       
         string status,
