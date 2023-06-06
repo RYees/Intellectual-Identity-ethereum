@@ -71,7 +71,7 @@ const Bidregister = (props) => {
 
             <div className='mb-4'>
             <label className='text-xl'>Bidding Value</label><br></br>
-                <input className='input-box text-gray-700 border py-2 px-2 rounded' ref={bidval} type="number" step='0.001' name="bidvalue" placeholder='bid value'/>
+                <input className='input-box text-gray-700 border py-2 px-2 rounded' ref={bidval} type="number" step='0.1' name="bidvalue" placeholder='bid value'/>
             </div>
 
             <div className='py-3'>

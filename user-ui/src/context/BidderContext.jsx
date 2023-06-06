@@ -91,6 +91,13 @@ export const BidderProvider = ({ children }) => {
     }
   };
 
+  const epochTohumanReadble = (timestamp) => {        
+    let date = new Intl.DateTimeFormat('en-US', 
+    { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: 
+    '2-digit', second: '2-digit' }).format(timestamp * 1000)
+    return date;  
+  }
+
   const getBidders = async () => {
     try {
       if (ethereum) {
@@ -103,9 +110,11 @@ export const BidderProvider = ({ children }) => {
             owneraddress: i.owneraddress,
             ownerIPname: i.ownerIPname,
             bidValue: ethers.utils.formatEther(i.bidValue),
-            bidderAddress: i.bidderAddress            
+            bidderAddress: i.bidderAddress,
+            bidAccepted: i.bidAccepted.toString(),
+            timestamp: epochTohumanReadble(parseInt(i.timestamp['_hex']))            
           }
-          console.log("support to bid", item);
+
           return item;          
       }))
       console.log('successvid', items);

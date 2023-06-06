@@ -49,6 +49,7 @@ const Bidtable = ({data}) => {
             <th className='text-gray-900'> Bidder Address </th>
             <th className='text-gray-900'> value </th>
             <th className='text-gray-900'> Transfer Ownership</th>
+            <th className='text-gray-900'> Bidding Acceptance</th>
             <th className='text-gray-900'> Bid Date</th>
           </tr>
         </thead>
@@ -64,13 +65,14 @@ const Bidtable = ({data}) => {
                 <button 
                 className='bg-black text-white py-1 px-6 rounded' 
                 onClick={
-                  //acceptBidding(item.tokenID, item.bidderAddress, item.bidValue)
-                  vals
+                  acceptBidding(item.tokenID, item.bidderAddress, item.bidValue)
+                  //vals
                 }>
                 Accept
                 </button>
               </td>
-              <td></td>
+              <td className='text-center'>{item.bidAccepted}</td>
+              <td>{item.timestamp}</td>
             </tr>
          ))
          }         

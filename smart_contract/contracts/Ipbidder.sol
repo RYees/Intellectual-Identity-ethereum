@@ -11,6 +11,7 @@ contract Ipbidder {
         uint bidValue;
         address bidderAddress;
         bool bidAccepted;
+        uint256 timestamp;
     }
     mapping(uint256 => IPownerBidders) public ipbidders;
 
@@ -53,7 +54,8 @@ contract Ipbidder {
                                                 _ownerIPname,  
                                                 bid[tokenId][payable(msg.sender)], 
                                                 msg.sender,
-                                                false
+                                                false,
+                                                block.timestamp
                                             );
         bidCount++;
         bidderList.push(msg.sender);

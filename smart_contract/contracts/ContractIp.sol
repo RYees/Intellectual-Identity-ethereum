@@ -15,7 +15,7 @@ interface Ipbidder {
 }
 
 contract ContractIp is ERC721URIStorage {
-    address bidcontract = 0xDA07165D4f7c84EEEfa7a4Ff439e039B7925d3dF;
+    address bidcontract = 0xe8d759Af5469Ceba6e2ccF81Bf5d6e96071587E1;
     
     using Counters for Counters.Counter;
     //_tokenIds variable has the most recent minted tokenId
