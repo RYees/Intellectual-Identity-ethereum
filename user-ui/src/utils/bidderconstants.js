@@ -1,4 +1,4 @@
 import abi from './Ipbidder.json';
 
 export const BiddercontractABI = abi.abi;
-export const contractAddress = '0xf24cb2fdfD344E748871d0747c67473B7D0B71F0';
+export const contractAddress = '0xd44F97d2fE6e2F5e0Df892ea8B0B2755ee79Bd30';

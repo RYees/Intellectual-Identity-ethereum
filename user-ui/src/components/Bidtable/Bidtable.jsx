@@ -8,6 +8,12 @@ const Bidtable = ({data}) => {
   const { depositBid, refundBid, bidData} = useContext(BidderContext);
   const { connectWallet, currentAccount, AcceptBid} = useContext(TransactionContext);  
   const [currentItems, setCurrentItems] = useState([]);
+  const [form, setForm] = useState({
+    id: '',
+    address: '',
+    amount: ''
+  });
+
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
   const itemsPerPage = 3;
@@ -22,10 +28,15 @@ const Bidtable = ({data}) => {
     const newOffset = (event.selected * itemsPerPage) % data.length;
     setItemOffset(newOffset);
   };
+  
+  const acceptBidding = (tokenId, bidderAddress, bidValue) => {
+    console.log(tokenId, bidderAddress, bidValue);
+    AcceptBid(tokenId, bidderAddress, bidValue);
+  }
 
-  function vals (valk){
-    const val = parseInt(valk);
-    return val;
+  function vals (){
+    //console.log("marriage", form);
+    AcceptBid(2, "0x57614b7DFcBdb14907C9573f712461Ed3c983a56", "0.1");
   }
 
   return (
@@ -48,8 +59,17 @@ const Bidtable = ({data}) => {
               <td >{index}</td>
               <td >{item.ownerIPname}</td>    
               <td className='text-black'>{item.bidderAddress}</td>             
-              <td>{vals(item.bidValue)} ether</td>
-              <td className='text-center'><button className='bg-black text-white py-1 px-6 rounded' onClick={AcceptBid(item.tokenId, item.bidderAddress, item.bidValue)}>Accept</button></td>
+              <td>{item.bidValue} ether</td>
+              <td className='text-center'>
+                <button 
+                className='bg-black text-white py-1 px-6 rounded' 
+                onClick={
+                  //acceptBidding(item.tokenID, item.bidderAddress, item.bidValue)
+                  vals
+                }>
+                Accept
+                </button>
+              </td>
               <td></td>
             </tr>
          ))

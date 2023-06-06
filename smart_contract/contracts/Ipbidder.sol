@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity ^0.8.1;
-
+import "hardhat/console.sol";
 
 contract Ipbidder {
     uint public bidCount;
@@ -10,6 +10,7 @@ contract Ipbidder {
         string ownerIPname;
         uint bidValue;
         address bidderAddress;
+        bool bidAccepted;
     }
     mapping(uint256 => IPownerBidders) public ipbidders;
 
@@ -31,8 +32,10 @@ contract Ipbidder {
         bidCount = 1;
     }
 
-    function valueChange(uint256 tokenId, address bidAdd, uint256 value) public{
+    function valueChange(uint256 tokenId, address bidAdd, bool text, uint256 value) public{
         bid[tokenId][bidAdd] = value;
+        ipbidders[tokenId].bidValue = value;
+        ipbidders[tokenId].bidAccepted = text;
     }
 
     function isBidder (address bidder) public view returns(bool isIndeed) {
@@ -49,7 +52,8 @@ contract Ipbidder {
                                                 _owneraddress,
                                                 _ownerIPname,  
                                                 bid[tokenId][payable(msg.sender)], 
-                                                msg.sender
+                                                msg.sender,
+                                                false
                                             );
         bidCount++;
         bidderList.push(msg.sender);

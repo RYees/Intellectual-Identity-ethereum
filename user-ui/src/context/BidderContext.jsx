@@ -102,7 +102,7 @@ export const BidderProvider = ({ children }) => {
             tokenID: i.tokenID.toNumber(),
             owneraddress: i.owneraddress,
             ownerIPname: i.ownerIPname,
-            bidValue: i.bidValue.toNumber(),
+            bidValue: ethers.utils.formatEther(i.bidValue),
             bidderAddress: i.bidderAddress            
           }
           console.log("support to bid", item);

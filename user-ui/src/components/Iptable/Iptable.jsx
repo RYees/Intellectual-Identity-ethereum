@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import { FaPlus } from "react-icons/fa";
 import ReactPaginate from 'react-paginate';
 import { TransactionContext } from '../../context/TransactionContext';
+import { ShortenAddress } from '../ShortenAddress'
 import '../../css/Style.css';
 import '../../css/App.css';
 
@@ -11,7 +12,7 @@ const Iptable = () => {
     const { nfts, currentAccount} = useContext(TransactionContext);  
 
     //const adminAddress = process.env.REACT_APP_ADMIN_ADDRESS;
-    const adminAddress = 0x169f965ce47119BB4c80d7c435fdE950256CF7c8;
+    const adminAddress = 0x226892cb0cc69752C50648E126731C1b97602522;
     // console.log("admin game", currentAccount == adminAddress);
     // console.log("classof", adminAddress);
     const [currentItems, setCurrentItems] = useState([]);
@@ -68,16 +69,16 @@ const Iptable = () => {
           </button>
         </NavLink>
       )  
-    }
-  } 
+    }    
+  }
 
   return (
     <div className='fades'>
- 
     <table className='table table-striped mx-8 mt-24 shadow-lg'>
          <thead>
           <tr className=''>
-            <th className='text-gray-900'>ID</th>
+            <th className='text-gray-900' >ID</th>
+            <th className='text-gray-900'>Owner Address</th>
             <th className='text-gray-900'> Ip Name </th>
             <th className='text-gray-900'> Full Name</th>
             <th className='text-gray-900'> Country Name</th>
@@ -96,6 +97,7 @@ const Iptable = () => {
         {currentItems.map((item,index) => ( 
             <tr key={index}>
               <td >{index}</td>
+              <td >{ShortenAddress(item.Nftowner)}</td> 
               <td >{item.IPname}</td>    
               <td className='text-black'>{item.fullname}</td>  
               <td className='text-black'>{item.country}</td>  
@@ -119,7 +121,9 @@ const Iptable = () => {
                     Status
                   </button>
                 </NavLink>
-              </td> : null }
+              </td> 
+               : null } 
+              
               {/* { currentAccount == adminAddress ?
               <td>{Bid(item, index)}</td> : null }     */}
               </tr>

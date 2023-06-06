@@ -10,12 +10,12 @@ import {convert} from "./Convert.sol";
 interface Ipbidder {
    function bid(uint256 val, address bidderAdd) external view returns(uint);
    function isBidder(address bidderAdd) external view returns(bool);
-   function valueChange(uint256 tokenId, address bidAdd, uint256 value) external;
+   function valueChange(uint256 tokenId, address bidAdd, bool text, uint256 value) external;
    function bidderDeposit(uint256 tokenId) payable external returns(bool); 
 }
 
 contract ContractIp is ERC721URIStorage {
-    address bidcontract = 0xf24cb2fdfD344E748871d0747c67473B7D0B71F0;
+    address bidcontract = 0xDA07165D4f7c84EEEfa7a4Ff439e039B7925d3dF;
     
     using Counters for Counters.Counter;
     //_tokenIds variable has the most recent minted tokenId
@@ -25,7 +25,7 @@ contract ContractIp is ERC721URIStorage {
     //owner is the contract address that created the smart contract
     address payable owner;
     //The fee charged by the marketplace to be allowed to list an NFT
-    uint256 public commissionPrice = 0.005 ether;
+    uint256 public commissionPrice = 0.001 ether;
 
     convert conv = new convert();
 
@@ -260,7 +260,6 @@ contract ContractIp is ERC721URIStorage {
 
     function executeSale(uint256 tokenId, address bidderAddress) public payable{
             uint256 bidValue = Ipbidder(bidcontract).bid(tokenId,bidderAddress); 
-            console.log("nobody is threatning me");
             require(msg.sender == ownerOf(tokenId), "You are not the owner of the IP nft");
             require(msg.value == bidValue, "Please submit the asking price in order to complete the purchase");
             require(check(bidderAddress), "This address did not bid on this IP");
@@ -278,7 +277,7 @@ contract ContractIp is ERC721URIStorage {
             bidValue = commissionPrice;
             payable(owner).transfer(bidValue);
             payable(seller).transfer(bidPrice);
-            Ipbidder(bidcontract).valueChange(tokenId, bidderAddress, 0);
+            Ipbidder(bidcontract).valueChange(tokenId, bidderAddress, true, 0);
        
         }
 }

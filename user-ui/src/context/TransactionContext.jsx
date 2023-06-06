@@ -271,7 +271,6 @@ const epochTohumanReadble = (timestamp) => {
                 country: meta.country,
                 street: meta.street
               }
-              //console.log("support to her", item);
               return item;
               
           }))
@@ -301,16 +300,18 @@ const epochTohumanReadble = (timestamp) => {
            updateMessage("Nft status changed successfully");
           console.log('success')
         } else {
-          console.log("No ethereum object now");
+          console.log("Execution Reverted");
         }
       } catch (error) {
         console.log(error);
         throw new Error("No ethereum object");
       }
   };
+  
 
     const AcceptBid = async (tokenId, bidderAddress, amount) => {
       console.log('success',tokenId, bidderAddress, amount)
+      
       try {  
         if (ethereum) {
           //const { id, val } = statusformData;
@@ -330,7 +331,7 @@ const epochTohumanReadble = (timestamp) => {
         }
       } catch (error) {
         console.log(error);
-        throw new Error("No ethereum object");
+        throw new Error("Execution Reverted, due to minimum gas limit");
       }
   };
 

@@ -11,7 +11,9 @@ module.exports = {
     sepolia: {      
       url: process.env.SEPOLIA_API_URL,
       accounts: [process.env.SEPOLIA_ACCOUNT_PRIVATE_KEY],
-      allowUnlimitedContractSize: true
+      allowUnlimitedContractSize: true,
+      gas: 2100000,
+      gasPrice: 8000000000
     },
   },
 };
