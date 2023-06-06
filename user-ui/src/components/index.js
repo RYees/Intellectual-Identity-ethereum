@@ -1,5 +1,6 @@
 export {default as Bidregister} from './Bidregister/Bidregister'
 export {default as Bidtable} from './Bidtable/Bidtable'
+export {default as MyBidstable} from './MyBidstable/MyBidstable'
 export {default as Counter } from './Counter/Counter'
 export {default as Footer} from './Footer/Footer'
 export {default as Header } from './Header/Header'

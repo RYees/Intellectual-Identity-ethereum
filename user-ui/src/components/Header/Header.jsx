@@ -1,10 +1,14 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Link } from 'react-router-dom';
 import {CgProfile} from 'react-icons/cg';
 // import '../css/Header.css';
 import {logo} from "../../assets/index";
 
 const Header = () => {
+  const [show, setShow] = useState(false);
+  function view() {
+      setShow(!show);
+  }
   return (
     <header 
     data-testid='header-start'
@@ -27,7 +31,15 @@ const Header = () => {
           </li>
          
           <li>
-            <Link className='hover:text-black' to="/mynfts"><CgProfile size={37} className="text-black hover:text-gray-600 transition duration-5"/></Link>
+               <CgProfile size={37} 
+               onClick={view}
+               className="text-black hover:text-gray-600 transition duration-5"        
+               />
+
+              {show ? <ul className='-ml-32'>
+              <li className='hover:brightness-125 text-center text-lg bg-gray-600 px-10 cursor-pointer py-1 mb-1'><Link to="/mynfts">My Nft</Link></li>
+              <li className='hover:brightness-125 text-center text-lg bg-gray-600 px-10 cursor-pointer py-1'><Link to="/mybidding">My Bids</Link></li>
+            </ul> : null}
           </li>
 
         </ul>

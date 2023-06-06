@@ -22,7 +22,7 @@ export default function Profile () {
 
     return (
         <>
-        <div className='flex justify-between mt-24 mb-10'>
+        <div className='mt-24 mb-10'>
             <div>
                 {/* <div> */}
                     <a className="arrow mb-4 bg-gradient-to-r from-black via-gray-300" 
@@ -31,7 +31,7 @@ export default function Profile () {
                     </a>
                 {/* </div> */}
             </div>
-            <div>
+            <div className='text-center'>
                 <button
                     data-testid="wallet"
                     onClick={connectWallet}
@@ -41,9 +41,9 @@ export default function Profile () {
                 </button>
 
                 <div className='bg-white'>
-                    <p className='mr-10 text-gray-400'>
+                    <p className='text-gray-400 text-center mt-2 mb-2'>
                     don't forget to connect to your wallet</p>
-                    <small>{ShortenAddress(currentAccount)}</small>
+                    <strong>{ShortenAddress(currentAccount)}</strong>
                 </div>
             </div>
         </div>       

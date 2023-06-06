@@ -20,6 +20,7 @@ export const BidderProvider = ({ children }) => {
   const [textmessage, setupMessage] = useState('');
   const [bidformData, setbidformData] = useState({ tokenId: '', address:"", ownerIPname: "", bidvalue: "", bidderaddress: ""});
   const [bidData, getbidders] = useState([]);
+  const [bidsData, getmybids] = useState([]);
   const [countbids, bidsCounts] = useState("");
   const [isLoading, setIsLoading] = useState(false);
    
@@ -127,6 +128,35 @@ export const BidderProvider = ({ children }) => {
     }  
   };
 
+  const getMyBids = async () => {
+    try {
+      if (ethereum) {
+        const bidderContract = createEthereumContract();
+
+        const availableBidders = await bidderContract.getMyBids();        
+        const items = await Promise.all(availableBidders.map(async i => {
+          let item = {
+            tokenID: i.tokenID.toNumber(),
+            owneraddress: i.owneraddress,
+            ownerIPname: i.ownerIPname,
+            bidValue: ethers.utils.formatEther(i.bidValue),
+            bidderAddress: i.bidderAddress,
+            bidAccepted: i.bidAccepted.toString(),
+            timestamp: epochTohumanReadble(parseInt(i.timestamp['_hex']))            
+          }
+
+          return item;          
+      }))
+      console.log('friendd', items);
+        getmybids(items);
+      } else { 
+        console.log("Ethereum is not present");
+      }
+    } catch (error) {
+      console.log(error);
+    }  
+  };
+
   // const countbidders = async (address) => {
   //   const transactionsContract = createEthereumContract();
   //   const acceptCount = await transactionsContract.countBids(address);
@@ -152,7 +182,9 @@ export const BidderProvider = ({ children }) => {
         countbids,
         isLoading,
         textmessage, 
-        setupMessage
+        setupMessage,
+        getMyBids,
+        bidsData
         }}
       >
       {children}
