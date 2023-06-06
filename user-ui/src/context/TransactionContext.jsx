@@ -19,6 +19,7 @@ const createEthereumContract = () => {
 export const TransactionsProvider = ({ children }) => {
   const [formParams, updateFormParams] = useState({ IPname: '', description: '', fullname:'', country:'', street:''});
   const [mydata, updatemyData] = useState([]);
+  const [mydets, updateDetails] = useState([]);
   const [message, updateMessage] = useState('');
   const [textmessage, setupMessage] = useState('');
   const [nfts, updateData] = useState('');
@@ -195,7 +196,7 @@ const [dataFetched, updateFetched] = useState(false);
 const epochTohumanReadble = (timestamp) => {        
   let date = new Intl.DateTimeFormat('en-US', 
   { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: 
-  '2-digit', second: '2-digit' }).format(timestamp)
+  '2-digit', second: '2-digit' }).format(timestamp * 1000)
   return date;       
 }
 
@@ -216,7 +217,6 @@ const epochTohumanReadble = (timestamp) => {
             let item = {
                 tokenId: i.tokenId.toNumber(),
                 Nftowner: i.Nftowner,
-                owner: i.owner,
                 timestamp: epochTohumanReadble(parseInt(i.timestamp['_hex'])),
                 status: i.status,
                 image: meta.image,
@@ -261,7 +261,6 @@ const epochTohumanReadble = (timestamp) => {
               let item = {
                 tokenId: i.tokenId.toNumber(),
                 Nftowner: i.Nftowner,
-                owner: i.owner,
                 timestamp: epochTohumanReadble(parseInt(i.timestamp['_hex'])),
                 status: i.status,
                 image: meta.image,
@@ -282,6 +281,40 @@ const epochTohumanReadble = (timestamp) => {
           setupMessage("Error with loading")
       }
     }
+
+    async function getTokenDetails(tokenId) {
+      try {
+        if(ethereum){
+          const transactionsContract = createEthereumContract();
+          //Pull the deployed contract instance
+          let transaction = await transactionsContract.idToListedToken(tokenId)
+          
+          const tokenURI = await transactionsContract.tokenURI(tokenId);
+              let meta = await axios.get(tokenURI);
+              meta = meta.data;
+          let item = {
+            tokenId: transaction.tokenId.toNumber(),
+            Nftowner: transaction.Nftowner,
+            timestamp: epochTohumanReadble(parseInt(transaction.timestamp['_hex'])),
+            status: transaction.status,
+            image: meta.image,
+            IPname: meta.IPname,
+            description: meta.description,
+            fullname: meta.fullname,
+            country: meta.country,
+            street: meta.street
+          }
+          updateDetails(item);
+          return item;
+                    
+        } else { console.log("No ethereum object now"); }
+      }
+      catch(e) {
+          console.log( "Upload error"+e )
+          setupMessage("Error with loading")
+      }
+    }
+
 
     const changeStatus = async (id,val) => {
       // console.log('success',id,val)
@@ -411,7 +444,10 @@ const epochTohumanReadble = (timestamp) => {
         countbids,
         isLoading,
         textmessage, 
-        setupMessage
+        setupMessage,
+        getTokenDetails,
+        mydets, 
+        updateDetails
         }}
       >
       {children}

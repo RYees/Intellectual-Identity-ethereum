@@ -105,5 +105,31 @@ contract Ipbidder {
         }
         return items;
     }
+
+    function getMyBids() public view returns (IPownerBidders[] memory) {
+        uint itemCount = 0;
+        uint currentIndex = 0;
+        uint currentId;
+        //Important to get a count of all the NFTs that belong to the user before we can make an array for them
+        for(uint i=0; i < bidCount; i++)
+        {
+            if(ipbidders[i+1].bidderAddress == msg.sender){
+                itemCount += 1;
+            }
+        }
+
+        //Once you have the count of relevant NFTs, create an array then store all the NFTs in it
+        IPownerBidders[] memory items = new IPownerBidders[](itemCount);
+        for(uint i=0; i < bidCount; i++) {
+            if(ipbidders[i+1].bidderAddress == msg.sender) {
+                currentId = i+1;
+                IPownerBidders storage currentItem = ipbidders[currentId];
+                items[currentIndex] = currentItem;
+                currentIndex += 1;
+            }
+        }
+        return items;
+    }
+
    
 }

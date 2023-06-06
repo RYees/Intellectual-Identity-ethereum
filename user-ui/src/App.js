@@ -14,6 +14,7 @@ import {
   NftDetails
 }
 from "./components/index";
+import Mybidding from "./pages/Mybidding/Mybidding";
 
 function App() {
   const location = useLocation();
@@ -44,6 +45,7 @@ function App() {
             <Route path='/ipregister' element={<Ipregister />} />
             <Route path='/table' element={<Tablen/>} />
             <Route path='/tab' element={<ReactTable/>} />
+            <Route path='/mybidding' element={<Mybidding/>} />
             {/* admin routes */}
             <Route path='/status/:id' element={<Status />} />
             <Route path='/bidders/:id/:address' element={<Bidder />} />
