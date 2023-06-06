@@ -6,7 +6,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import '../../css/Style.css';
 
 const Bidregister = (props) => {
-  const { depositBid, refundBid } = useContext(BidderContext);
+  const { depositBid, refundBid, isLoading } = useContext(BidderContext);
   const { connectWallet, currentAccount} = useContext(TransactionContext); 
 
   const[show, setShow] = useState(false);
@@ -76,6 +76,7 @@ const Bidregister = (props) => {
 
             <div className='py-3'>
               <button onClick={handleSubmit} className='mt-5 w-28 py-3 bg-black rounded text-white text-lg cursor-pointer'>Bid</button>
+              {isLoading?<p className='text-red-600 text-sm'>loading...</p>:null}
           </div> 
         </div>
        </div>      

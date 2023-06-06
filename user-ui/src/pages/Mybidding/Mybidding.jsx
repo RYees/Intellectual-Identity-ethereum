@@ -67,6 +67,7 @@ const Mybidding = () => {
         onChange={(e) => setQuery(e.target.value)}
       />
      </div>
+      {bidsData.length == 0 ? <p className='text-center'>You have not made any bids, yet</p>:null}
       {bidsData.length != 0 ? <MyBidstable data={search(bidsData)}/> : <Loader/>}
     </>
   )

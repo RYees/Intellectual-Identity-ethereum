@@ -1,7 +1,7 @@
 import { useLocation, useParams, useNavigate } from 'react-router-dom';
 import React,{useState, useContext, useEffect} from 'react';
 import { TransactionContext } from '../../context/TransactionContext';
-import { MyNft, ShortenAddress } from "../index";
+import { Loader, MyNft, ShortenAddress } from "../index";
 
 export default function Profile () {
     const {connectWallet, mydata, currentAccount, getNFTData, message } = useContext(TransactionContext);
@@ -57,16 +57,20 @@ export default function Profile () {
                     </div>            
             </div>
             
+            <div className="mt-10 text-center text-xl">
+                    {mydata.length == 0 ? "Oops, No NFT data to display (Are you logged in?)": null}
+            </div>
+
             <div className="flex flex-col text-center items-center mt-11 text-white">
                 <h2 className="font-bold">Your NFTs</h2>
+                {mydata ?
                 <div className="flex justify-center flex-wrap max-w-screen-xl">
                     {mydata.map((value, index) => {
                     return <MyNft data={value} key={index}></MyNft>;
                     })}
                 </div>
-                <div className="mt-10 text-xl">
-                    {mydata.length == 0 ? "Oops, No NFT data to display (Are you logged in?)":""}
-                </div>
+                : <Loader/>}
+                
             </div>
             </div>
         </div>

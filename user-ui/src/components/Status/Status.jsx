@@ -17,7 +17,7 @@ const Input = ({ placeholder, name, type, value, handleChange }) => (
 
 const Status = () => {
     
-    const {connectWallet, changeStatus, message } = useContext(TransactionContext);
+    const {connectWallet, changeStatus, message, isLoading } = useContext(TransactionContext);
     //const[show, setShow] = useState(false);
     const id = React.useRef();
     const status = React.useRef();
@@ -87,7 +87,8 @@ const Status = () => {
 
                 <div className='py-3'>
                   <button onClick={handleSubmit} className='mt-5 w-28 py-3 bg-black rounded text-white text-lg cursor-pointer'>Change</button>
-                </div>                        
+                </div>  
+                {isLoading?<p className='text-red-600 text-sm'>loading...</p>:null}                      
             </div>
         </div>    
         </form>        
