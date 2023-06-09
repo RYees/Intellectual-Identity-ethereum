@@ -60,12 +60,12 @@ const Bidregister = (props) => {
         <div className='mb-6 py-3 text-center text-sm text-black'><h1>Register IP Bidders'</h1></div>
           <div className=''>    
             <div className="mb-4">
-            <label className='text-xl'>Owners' IP Name</label><br></br>
+            <label className='text-xl'>IP owner public address</label><br></br>
                 <input className='input-box text-gray-700 border py-2 px-2 rounded' ref={ipadd} value={item.Nftowner} type="text" name="address" placeholder="ip owner public address"/>
             </div>
 
             <div className='mb-4'>
-            <label className='text-xl'>IP owner public address</label><br></br>
+            <label className='text-xl'>Owners' IP Name</label><br></br>
                 <input className='input-box text-gray-700 border py-2 px-2 rounded' ref={ipname} value={item.IPname} type="text" name="ownerIPname" placeholder='owner intellectual property name'/>
             </div>
 

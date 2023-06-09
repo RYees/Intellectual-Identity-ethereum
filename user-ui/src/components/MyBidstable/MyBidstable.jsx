@@ -24,16 +24,6 @@ const MyBidstable = ({data}) => {
     setItemOffset(newOffset);
   };
   
-  const acceptBidding = (tokenId, bidderAddress, bidValue) => {
-    console.log(tokenId, bidderAddress, bidValue);
-    AcceptBid(tokenId, bidderAddress, bidValue);
-  }
-
-  function vals (){
-    //console.log("marriage", form);
-    AcceptBid(2, "0x57614b7DFcBdb14907C9573f712461Ed3c983a56", "0.1");
-  }
-
   return (
     <div className='mx-20 mb-32'>
       <table className='table table-striped'>
@@ -58,11 +48,9 @@ const MyBidstable = ({data}) => {
               <td>{item.bidValue} ether</td>
               <td className='text-center'>
                 <button 
-                className='bg-black text-white py-1 px-6 rounded' 
-                onClick={
-                  refundBid(item.bidValue, item.tokenID)
-                  //vals
-                }>
+                className='bg-black text-white py-1 px-6 rounded'
+                onClick={(event) => refundBid(item.bidValue, item.tokenID, event)} 
+                >
                 Refund
                 </button>
               </td>

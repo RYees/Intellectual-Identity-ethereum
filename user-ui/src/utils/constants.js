@@ -2,7 +2,7 @@
 import abi from './ContractIp.json';
 
 export const contractABI = abi.abi;
-export const contractAddress = '0xa8EFbb3852bc287cC2B4fF5226a94511c4c7c169';
+export const contractAddress = '0x5Ee5DFeA83c22554867Cfbb6F7DFbA082837DD45';
 //'0xecF18b685E9e33D76C13850aeeB2E6D077082fa4';
 // 0xa0cc61A5e21BD9b3d3bCd418De6F7F433a30EE3c
 // 0x7892fBCDd8F536199a595f5c8D34A64Ccc0D264c

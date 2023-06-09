@@ -34,9 +34,9 @@ const Bidtable = ({data}) => {
     AcceptBid(tokenId, bidderAddress, bidValue);
   }
 
-  function vals (){
-    //console.log("marriage", form);
-    AcceptBid(2, "0x57614b7DFcBdb14907C9573f712461Ed3c983a56", "0.1");
+  function vals (tokenID, bidderAddress, bidValue){
+    console.log("marriage", tokenID, bidderAddress, bidValue);
+    //AcceptBid(2, "0x57614b7DFcBdb14907C9573f712461Ed3c983a56", "0.1");
   }
 
   return (
@@ -64,10 +64,8 @@ const Bidtable = ({data}) => {
               <td className='text-center'>
                 <button 
                 className='bg-black text-white py-1 px-6 rounded' 
-                onClick={
-                  acceptBidding(item.tokenID, item.bidderAddress, item.bidValue)
-                  //vals
-                }>
+                onClick={(event) => acceptBidding(item.tokenID, item.bidderAddress, item.bidValue, event)}
+                >
                 Accept
                 </button>
               </td>

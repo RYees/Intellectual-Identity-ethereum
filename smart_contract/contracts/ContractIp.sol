@@ -18,7 +18,7 @@ interface Ipbidder {
 }
 
 contract ContractIp is ERC721URIStorage{
-    address bidcontract = 0xcf0BD44f12391A93121805f362B419CE9a91Ec4c;
+    address bidcontract = 0xE31cD465B9030b7D1bfE2D6F93e5D5E5A1Bef9c5;
     
     // using Chainlink for Chainlink.Request;
 
@@ -307,7 +307,7 @@ contract ContractIp is ERC721URIStorage{
            
             address seller = idToListedToken[tokenId].Nftowner;            
             idToListedToken[tokenId].isRegistered = true;
-            idToListedToken[tokenId].Nftowner = payable(msg.sender);
+            idToListedToken[tokenId].Nftowner = payable(bidderAddress);
             _itemsSold.increment();
           
             _transfer(msg.sender, bidderAddress, tokenId);           
