@@ -56,7 +56,7 @@ const Bidtable = ({data}) => {
         <tbody className='bg-gray-100'>
 
         {data.map((item,index) => ( 
-            <tr key={index}>
+            <tr key={index}> 
               <td >{index}</td>
               <td >{item.ownerIPname}</td>    
               <td className='text-black'>{item.bidderAddress}</td>             
